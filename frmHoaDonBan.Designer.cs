@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.grpThongTinChiTietSanPham = new System.Windows.Forms.GroupBox();
+            this.btnLuuChiTietHoaDon = new System.Windows.Forms.Button();
             this.lblSoLuongTonKho = new System.Windows.Forms.Label();
             this.lblTenSize = new System.Windows.Forms.Label();
             this.lblGiaVon = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.btnLuuHoaDon = new System.Windows.Forms.Button();
-            this.btnLuuChiTietHoaDon = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -92,6 +92,7 @@
             this.dgvDanhSachChiTietHoaDon = new System.Windows.Forms.DataGridView();
             this.label20 = new System.Windows.Forms.Label();
             this.btnThanhToan = new System.Windows.Forms.Button();
+            this.btnThem = new System.Windows.Forms.Button();
             this.grpThongTinChiTietSanPham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupSoLuong)).BeginInit();
             this.grpThongTinSanPham.SuspendLayout();
@@ -156,6 +157,18 @@
             this.grpThongTinChiTietSanPham.Text = "Thông tin các sản phẩm trong hoá đơn";
             this.grpThongTinChiTietSanPham.Enter += new System.EventHandler(this.grpThongTinChiTietSanPham_Enter);
             // 
+            // btnLuuChiTietHoaDon
+            // 
+            this.btnLuuChiTietHoaDon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuuChiTietHoaDon.Location = new System.Drawing.Point(411, 387);
+            this.btnLuuChiTietHoaDon.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLuuChiTietHoaDon.Name = "btnLuuChiTietHoaDon";
+            this.btnLuuChiTietHoaDon.Size = new System.Drawing.Size(310, 33);
+            this.btnLuuChiTietHoaDon.TabIndex = 5;
+            this.btnLuuChiTietHoaDon.Text = "&Thêm CTHD";
+            this.btnLuuChiTietHoaDon.UseVisualStyleBackColor = true;
+            this.btnLuuChiTietHoaDon.Click += new System.EventHandler(this.btnLuuChiTietHoaDon_Click);
+            // 
             // lblSoLuongTonKho
             // 
             this.lblSoLuongTonKho.Location = new System.Drawing.Point(615, 36);
@@ -208,7 +221,7 @@
             // 
             this.lblTenSanPham.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTenSanPham.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblTenSanPham.Location = new System.Drawing.Point(179, 113);
+            this.lblTenSanPham.Location = new System.Drawing.Point(179, 114);
             this.lblTenSanPham.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTenSanPham.Name = "lblTenSanPham";
             this.lblTenSanPham.Size = new System.Drawing.Size(195, 40);
@@ -225,6 +238,7 @@
             this.lblMaKhuyenMai.Size = new System.Drawing.Size(195, 40);
             this.lblMaKhuyenMai.TabIndex = 22;
             this.lblMaKhuyenMai.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMaKhuyenMai.Click += new System.EventHandler(this.lblMaKhuyenMai_Click);
             // 
             // lblTenKhuyenMai
             // 
@@ -499,18 +513,6 @@
             this.btnLuuHoaDon.UseVisualStyleBackColor = true;
             this.btnLuuHoaDon.Click += new System.EventHandler(this.btnLuuHoaDon_Click);
             // 
-            // btnLuuChiTietHoaDon
-            // 
-            this.btnLuuChiTietHoaDon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLuuChiTietHoaDon.Location = new System.Drawing.Point(411, 387);
-            this.btnLuuChiTietHoaDon.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLuuChiTietHoaDon.Name = "btnLuuChiTietHoaDon";
-            this.btnLuuChiTietHoaDon.Size = new System.Drawing.Size(310, 33);
-            this.btnLuuChiTietHoaDon.TabIndex = 5;
-            this.btnLuuChiTietHoaDon.Text = "&Thêm CTHD";
-            this.btnLuuChiTietHoaDon.UseVisualStyleBackColor = true;
-            this.btnLuuChiTietHoaDon.Click += new System.EventHandler(this.btnLuuChiTietHoaDon_Click);
-            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -760,10 +762,13 @@
             this.txtSoDienThoai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoDienThoai.Location = new System.Drawing.Point(248, 63);
             this.txtSoDienThoai.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSoDienThoai.MaxLength = 10;
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.Size = new System.Drawing.Size(203, 27);
             this.txtSoDienThoai.TabIndex = 2;
+            this.txtSoDienThoai.TextChanged += new System.EventHandler(this.txtSoDienThoai_TextChanged);
             this.txtSoDienThoai.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSoDienThoai_KeyDown);
+            this.txtSoDienThoai.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSoDienThoai_KeyPress);
             // 
             // dgvDanhSachHoaDon
             // 
@@ -844,7 +849,7 @@
             this.btnThanhToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThanhToan.Image = global::_9_12_QuanLyQuanCaPhe.Properties.Resources.edc__3_;
             this.btnThanhToan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThanhToan.Location = new System.Drawing.Point(815, 719);
+            this.btnThanhToan.Location = new System.Drawing.Point(1058, 720);
             this.btnThanhToan.Name = "btnThanhToan";
             this.btnThanhToan.Size = new System.Drawing.Size(289, 82);
             this.btnThanhToan.TabIndex = 8;
@@ -852,11 +857,23 @@
             this.btnThanhToan.UseVisualStyleBackColor = true;
             this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
             // 
+            // btnThem
+            // 
+            this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Location = new System.Drawing.Point(832, 720);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(220, 82);
+            this.btnThem.TabIndex = 28;
+            this.btnThem.Text = "Thêm ";
+            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThemHoaDon_Click);
+            // 
             // frmHoaDonBan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1554, 814);
+            this.Controls.Add(this.btnThem);
             this.Controls.Add(this.btnThanhToan);
             this.Controls.Add(this.grpThongTinChiTietSanPham);
             this.Controls.Add(this.label20);
@@ -943,5 +960,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblGiaVon;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnThem;
     }
 }

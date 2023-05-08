@@ -37,13 +37,13 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            string manv = txtMaNhanVien.Text;
+            string manv = txtMaNhanVien.Text.ToUpper();
             if(manv != "")
             {
                 string matkhau = txtMatKhau.Text;
                 if (matkhau != "")
                 {
-                    ds_NhanVien = classTong.LayDuLieu($"SELECT * FROM NHANVIEN WHERE MANV='{manv}' AND MATKHAU='{ComputeSHA256(matkhau)}'");
+                    ds_NhanVien = classTong.LayDuLieu($"SELECT * FROM NHANVIEN WHERE MANV='{manv}' AND MATKHAU='{ComputeSHA256(matkhau)}' AND TRANGTHAI = N'Đang làm'");
                     if (ds_NhanVien.Tables[0].Rows.Count > 0)
                     {
                         classTong.CapNhatDuLieu($"INSERT INTO LICHSUDANGNHAP VALUES ('{manv}',getdate(),null,'',0)");
@@ -71,7 +71,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                     else
                     {
-                        MessageBox.Show("Mã nhân viên hoặc mật khẩu không chính xác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Mã nhân viên hoặc mật khẩu không chính xác hoặc tài khoản bị khoá", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else

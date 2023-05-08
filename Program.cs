@@ -21,6 +21,10 @@ namespace _9_12_QuanLyQuanCaPhe
             Application.Run(frmDangNhap);
             //frmSanPham frmSanPham = new frmSanPham();
             //Application.Run(frmSanPham);
+            //frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV4");
+            //Application.Run(frmHoaDonBan);
+            //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
+            //Application.Run(frmHoaDon_TimKiem);
         }
     }
 }

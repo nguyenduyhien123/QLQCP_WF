@@ -13,6 +13,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using QRCoder;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Text.RegularExpressions;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
@@ -34,7 +35,6 @@ namespace _9_12_QuanLyQuanCaPhe
         DataSet ds_HoaDon = new DataSet();
         DataSet ds_ChiTietHoaDon = new DataSet();
         DataSet ds_NCC = new DataSet();
-        DataSet ds_DonViTinh = new DataSet();
         DataSet ds_MASP = new DataSet();
         DataSet ds_MASIZE = new DataSet();
         DataSet ds_KiemTra = new DataSet();
@@ -47,6 +47,7 @@ namespace _9_12_QuanLyQuanCaPhe
         // 3: xoá  Hoá đơn
         int flag_HoaDon = 0;
         int flag_ChiTietHoaDon = 0;
+        int flag = 0;
         /// <summary>
         /// Hàm này có chức năng truy vấn dữ liệu, và hiển thị lên DataGridView
         /// </summary>
@@ -290,16 +291,17 @@ namespace _9_12_QuanLyQuanCaPhe
         private void btnThemHoaDon_Click(object sender, EventArgs e)
         {
             CacTextboxChiDoc_HoaDon(false);
+            CacTextboxChiDoc_ChiTietHoaDon(false);
             XoaDuLieuTrongControl_HoaDon();
             // Các textbox xử lý như sau
             DateTime currentDate = DateTime.Now;
             lblNgayLapHoaDon.Text = currentDate.ToString("dd/MM/yyyy hh:mm:ss.fff");
             ds_KiemTra = classTong.LayDuLieu("SELECT COUNT(*) AS 'SOHANG' FROM HOADONBAN");
-            lblMaHoaDonBan.Text = "HD" + (int.Parse(ds_KiemTra.Tables[0].Rows[0]["SOHANG"].ToString()) + 1).ToString();
+            lblMaHoaDonBan.Text = (int.Parse(ds_KiemTra.Tables[0].Rows[0]["SOHANG"].ToString()) + 1).ToString();
             lblMaNhanVienLap.Text = account;
             ds_KiemTra = classTong.LayDuLieu($"SELECT * FROM NHANVIEN WHERE MANV ='{account}'");
             lblTenNhanVienLap.Text = ds_KiemTra.Tables[0].Rows[0]["TENNV"].ToString();
-            flag_HoaDon = 1;
+            flag  = 1;
         }
 
         private void btnHuyHoaDon_Click(object sender, EventArgs e)
@@ -311,6 +313,11 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnTimKiemSoDienThoai_Click(object sender, EventArgs e)
         {
+            if (!ValidateSDT(txtSoDienThoai.Text))
+            {
+                //txtSoDienThoai.Text = "";
+                return;
+            }
             ds_KiemTra = classTong.LayDuLieu($"SELECT * FROM KHACHHANG WHERE SDT ='{txtSoDienThoai.Text}'");
             if (ds_KiemTra.Tables[0].Rows.Count > 0)
             {
@@ -380,6 +387,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         d[5] = trangthai;
                         d[6] = ghichu;
                         dgvDanhSachHoaDon.Rows.Add(d);
+            CacTextboxChiDoc_ChiTietHoaDon(false);
         }
         bool XuatHoaDon(string mahdb)
         {
@@ -414,7 +422,7 @@ namespace _9_12_QuanLyQuanCaPhe
             DataSet ds_HD = new DataSet();
             ds_HD = classTong.LayDuLieu($"SELECT MAHDB,A.MAKH,TENKH,C.MANV,TENNV,CONVERT(varchar(20), NGAYLAPHD, 103) + ' ' + CONVERT(varchar(20), NGAYLAPHD, 108) AS 'NGAYLAPHD',CONVERT(DECIMAL(18,0),TONGTIENTHANHTOAN) AS 'TONGTIENTHANHTOAN'  FROM HOADONBAN A, KHACHHANG B, NHANVIEN C WHERE MAHDB='{mahdb}' AND A.MAKH=B.MAKH AND A.MANV_LAP=C.MANV");
             DataSet ds_CTHD = new DataSet();
-            ds_CTHD = classTong.LayDuLieu($"SELECT TENSP,DONVITINH,D.MASIZE,D.SOLUONG,D.GIABAN,D.SOTIENGIAM,THANHTIENCUOICUNG  FROM SANPHAM A, CHITIETSANPHAM B,HOADONBAN C, CHITIETHDB D WHERE A.MASP=B.MASP AND B.MASIZE = D.MASIZE AND B.MASP = D.MASP AND C.MAHDB=D.MAHDB AND C.MAHDB='{mahdb}'");
+            ds_CTHD = classTong.LayDuLieu($"SELECT TENSP,D.MASIZE,D.SOLUONG,D.GIABAN,D.SOTIENGIAM,THANHTIENCUOICUNG  FROM SANPHAM A, CHITIETSANPHAM B,HOADONBAN C, CHITIETHDB D WHERE A.MASP=B.MASP AND B.MASIZE = D.MASIZE AND B.MASP = D.MASP AND C.MAHDB=D.MAHDB AND C.MAHDB='{mahdb}'");
             int row = 0;
             // Phần thông tin mã hoá đơn
             exRange.Range["A2"].Value = "Mã HD: " + ds_HD.Tables[0].Rows[0]["MAHDB"].ToString() + " - " + ds_HD.Tables[0].Rows[0]["NGAYLAPHD"].ToString() + " - Mã NV: " + ds_HD.Tables[0].Rows[0]["MANV"].ToString();
@@ -698,7 +706,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void nupSoLuong_ValueChanged(object sender, EventArgs e)
         {
-            if (flag_ChiTietHoaDon == 1)
+            if (flag == 1)
             {
                 int soluongton = Convert.ToInt32(lblSoLuongTonKho.Text);
                 if (nupSoLuong.Value <= soluongton)
@@ -718,8 +726,8 @@ namespace _9_12_QuanLyQuanCaPhe
                     else
                     {
                         lblThanhTienCuoi.Text = (Convert.ToInt32(lblThanhTienDau.Text)).ToString();
-                    } 
-                        
+                    }
+                    
                 }
                 else
                 {
@@ -745,7 +753,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            if (dgvDanhSachHoaDon.RowCount > 1 && dgvDanhSachChiTietHoaDon.RowCount > 1)
+            if (lblMaHoaDonBan.Text != "" && dgvDanhSachChiTietHoaDon.RowCount > 1)
             {
                 string mahdb = lblMaHoaDonBan.Text;
                 // phần hoá đơn bán
@@ -937,6 +945,35 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 btnTimKiemSoDienThoai_Click(sender, e);
             }
+        }
+
+        private void txtSoDienThoai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && char.IsControl(e.KeyChar) == false)
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+        bool ValidateSDT(string sdt)
+        {
+            //Regex regex = new Regex("^[0-9]*$");
+            // Kiểm tra nếu chuỗi đã nhập vào không phải là số thì xóa bỏ ký tự đó
+            if (!Regex.IsMatch(sdt, "^0(3|9)\\d{8}") || sdt.Length != 10)
+            {
+                MessageBox.Show("Định dạng số điện thoại không đúng, Vui lòng nhập lại !!! ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+        private void txtSoDienThoai_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblMaKhuyenMai_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -364,7 +364,7 @@ namespace _9_12_QuanLyQuanCaPhe
         private void dtpNgaySinh_ValueChanged(object sender, EventArgs e)
         {
             string NGAYSINH = dtpNgaySinh.Text;
-            DateTime dateNS = DateTime.ParseExact(NGAYSINH, "dd/MM/yy", CultureInfo.InvariantCulture);
+            DateTime dateNS = DateTime.ParseExact(NGAYSINH, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             int nam = dateNS.Year;
             DateTime d = DateTime.Now;
             int namHienTai = d.Year;

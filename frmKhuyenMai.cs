@@ -119,12 +119,12 @@ namespace _9_12_QuanLyQuanCaPhe
             xulychucnang(true);
 
             //Đổi kiểu dữ liệu ngày từ dd/mm/yy thành mm/dd/yyyy
-            string ngayBatDau1 = dtpNgayBatDau.Text;
-            DateTime dateBD = DateTime.ParseExact(ngayBatDau1, "dd/MM/yy", CultureInfo.InvariantCulture);
+            string ngayBatDau1 = dtpNgayBatDau.Value.ToString();
+            DateTime dateBD = DateTime.ParseExact(ngayBatDau1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string ngayBatDau2 = dateBD.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
 
-            string ngayKetThuc1 = dtpNgayHet.Text;
-            DateTime dateKT = DateTime.ParseExact(ngayKetThuc1, "dd/MM/yy", CultureInfo.InvariantCulture);
+            string ngayKetThuc1 = dtpNgayHet.Value.ToString();
+            DateTime dateKT = DateTime.ParseExact(ngayKetThuc1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string ngayKetThuc2 = dateKT.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
 
             bool stop = false;

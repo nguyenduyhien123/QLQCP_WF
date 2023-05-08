@@ -135,6 +135,7 @@
             this.grpThongTinSanPham.TabIndex = 10;
             this.grpThongTinSanPham.TabStop = false;
             this.grpThongTinSanPham.Text = "Thông tin sản phẩm";
+            this.grpThongTinSanPham.Enter += new System.EventHandler(this.grpThongTinSanPham_Enter);
             // 
             // btnThemSanPham
             // 
@@ -250,7 +251,7 @@
             // 
             this.ptxHinhAnh.BackColor = System.Drawing.Color.White;
             this.ptxHinhAnh.Image = ((System.Drawing.Image)(resources.GetObject("ptxHinhAnh.Image")));
-            this.ptxHinhAnh.Location = new System.Drawing.Point(525, 77);
+            this.ptxHinhAnh.Location = new System.Drawing.Point(525, 73);
             this.ptxHinhAnh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ptxHinhAnh.Name = "ptxHinhAnh";
             this.ptxHinhAnh.Size = new System.Drawing.Size(200, 150);
