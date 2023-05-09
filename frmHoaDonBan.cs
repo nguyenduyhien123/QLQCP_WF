@@ -295,7 +295,7 @@ namespace _9_12_QuanLyQuanCaPhe
             XoaDuLieuTrongControl_HoaDon();
             // Các textbox xử lý như sau
             DateTime currentDate = DateTime.Now;
-            lblNgayLapHoaDon.Text = currentDate.ToString("dd/MM/yyyy hh:mm:ss.fff");
+            lblNgayLapHoaDon.Text = currentDate.ToString("dd/MM/yyyy HH:mm:ss.fff");
             ds_KiemTra = classTong.LayDuLieu("SELECT COUNT(*) AS 'SOHANG' FROM HOADONBAN");
             lblMaHoaDonBan.Text = (int.Parse(ds_KiemTra.Tables[0].Rows[0]["SOHANG"].ToString()) + 1).ToString();
             lblMaNhanVienLap.Text = account;

@@ -666,7 +666,7 @@
             this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.label20.Location = new System.Drawing.Point(924, 75);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(23, 666);
+            this.label20.Size = new System.Drawing.Size(23, 607);
             this.label20.TabIndex = 17;
             // 
             // btnThem
@@ -720,7 +720,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1827, 757);
+            this.ClientSize = new System.Drawing.Size(1827, 703);
             this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.label20);
