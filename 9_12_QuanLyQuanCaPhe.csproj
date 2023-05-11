@@ -65,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -120,6 +121,12 @@
     </Compile>
     <Compile Include="frmHoaDonBan.Designer.cs">
       <DependentUpon>frmHoaDonBan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHoaDonBan_ThongKeBaoCao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHoaDonBan_ThongKeBaoCao.Designer.cs">
+      <DependentUpon>frmHoaDonBan_ThongKeBaoCao.cs</DependentUpon>
     </Compile>
     <Compile Include="frmHoaDonBan_TimKiem_MAKH.cs">
       <SubType>Form</SubType>
@@ -215,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonBan.resx">
       <DependentUpon>frmHoaDonBan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHoaDonBan_ThongKeBaoCao.resx">
+      <DependentUpon>frmHoaDonBan_ThongKeBaoCao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonBan_TimKiem_MAKH.resx">
       <DependentUpon>frmHoaDonBan_TimKiem_MAKH.cs</DependentUpon>

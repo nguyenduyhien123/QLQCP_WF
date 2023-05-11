@@ -189,5 +189,12 @@ namespace _9_12_QuanLyQuanCaPhe
             frmThayDoiMatKhau f= new frmThayDoiMatKhau(account); f.MdiParent = this;
             f.Show();
         }
+
+        private void mnuTimKiemHoaDonBan_Click(object sender, EventArgs e)
+        {
+            frmHoaDon_TimKiem f = new frmHoaDon_TimKiem();
+            f.MdiParent = this;
+            f.Show();
+        }
     }
 }

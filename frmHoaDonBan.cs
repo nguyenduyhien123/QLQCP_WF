@@ -167,6 +167,7 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         void hienthi_textbox_HoaDon(DataSet ds, int vt)
         {
+            
             if (ds.Tables.Count > 0)
             {
                 if (vt >= 0 && vt < ds.Tables[0].Rows.Count)
@@ -209,6 +210,7 @@ namespace _9_12_QuanLyQuanCaPhe
             lblTenNhanVienLap.Text = "";
             //cboTrangThaiHoaDon.SelectedIndex = 1;
             lblNgayLapHoaDon.Text = "";
+            rtxtGhiChu.Text = "";
         }
         void hienthi_textbox_ChiTietHoaDon(DataGridView dgv, int vt)
         {
@@ -242,10 +244,10 @@ namespace _9_12_QuanLyQuanCaPhe
                         lblPhanTramGiam.Text = ds_KiemTra.Tables[0].Rows[0]["PHANTRAMGIAM"].ToString();
                         lblSoTienGiamToiDa.Text = Convert.ToInt32(ds_KiemTra.Tables[0].Rows[0]["SOTIENGIAMTOIDA"]).ToString();
                     }
-                    nupSoLuong.Value = Convert.ToInt32(dgv.Rows[vt].Cells["SOLUONG"].Value.ToString());
-                    lblDonGia.Text = dgv.Rows[vt].Cells["GIABAN"].Value.ToString();
-                    lblThanhTienDau.Text = dgv.Rows[vt].Cells["THANHTIENBANDAU"].Value.ToString();
-                    lblThanhTienCuoi.Text = dgv.Rows[vt].Cells["THANHTIENCUOICUNG"].Value.ToString();
+                    nupSoLuong.Value = Convert.ToInt32(dgv.Rows[vt].Cells[5].Value.ToString());
+                    lblDonGia.Text = dgv.Rows[vt].Cells[4].Value.ToString();
+                    lblThanhTienDau.Text = dgv.Rows[vt].Cells[7].Value.ToString();
+                    lblThanhTienCuoi.Text = dgv.Rows[vt].Cells[9].Value.ToString();
                 }
                 else
                 {
@@ -290,9 +292,16 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnThemHoaDon_Click(object sender, EventArgs e)
         {
+            dgvDanhSachHoaDon.DataSource = null;
+            dgvDanhSachHoaDon.Columns.Clear();
+            TaoCotHDB();
+            dgvDanhSachChiTietHoaDon.DataSource = null;
+            dgvDanhSachChiTietHoaDon.Columns.Clear();
+            TaoCotCTHDB();
             CacTextboxChiDoc_HoaDon(false);
             CacTextboxChiDoc_ChiTietHoaDon(false);
             XoaDuLieuTrongControl_HoaDon();
+            XoaDuLieuTrongControl_ChiTietHoaDon();
             // Các textbox xử lý như sau
             DateTime currentDate = DateTime.Now;
             lblNgayLapHoaDon.Text = currentDate.ToString("dd/MM/yyyy HH:mm:ss.fff");
@@ -372,7 +381,12 @@ namespace _9_12_QuanLyQuanCaPhe
         private void btnLuuHoaDon_Click(object sender, EventArgs e)
         {
                         string mahdb = lblMaHoaDonBan.Text;
-                        string makh = lblMaKhachHang.Text;
+            if (mahdb == "")
+            {
+                MessageBox.Show("Bạn chưa tạo Hoá đơn mới", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string makh = lblMaKhachHang.Text;
                         decimal tongtienthanhtoan = Decimal.Parse(lblTongSoTienThanhToan.Text);
                         string manv_lap = lblMaNhanVienLap.Text;
                         string ngaylaphd = lblNgayLapHoaDon.Text;
@@ -691,6 +705,7 @@ namespace _9_12_QuanLyQuanCaPhe
             int tongtienthanhtoan = Convert.ToInt32(lblTongSoTienThanhToan.Text);
             // Cập nhật trên label tổng tiền thanh toán của hoá đơn bán
             lblTongSoTienThanhToan.Text = (tongtienthanhtoan + thanhtiencuoicung).ToString();
+            dgvDanhSachHoaDon.Rows[0].Cells[2].Value = (tongtienthanhtoan + thanhtiencuoicung);
             XoaDuLieuTrongControl_ChiTietHoaDon();
         }
         //else
@@ -809,18 +824,44 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void dgvDanhSachChiTietHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-                if (e.ColumnIndex == 4 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1)
+            if (e.ColumnIndex == 4 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1 && e.RowIndex >= 0 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1) ;
                 {
+                int hang = e.RowIndex;
                     // Lấy vị trí( hàng đã chọn)
                     int tong = 0;
                     for (int i = 0; i < dgvDanhSachChiTietHoaDon.Rows.Count - 1; i++)
                     {
                         // Lấy giá trị từng cột trong dòng hiện tại
-                        int soluong = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[4].Value.ToString());
-                        int giaban = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[3].Value.ToString());
-                        tong += soluong;
+                        int giaban = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[4].Value.ToString());
+                        int soluong = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[5].Value.ToString());
+                        int thanhtienbandau = soluong * giaban;
+                        int sotiengiam = 0;
+                        int thanhtiencuoicung = 0;
+                        dgvDanhSachChiTietHoaDon.Rows[i].Cells[7].Value = thanhtienbandau.ToString();
+                        string masp = dgvDanhSachChiTietHoaDon.Rows[i].Cells[1].Value.ToString();
+                        string masize = dgvDanhSachChiTietHoaDon.Rows[i].Cells[2].Value.ToString();
+                        string makm = dgvDanhSachChiTietHoaDon.Rows[i].Cells[6].Value.ToString();
+                        if (makm != "")
+                        {
+                            DataSet dsKM = new DataSet();
+                        dsKM = classTong.LayDuLieu($"SELECT * FROM KHUYENMAI A, CHITIETKM B WHERE A.MAKM = B.MAKM AND B.MASP = '{masp}' AND B.MASIZE ='{masize}'");
+                        if (dsKM.Tables[0].Rows.Count > 0)
+                        {
+                            int sotiengiamtoida= int.Parse(dsKM.Tables[0].Rows[0]["PHANTRAMGIAM"].ToString());
+                            double phantramgiam = double.Parse(dsKM.Tables[0].Rows[0]["PHANTRAMGIAM"].ToString());
+                            sotiengiam = (int)(Convert.ToDouble(thanhtienbandau) * phantramgiam);
+                            if(sotiengiam > 100000)
+                            {
+                                sotiengiam = 100000;
+                            }    
+                        }    
+                        }
+                    thanhtiencuoicung = thanhtienbandau - sotiengiam;
+                        dgvDanhSachChiTietHoaDon.Rows[i].Cells[9].Value = thanhtiencuoicung.ToString() ;
+                        tong += thanhtiencuoicung;
                     }
                     lblTongSoTienThanhToan.Text = tong.ToString();
+                    dgvDanhSachHoaDon.Rows[0].Cells[2].Value = tong.ToString(); ;
             }
         }
 
@@ -901,7 +942,7 @@ namespace _9_12_QuanLyQuanCaPhe
             DataGridViewColumn SOLUONG = new DataGridViewTextBoxColumn();
             SOLUONG.HeaderText = "SỐ LƯỢNG";
             SOLUONG.DataPropertyName = "SOLUONG"; // Chỉ định tên thuộc tính dữ liệu
-            SOLUONG.ReadOnly = true;
+            SOLUONG.ReadOnly = false; ;
             DataGridViewColumn MAKM = new DataGridViewTextBoxColumn();
             MAKM.HeaderText = "MÃ KM";
             MAKM.DataPropertyName = "MAKM"; // Chỉ định tên thuộc tính dữ liệu
@@ -974,6 +1015,16 @@ namespace _9_12_QuanLyQuanCaPhe
         private void lblMaKhuyenMai_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmHoaDonBan_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Hoá đơn bán?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -25,8 +25,10 @@ namespace _9_12_QuanLyQuanCaPhe
             //Application.Run(frmHoaDonBan);
             //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
             //Application.Run(frmHoaDon_TimKiem);
-            frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
-            Application.Run(frmHoaDon_TimKiem);
+            //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
+            //Application.Run(frmHoaDon_TimKiem);
+            frmHoaDonBan_ThongKeBaoCao frmHoaDonBan_TimKiem = new frmHoaDonBan_ThongKeBaoCao();
+            Application.Run(frmHoaDonBan_TimKiem);
         }
     }
 }

@@ -525,7 +525,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(15, 139);
+            this.label3.Location = new System.Drawing.Point(15, 154);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(189, 33);
             this.label3.TabIndex = 1;
@@ -548,7 +548,6 @@
             this.grpThongTinSanPham.Controls.Add(this.lblMaHoaDonBan);
             this.grpThongTinSanPham.Controls.Add(this.lblMaKhachHang);
             this.grpThongTinSanPham.Controls.Add(this.lblTenKhachHang);
-            this.grpThongTinSanPham.Controls.Add(this.lblTongSoTienThanhToan);
             this.grpThongTinSanPham.Controls.Add(this.lblMaNhanVienLap);
             this.grpThongTinSanPham.Controls.Add(this.ptxMaQR);
             this.grpThongTinSanPham.Controls.Add(this.rtxtGhiChu);
@@ -556,7 +555,6 @@
             this.grpThongTinSanPham.Controls.Add(this.label25);
             this.grpThongTinSanPham.Controls.Add(this.label10);
             this.grpThongTinSanPham.Controls.Add(this.label2);
-            this.grpThongTinSanPham.Controls.Add(this.label4);
             this.grpThongTinSanPham.Controls.Add(this.label13);
             this.grpThongTinSanPham.Controls.Add(this.label6);
             this.grpThongTinSanPham.Controls.Add(this.label16);
@@ -580,7 +578,7 @@
             this.lblNgayLapHoaDon.BackColor = System.Drawing.SystemColors.Control;
             this.lblNgayLapHoaDon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNgayLapHoaDon.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNgayLapHoaDon.Location = new System.Drawing.Point(248, 325);
+            this.lblNgayLapHoaDon.Location = new System.Drawing.Point(248, 298);
             this.lblNgayLapHoaDon.Name = "lblNgayLapHoaDon";
             this.lblNgayLapHoaDon.Size = new System.Drawing.Size(296, 35);
             this.lblNgayLapHoaDon.TabIndex = 16;
@@ -592,7 +590,7 @@
             this.lblTenNhanVienLap.BackColor = System.Drawing.SystemColors.Control;
             this.lblTenNhanVienLap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTenNhanVienLap.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblTenNhanVienLap.Location = new System.Drawing.Point(248, 271);
+            this.lblTenNhanVienLap.Location = new System.Drawing.Point(248, 244);
             this.lblTenNhanVienLap.Name = "lblTenNhanVienLap";
             this.lblTenNhanVienLap.Size = new System.Drawing.Size(296, 35);
             this.lblTenNhanVienLap.TabIndex = 16;
@@ -628,7 +626,7 @@
             this.lblTenKhachHang.BackColor = System.Drawing.SystemColors.Control;
             this.lblTenKhachHang.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTenKhachHang.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblTenKhachHang.Location = new System.Drawing.Point(248, 143);
+            this.lblTenKhachHang.Location = new System.Drawing.Point(248, 147);
             this.lblTenKhachHang.Name = "lblTenKhachHang";
             this.lblTenKhachHang.Size = new System.Drawing.Size(296, 35);
             this.lblTenKhachHang.TabIndex = 16;
@@ -637,23 +635,23 @@
             // 
             // lblTongSoTienThanhToan
             // 
-            this.lblTongSoTienThanhToan.BackColor = System.Drawing.SystemColors.Control;
+            this.lblTongSoTienThanhToan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lblTongSoTienThanhToan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTongSoTienThanhToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongSoTienThanhToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTongSoTienThanhToan.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblTongSoTienThanhToan.Location = new System.Drawing.Point(248, 184);
+            this.lblTongSoTienThanhToan.Location = new System.Drawing.Point(405, 730);
             this.lblTongSoTienThanhToan.Name = "lblTongSoTienThanhToan";
-            this.lblTongSoTienThanhToan.Size = new System.Drawing.Size(296, 35);
+            this.lblTongSoTienThanhToan.Size = new System.Drawing.Size(318, 58);
             this.lblTongSoTienThanhToan.TabIndex = 16;
             this.lblTongSoTienThanhToan.Text = "0";
-            this.lblTongSoTienThanhToan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTongSoTienThanhToan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblMaNhanVienLap
             // 
             this.lblMaNhanVienLap.BackColor = System.Drawing.SystemColors.Control;
             this.lblMaNhanVienLap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblMaNhanVienLap.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMaNhanVienLap.Location = new System.Drawing.Point(248, 228);
+            this.lblMaNhanVienLap.Location = new System.Drawing.Point(248, 201);
             this.lblMaNhanVienLap.Name = "lblMaNhanVienLap";
             this.lblMaNhanVienLap.Size = new System.Drawing.Size(296, 35);
             this.lblMaNhanVienLap.TabIndex = 16;
@@ -714,17 +712,17 @@
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(15, 189);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(17, 744);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(213, 33);
+            this.label4.Size = new System.Drawing.Size(372, 33);
             this.label4.TabIndex = 1;
             this.label4.Text = "Tổng tiền phải thanh toán";
             // 
             // label13
             // 
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(15, 322);
+            this.label13.Location = new System.Drawing.Point(15, 295);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(189, 33);
             this.label13.TabIndex = 1;
@@ -733,7 +731,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(15, 272);
+            this.label6.Location = new System.Drawing.Point(15, 245);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(189, 33);
             this.label6.TabIndex = 1;
@@ -751,7 +749,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 229);
+            this.label5.Location = new System.Drawing.Point(15, 202);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(201, 33);
             this.label5.TabIndex = 1;
@@ -879,12 +877,15 @@
             this.Controls.Add(this.label20);
             this.Controls.Add(this.grpThongTinSanPham);
             this.Controls.Add(this.dgvDanhSachHoaDon);
+            this.Controls.Add(this.lblTongSoTienThanhToan);
             this.Controls.Add(this.dgvDanhSachChiTietHoaDon);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label4);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmHoaDonBan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHoaDonBan";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHoaDonBan_FormClosing);
             this.Load += new System.EventHandler(this.frmHoaDonBan_Load);
             this.grpThongTinChiTietSanPham.ResumeLayout(false);
             this.grpThongTinChiTietSanPham.PerformLayout();
