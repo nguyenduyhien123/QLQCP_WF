@@ -528,6 +528,11 @@
             // 
             // nupGiaVon
             // 
+            this.nupGiaVon.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.nupGiaVon.Location = new System.Drawing.Point(211, 161);
             this.nupGiaVon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nupGiaVon.Maximum = new decimal(new int[] {

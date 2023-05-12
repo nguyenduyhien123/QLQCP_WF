@@ -28,6 +28,7 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         private void frmHoaDonBan_TimKiem_Load(object sender, EventArgs e)
         {
+            cboTieuChiThongKe.SelectedIndex = 0;
             ds = classTong.LayDuLieu(" SELECT MONTH(NGAYLAPHD) AS 'THANG', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  GROUP BY MONTH(NGAYLAPHD)");
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -126,9 +127,33 @@ namespace _9_12_QuanLyQuanCaPhe
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void cboTieuChiThongKe_SelectedIndexChanged(object sender, EventArgs e)
         {
+            switch (cboTieuChiThongKe.SelectedIndex)
+            {
+                case 0:
+                    dtpThoiGianThongKe.Visible = false;
 
+                    break;
+                case 1:
+                    dtpThoiGianThongKe.Visible = true;
+                    dtpThoiGianThongKe.Format = DateTimePickerFormat.Custom;
+                    dtpThoiGianThongKe.CustomFormat = "yyyy";
+                    break;
+                case 2:
+                    dtpThoiGianThongKe.Visible = true;
+                    dtpThoiGianThongKe.Format = DateTimePickerFormat.Custom;
+                    dtpThoiGianThongKe.CustomFormat = "MM/yyyy";
+                    break;
+            }
+        }
+
+        private void dtpThoiGianThongKe_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                chartThongKeHoaDonBan.Focus();
+            }
         }
     }
 }
