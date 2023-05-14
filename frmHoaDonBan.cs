@@ -434,12 +434,12 @@ namespace _9_12_QuanLyQuanCaPhe
             exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
             // Truy vấn dữ liệu
             DataSet ds_HD = new DataSet();
-            ds_HD = classTong.LayDuLieu($"SELECT MAHDB,A.MAKH,TENKH,C.MANV,TENNV,CONVERT(varchar(20), NGAYLAPHD, 103) + ' ' + CONVERT(varchar(20), NGAYLAPHD, 108) AS 'NGAYLAPHD',CONVERT(DECIMAL(18,0),TONGTIENTHANHTOAN) AS 'TONGTIENTHANHTOAN'  FROM HOADONBAN A, KHACHHANG B, NHANVIEN C WHERE MAHDB='{mahdb}' AND A.MAKH=B.MAKH AND A.MANV_LAP=C.MANV");
+            ds_HD = classTong.LayDuLieu($"SELECT MAHDB,A.MAKH,B.MANV,CONVERT(varchar(20), NGAYLAPHD, 103) + ' ' + CONVERT(varchar(20), NGAYLAPHD, 108) AS 'NGAYLAPHD',CONVERT(DECIMAL(18,0),TONGTIENTHANHTOAN) AS 'TONGTIENTHANHTOAN'  FROM HOADONBAN A, NHANVIEN B WHERE MAHDB='{mahdb}' AND A.MANV_LAP=B.MANV");
             DataSet ds_CTHD = new DataSet();
             ds_CTHD = classTong.LayDuLieu($"SELECT TENSP,D.MASIZE,D.SOLUONG,D.GIABAN,D.SOTIENGIAM,THANHTIENCUOICUNG  FROM SANPHAM A, CHITIETSANPHAM B,HOADONBAN C, CHITIETHDB D WHERE A.MASP=B.MASP AND B.MASIZE = D.MASIZE AND B.MASP = D.MASP AND C.MAHDB=D.MAHDB AND C.MAHDB='{mahdb}'");
             int row = 0;
             // Phần thông tin mã hoá đơn
-            exRange.Range["A2"].Value = "Mã HD: " + ds_HD.Tables[0].Rows[0]["MAHDB"].ToString() + " - " + ds_HD.Tables[0].Rows[0]["NGAYLAPHD"].ToString() + " - Mã NV: " + ds_HD.Tables[0].Rows[0]["MANV"].ToString();
+          exRange.Range["A2"].Value = "Mã HD: " + ds_HD.Tables[0].Rows[0]["MAHDB"].ToString() + " - " + ds_HD.Tables[0].Rows[0]["NGAYLAPHD"].ToString() + " - Mã NV: " + ds_HD.Tables[0].Rows[0]["MANV"].ToString();
             exRange.Range["A2"].ColumnWidth = 20;
             //
 
@@ -772,13 +772,13 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 string mahdb = lblMaHoaDonBan.Text;
                 // phần hoá đơn bán
-                string makh = lblMaKhachHang.Text;
+                string makh = lblMaKhachHang.Text != "" ? $"'{lblMaKhachHang.Text}'":"NULL";
                 decimal tongtienthanhtoan = Decimal.Parse(lblTongSoTienThanhToan.Text);
                 string manv_lap = lblMaNhanVienLap.Text;
                 string ngaylaphd = lblNgayLapHoaDon.Text;
                 string trangthai = "Đã thanh toán";
                 string ghichu = rtxtGhiChu.Text;
-                string sqlHDB = $"INSERT INTO HOADONBAN VALUES ('{mahdb}','{makh}',{tongtienthanhtoan},'{manv_lap}',CONVERT(varchar(23), CONVERT(datetime, '{ngaylaphd}', 103), 121),N'{trangthai}',N'{ghichu}')";
+                string sqlHDB = $"INSERT INTO HOADONBAN VALUES ('{mahdb}',{makh},{tongtienthanhtoan},'{manv_lap}',CONVERT(varchar(23), CONVERT(datetime, '{ngaylaphd}', 103), 121),N'{trangthai}',N'{ghichu}')";
                 // Thực hiện lưu vào bảng HOÁ ĐƠN BÁN trong csdl
                 classTong.CapNhatDuLieu(sqlHDB);
                 for (int i = 0; i < dgvDanhSachChiTietHoaDon.RowCount - 1; i++)

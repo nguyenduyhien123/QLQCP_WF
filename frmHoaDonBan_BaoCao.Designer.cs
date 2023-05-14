@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(1049, 513);
             this.Name = "frmHoaDonBan_BaoCao";
             this.Text = "frmHoaDonBan_BaoCao";
+            this.Load += new System.EventHandler(this.frmHoaDonBan_BaoCao_Load);
             this.ResumeLayout(false);
 
         }

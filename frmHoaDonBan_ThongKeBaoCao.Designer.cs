@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.chartThongKeHoaDonBan = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpThongTinTomTat = new System.Windows.Forms.GroupBox();
@@ -41,16 +41,17 @@
             this.cboTieuChiThongKe = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpThoiGianThongKe = new System.Windows.Forms.DateTimePicker();
+            this.btnThongKe = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartThongKeHoaDonBan)).BeginInit();
             this.grpThongTinTomTat.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartThongKeHoaDonBan
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chartThongKeHoaDonBan.Legends.Add(legend7);
+            chartArea1.Name = "ChartArea1";
+            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartThongKeHoaDonBan.Legends.Add(legend1);
             this.chartThongKeHoaDonBan.Location = new System.Drawing.Point(12, 160);
             this.chartThongKeHoaDonBan.Name = "chartThongKeHoaDonBan";
             this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1204, 734);
@@ -158,11 +159,23 @@
             this.dtpThoiGianThongKe.Visible = false;
             this.dtpThoiGianThongKe.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpThoiGianThongKe_KeyDown);
             // 
+            // btnThongKe
+            // 
+            this.btnThongKe.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThongKe.Location = new System.Drawing.Point(1168, 67);
+            this.btnThongKe.Name = "btnThongKe";
+            this.btnThongKe.Size = new System.Drawing.Size(217, 49);
+            this.btnThongKe.TabIndex = 5;
+            this.btnThongKe.Text = "Thống kê";
+            this.btnThongKe.UseVisualStyleBackColor = true;
+            this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
+            // 
             // frmHoaDonBan_ThongKeBaoCao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1749, 935);
+            this.Controls.Add(this.btnThongKe);
             this.Controls.Add(this.dtpThoiGianThongKe);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboTieuChiThongKe);
@@ -189,5 +202,6 @@
         private System.Windows.Forms.ComboBox cboTieuChiThongKe;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpThoiGianThongKe;
+        private System.Windows.Forms.Button btnThongKe;
     }
 }
