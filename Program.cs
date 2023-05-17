@@ -31,6 +31,7 @@ namespace _9_12_QuanLyQuanCaPhe
             //Application.Run(frmHoaDonBan_TimKiem);
             //frmHoaDonBan_BaoCao frmHoaDonBan_BaoCao=new frmHoaDonBan_BaoCao();
             //Application.Run(frmHoaDonBan_BaoCao);
+
         }
     }
 }

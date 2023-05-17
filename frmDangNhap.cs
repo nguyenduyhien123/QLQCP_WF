@@ -203,32 +203,6 @@ namespace _9_12_QuanLyQuanCaPhe
                 e.Cancel = true;
             }
         }
-        public static void DrawLinearGradient(Control control, Color startColor, Color endColor)
-        {
-            // Tạo một Linear Gradient Brush từ màu start đến màu end
-            Point startPoint = new Point(0, 0);
-            Point endPoint = new Point(control.Width, control.Height);
-
-            LinearGradientBrush brush = new LinearGradientBrush(
-                startPoint, endPoint, startColor, endColor);
-
-            // Vẽ hiệu ứng Linear Gradient lên Control
-            using (Graphics g = control.CreateGraphics())
-            {
-                g.FillRectangle(brush, new Rectangle(0, 0, control.Width, control.Height));
-            }
-        }
-
-        private void frmDangNhap_Paint(object sender, PaintEventArgs e)
-        {
-            // Đặt nền trong suốt cho các Control trên Form
-            //foreach (Control control in this.Controls)
-            //{
-            //    control.BackColor = Color.Transparent;
-            //}
-            DrawLinearGradient(this, Color.FromArgb(123, 228, 149), Color.FromArgb(28, 167, 236));
-        }
-
         private void frmDangNhap_FormClosed(object sender, FormClosedEventArgs e)
         {
 

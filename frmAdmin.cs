@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
+    
     public partial class frmAdmin : Form
     {
         _9_12_QuanLyQuanCaPhe classTong = new _9_12_QuanLyQuanCaPhe();
@@ -18,7 +19,6 @@ namespace _9_12_QuanLyQuanCaPhe
         public frmAdmin(string manv)
         {
             InitializeComponent();
-            this.Cursor = Cursors.Default;
             account = manv;
             // Trong đó, this.Width được đặt bằng với chiều rộng của màn hình chính(Screen.PrimaryScreen.WorkingArea.Width).
             this.Width = Screen.PrimaryScreen.WorkingArea.Width;
@@ -42,7 +42,8 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void frmAdmin_Load(object sender, EventArgs e)
         {
-            
+            this.Cursor = Cursors.Arrow;
+
         }
 
         private void mnuDanhMucHoaDonBan_Click(object sender, EventArgs e)
@@ -193,6 +194,18 @@ namespace _9_12_QuanLyQuanCaPhe
         private void mnuTimKiemHoaDonBan_Click(object sender, EventArgs e)
         {
             frmHoaDon_TimKiem f = new frmHoaDon_TimKiem();
+            f.MdiParent = this;
+            f.Show();
+        }
+
+        private void frmAdmin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void mnuThongKeDoanhThu_Click(object sender, EventArgs e)
+        {
+            frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
             f.MdiParent = this;
             f.Show();
         }
