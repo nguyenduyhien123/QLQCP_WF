@@ -169,9 +169,9 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void dgvDanhSach_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            vitri = e.RowIndex;
             if (vitri >= 0 && vitri < dgvDanhSach.Rows.Count)
             {
-                vitri = e.RowIndex;
                 HienThi_Textbox(ds, vitri);
                 ReadOnly(true);
                 xulychucnang(true);
@@ -309,6 +309,11 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                 }
             }
+        }
+
+        private void cboTim_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

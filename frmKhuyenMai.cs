@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.Drawing.Charts;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.VariantTypes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -71,6 +72,8 @@ namespace _9_12_QuanLyQuanCaPhe
             btnHuy.Enabled = !t;
         }
 
+        string MAKM_them = "";
+        
         private void btnThem_Click(object sender, EventArgs e)
         {
             xulychucnang(false);
@@ -78,6 +81,7 @@ namespace _9_12_QuanLyQuanCaPhe
             txtTenKM.ReadOnly=false;
             cboTrangThai.Enabled = true;
             txtMaKM.Text = phatSinhMa();
+            MAKM_them = phatSinhMa();
             txtMaKM.ReadOnly=true;
             dtpNgayBatDau.Enabled = true;
             dtpNgayHet.Enabled = true;
@@ -105,6 +109,7 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 xulychucnang(false);
                 ReadOnly(false);
+                
                 HienThiTimKiem(gboThongTin, gboTimKiem, false);
                 flag = 2;
             }
@@ -113,19 +118,23 @@ namespace _9_12_QuanLyQuanCaPhe
                 MessageBox.Show(this, "Bạn chưa chọn thông tin muốn sửa ở danh sách khuyến mãi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
+        string ThemKM = "";
         private void btnLuu_Click(object sender, EventArgs e)
         {
             xulychucnang(true);
 
             //Đổi kiểu dữ liệu ngày từ dd/mm/yy thành mm/dd/yyyy
-            string ngayBatDau1 = dtpNgayBatDau.Value.ToString();
-            DateTime dateBD = DateTime.ParseExact(ngayBatDau1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            string ngayBatDau2 = dateBD.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
+            //string ngayBatDau1 = dtpNgayBatDau.Value.ToString(
+            //    "dd/MM/yy");
+            DateTime dateBD = dtpNgayBatDau.Value;
+            //DateTime dateBD = DateTime.ParseExact(ngayBatDau1, "dd/MM/yy", CultureInfo.InvariantCulture);
+            string ngayBatDau2 = dateBD.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 
-            string ngayKetThuc1 = dtpNgayHet.Value.ToString();
-            DateTime dateKT = DateTime.ParseExact(ngayKetThuc1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            string ngayKetThuc2 = dateKT.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
+            //string ngayKetThuc1 = dtpNgayHet.Text;
+
+            //DateTime dateKT = DateTime.ParseExact(ngayKetThuc1, "dd/MM/yy", CultureInfo.InvariantCulture);
+            DateTime dateKT = dtpNgayHet.Value;
+            string ngayKetThuc2 = dateKT.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 
             bool stop = false;
             if (flag == 1)//thêm
@@ -134,19 +143,25 @@ namespace _9_12_QuanLyQuanCaPhe
                 {
                     MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     stop = true;
-                    xulychucnang(true);
+                    xulychucnang(false);
                 }
                 else if (txtTenKM.Text == "")
                 {
                     MessageBox.Show(this, "Bạn chưa nhập tên khuyến mãi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                     stop = true;
-                    xulychucnang(true);
+                    xulychucnang(false);
                 }
                 else if (cboTrangThai.SelectedIndex == -1)
                 {
                     MessageBox.Show(this, "Bạn chưa chọn trạng thái", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     stop = true;
-                    xulychucnang(true);
+                    xulychucnang(false);
+                }
+                else if(dtpNgayHet.Value <= dtpNgayBatDau.Value)
+                {
+                    MessageBox.Show(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    stop = true;
+                    xulychucnang(false);
                 }
                 else
                 {
@@ -176,7 +191,26 @@ namespace _9_12_QuanLyQuanCaPhe
                 {
                     MessageBox.Show("Cập nhật thành công!");
                     KhuyenMai_Load(sender, e);
+                    if (flag == 1)
+                    {
+                        ThemKM = "ThemKM Thanh cong";
+                    }
                 }
+            }
+
+            if (ThemKM.Equals("ThemKM Thanh cong"))
+            {
+                gboThongTin.Visible = false;
+                btnTim.Visible = false;
+                gboChucNangKM.Visible = false;
+                gboThongTinCT.Visible = true;
+                ReadOnly_ChiTietKM(false);
+                XuLyChucNangCT(false);
+                hienThiComboBox(ds_MAKM, cboMaKM_CT, $"select * from khuyenmai where makm='{MAKM_them}'", "TENKM", "MAKM");
+                cboMaKM_CT.Enabled = false;
+                btnTruycap_CT.Visible = false;
+                btnHuyCT.Enabled = false;
+                flag_CT = 1;
             }
         }
 
@@ -189,6 +223,11 @@ namespace _9_12_QuanLyQuanCaPhe
             xulychucnang(true);
             Load_dgv = true;
             gboTimKiemCT.Visible = true;
+
+            hienThiComboBox(ds_MAKM, cboMaKM_CT, "select * from khuyenmai where trangthai !=N'%x%'","TENKM", "MAKM");
+            hienThiComboBox(ds_MASP, cboMASP_CT, "select * from SANPHAM where trangthai != N'Xóa'", "TENSP", "MASP");
+            string masp = cboMASP_CT.SelectedValue.ToString();
+            hienThiComboBox(ds_MASIZE, cboMaSize_CT, $"select * from CHITIETSANPHAM where MASP ={masp} and TRANGTHAI !=N'Xóa'", "MASIZE", "MASIZE");
         }
 
        
@@ -225,6 +264,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 txtGiaSauKhiGiam_CT.Text = ds.Tables[0].Rows[vitri]["GIASAUKHIGIAM"].ToString();
                 txtPhanTramGiam_CT.Text = ds.Tables[0].Rows[vitri]["PHANTRAMGIAM"].ToString();
                 txtSoTienGiam_CT.Text = ds.Tables[0].Rows[vitri]["SOTIENGIAM"].ToString();
+                txtSoTienGiamToiDa_CT.Text = ds.Tables[0].Rows[vitri]["SOTIENGIAMTOIDA"].ToString();
             }
         }
 
@@ -257,7 +297,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     sql = $"update KHUYENMAI set TENKM=N'{tenkm}', TRANGTHAI=N'{trangthai}' where MAKM='{makm}'";
                     if (khuyenmai.capnhatdulieu(sql) > 0)
                     {
-                        MessageBox.Show("Cap nhat thanh cong!");
+                        MessageBox.Show("Cập nhật thành công!");
                         vitri = 0;
                         KhuyenMai_Load(sender, e);
                     }
@@ -315,11 +355,11 @@ namespace _9_12_QuanLyQuanCaPhe
         string makm = "";
         private void dgvDanhSach_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            vitri = e.RowIndex;
             if (vitri>=0 && vitri < dgvDanhSach.Rows.Count)
             {
                 if(ds.Tables.Count > 0 && e.RowIndex < dgvDanhSach.Rows.Count-1 && e.RowIndex!=-1)
                 {
-                    vitri = e.RowIndex;
                     HienThi_Textbox(ds, vitri);
                     makm = ds.Tables[0].Rows[vitri]["MAKM"].ToString();
                     ReadOnly(true);
@@ -339,9 +379,8 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void txtPhanTramGiam_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             // Chỉ cho phép nhập số và dấu chấm thập phân
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar) && (Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar)) || char.IsLetter(e.KeyChar))
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar) && (Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar)) || char.IsLetter(e.KeyChar) || e.KeyChar == (char)22)
             {
                 e.Handled = true;
             }
@@ -349,11 +388,11 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void dvgDanhSachCT_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (vitri >= 0 && vitri < dvgDanhSachCT.Rows.Count - 1)
+            vitri = e.RowIndex;
+            if (vitri >= 0 && vitri < dvgDanhSachCT.Rows.Count)
             {
-                if (ds_ChiTietKM.Tables.Count >= 0 && e.RowIndex < dvgDanhSachCT.Rows.Count - 1)
+                if (ds_ChiTietKM.Tables.Count >= 0 && e.RowIndex < dvgDanhSachCT.Rows.Count)
                 {
-                    vitri = e.RowIndex;
                     HienThi_TextboxCTKM(ds_ChiTietKM, vitri);
                     ReadOnly_ChiTietKM(true);
                     XuLyChucNangCT(true);
@@ -377,6 +416,7 @@ namespace _9_12_QuanLyQuanCaPhe
             cboMaSize_CT.Enabled = !t;
             cboTrangThai_CT.Enabled = !t;
             txtPhanTramGiam_CT.ReadOnly = t;
+            txtSoTienGiamToiDa_CT.ReadOnly = t;
         }
 
         void hienThiComboBox(DataSet ds, System.Windows.Forms.ComboBox cb, string sql, string tencot, string ma)
@@ -391,8 +431,8 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             flag_CT = 1;
             ReadOnly_ChiTietKM(false);
-            hienThiComboBox(ds_MASP, cboMASP_CT, "select * from SANPHAM where trangthai != N'Xóa'", "TENSP", "MASP");
             hienThiComboBox(ds_MAKM, cboMaKM_CT, "select * from KHUYENMAI where trangthai != N'Xóa'", "TENKM", "MAKM");
+            hienThiComboBox(ds_MASP, cboMASP_CT, "select * from SANPHAM where trangthai != N'Xóa'", "TENSP", "MASP");
             string masp = cboMASP_CT.SelectedValue.ToString();
             hienThiComboBox(ds_MASIZE, cboMaSize_CT, $"select * from CHITIETSANPHAM where MASP ={masp} and TRANGTHAI !=N'Xóa'", "MASIZE", "MASIZE");
             XuLyChucNangCT(false);
@@ -401,8 +441,15 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnXoaCT_Click(object sender, EventArgs e)
         {
-            flag_CT = 2;
-            XuLyChucNangCT(false);
+            if (txtPhanTramGiam_CT.Text != "")
+            {
+                flag_CT = 2;
+                XuLyChucNangCT(false);
+            }
+            else
+            {
+                MessageBox.Show(this, "Bạn chưa chọn thông tin muốn xóa ở danh sách khuyến mãi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnSuaCT_Click(object sender, EventArgs e)
@@ -415,6 +462,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 cboMaKM_CT.Enabled = false;
                 cboMaSize_CT.Enabled = false;
                 cboMASP_CT.Enabled = false;
+                txtSoTienGiamToiDa_CT.ReadOnly = true;
             }
             else
             {
@@ -428,64 +476,120 @@ namespace _9_12_QuanLyQuanCaPhe
             ReadOnly_ChiTietKM(true);
         }
 
+        void clearCTKM()
+        {
+            cboMaKM_CT.Text = "";
+            cboMaSize_CT.Text = "";
+            cboMASP_CT.Text = "";
+            cboTrangThai_CT.Text = "";
+            txtGiaBan.Text = "";
+            txtPhanTramGiam_CT.Text = "";
+            txtGiaSauKhiGiam_CT.Text = "";
+            txtSoTienGiamToiDa_CT.Text = "";
+            txtSoTienGiam_CT.Text = "";
+            txtGiaSauKhiGiam_CT.Text = "";
+        }
+        string tenkm = "";
+        DataSet ds_Tenkm;
+        
         private void btnLuuCT_Click(object sender, EventArgs e)
         {
+            bool stop = false;
             XuLyChucNangCT(true);
-            string MASP = cboMASP_CT.SelectedValue.ToString();
+            string MASP = "";
+            if ( cboMASP_CT.SelectedIndex == -1)
+            {
+                string tensp = cboMASP_CT.Text;
+                if (khuyenmai.LayDuLieu($"select masp from sanpham where tensp like N'%{tensp}%'").Tables[0].Rows.Count==0)
+                {
+                    MessageBox.Show(this, "Tên sản phẩm nhập không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    stop = true;
+                }
+                MASP = khuyenmai.LayDuLieu($"select masp from sanpham where tensp like N'%{tensp}%'").Tables[0].Rows[0]["MASP"].ToString();
+            }
+            else
+            {
+                MASP = cboMASP_CT.SelectedValue.ToString();
+            }
             string MASIZE = cboMaSize_CT.SelectedValue.ToString();
-            string MAKM = cboMaKM_CT.SelectedValue.ToString();
+            string MAKM = "";
+            if (cboMaKM_CT.SelectedIndex == -1)
+            {
+                string tenkm = cboMaKM_CT.Text;
+                if (khuyenmai.LayDuLieu($"select makm from khuyenmai where tenkm = N'{tenkm}'").Tables[0].Rows.Count == 0)
+                {
+                    MessageBox.Show(this, "Tên khuyến mãi nhập không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MAKM = khuyenmai.LayDuLieu($"select MAKM from khuyenmai where tenkm = N'{tenkm}' and trangthai !=N'%x%'").Tables[0].Rows[0]["MAKM"].ToString();
+                }
+            }
+            else
+            {
+                MAKM = cboMaKM_CT.SelectedValue.ToString();
+            }
             string giaban = txtGiaBan.Text.ToString();
             string PHANTRAMGIAM = txtPhanTramGiam_CT.Text;
             string SOTIENGIAM = txtSoTienGiam_CT.Text;
             string GIASAUKHIGIAM = txtGiaSauKhiGiam_CT.Text;
             string trangthai = cboTrangThai_CT.Text;
+            string sotiengiamtoida = txtSoTienGiamToiDa_CT.Text;
+            
             try
             {
-                bool stop = false;
                 if (flag_CT == 1)//them
                 {
-                    if (txtSoTienGiam_CT.Text == "" && cboTrangThai.SelectedIndex == -1)
+                    if (txtSoTienGiam_CT.Text == "" || cboTrangThai_CT.SelectedIndex == -1 || cboMASP_CT.Text == "" || cboMaSize_CT.Text == "" || txtPhanTramGiam_CT.Text ==""|| txtSoTienGiamToiDa_CT.Text =="")
                     {
                         MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
-                        xulychucnang(true);
+                        XuLyChucNangCT(false);
                     }
                     else if (txtSoTienGiam_CT.Text == "")
                     {
                         MessageBox.Show(this, "Bạn chưa nhập số phần trăm giảm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
-                        xulychucnang(true);
+                        XuLyChucNangCT(false);
                     }
-                    else if (cboTrangThai.SelectedIndex == -1)
+                    else if (cboTrangThai_CT.SelectedIndex == -1)
                     {
                         MessageBox.Show(this, "Bạn chưa chọn trạng thái", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
-                        xulychucnang(true);
+                        XuLyChucNangCT(false);
                     }
                     else
                     {
-                        sql = $"insert CHITIETKM values('{MASP}','{MASIZE}','{MAKM}',{PHANTRAMGIAM},{giaban},{SOTIENGIAM},{GIASAUKHIGIAM},N'{trangthai}')";
+                        sql = $"insert CHITIETKM values('{MASP}','{MASIZE}','{MAKM}',{PHANTRAMGIAM},{giaban},{sotiengiamtoida},{SOTIENGIAM},{GIASAUKHIGIAM},N'{trangthai}')";
                     }
                 }
                 else if (flag_CT == 2)//xoa
                 {
-                    sql = $"delete CHITIETKM where MAKM ='{MAKM}' and MASIZE = '{MASIZE}' and MASP = '{MASP}'";
-                    string makm = cboMaKM_CT.SelectedValue.ToString();
-                    ReadOnly(true);
-                    xulychucnang(true);
-                    danhsach_datagridview(ref ds_ChiTietKM, dvgDanhSachCT, $"select * from CHITIETKM where MAKM = '{makm}' and TRANGTHAI !=N'Xóa'");
-                }
-                else if (flag_CT == 3)
-                {
-                    if (txtPhanTramGiam_CT.Text=="")
+                    if (khuyenmai.LayDuLieu($"select * from chitietkm where makm='{makm}'").Tables[0].Rows.Count <= 1)
                     {
-                        MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "Một khuyến mãi phải áp dụng ít nhất 1 sản phẩm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
-                        xulychucnang(true);
                     }
                     else
                     {
-                        sql = $"update CHITIETKM set PHANTRAMGIAM ={PHANTRAMGIAM}, SOTIENGIAM = {SOTIENGIAM}, GIASAUKHIGIAM={GIASAUKHIGIAM}, TRANGTHAI=N'{trangthai}' where MAKM = '{MAKM}' and MASIZE = '{MASIZE}' and MASP = '{MASP}'";
+                        sql = $"delete CHITIETKM where MAKM ='{MAKM}' and MASIZE = '{MASIZE}' and MASP = '{MASP}'";
+                        string makm = cboMaKM_CT.SelectedValue.ToString();
+                        ReadOnly(true);
+                        XuLyChucNangCT(true);
+                        danhsach_datagridview(ref ds_ChiTietKM, dvgDanhSachCT, $"select * from CHITIETKM where MAKM = '{makm}' and TRANGTHAI !=N'Xóa'");
+                    }
+                }
+                else if (flag_CT == 3)
+                {
+                    if (txtSoTienGiam_CT.Text == "" || cboTrangThai_CT.SelectedIndex == -1 || cboMASP_CT.Text == "" || cboMaSize_CT.Text == ""|| txtPhanTramGiam_CT.Text == "" || txtSoTienGiamToiDa_CT.Text == "")
+                    {
+                        MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        stop = true;
+                        XuLyChucNangCT(false);
+                    }
+                    else
+                    {
+                        sql = $"update CHITIETKM set PHANTRAMGIAM ={PHANTRAMGIAM}, SOTIENGIAM = {SOTIENGIAM}, GIASAUKHIGIAM={GIASAUKHIGIAM}, sotiengiamtoida={sotiengiamtoida}, TRANGTHAI=N'{trangthai}' where MAKM = '{MAKM}' and MASIZE = '{MASIZE}' and MASP = '{MASP}'";
                     }
                 }
 
@@ -497,6 +601,8 @@ namespace _9_12_QuanLyQuanCaPhe
                         KhuyenMai_Load(sender, e);
                         danhsach_datagridview(ref ds_ChiTietKM, dvgDanhSachCT, $"select * from CHITIETKM where MAKM = '{makm}' and TRANGTHAI !=N'Xóa'");
                         ReadOnly_ChiTietKM(true);
+                        clearCTKM();
+                        XuLyChucNangCT(true);
                     }
                 }
             }
@@ -511,11 +617,15 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void cboMASP_CT_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (flag_CT == 1)
+            if (flag_CT == 1 || flag_CT == 3)
             {
                 string masp = cboMASP_CT.SelectedValue.ToString();
-                hienThiComboBox(ds_MASIZE, cboMaSize_CT, $"select MASIZE from CHITIETSANPHAM where masp={masp} and TRANGTHAI !=N'Xóa'", "MASIZE", "MASIZE");
+                hienThiComboBox(ds_MASIZE, cboMaSize_CT, $"select MASIZE from CHITIETSANPHAM where masp='{masp}' and TRANGTHAI !=N'Xóa'", "MASIZE", "MASIZE");
                 cboMaSize_CT.SelectedIndex = -1;
+                txtGiaSauKhiGiam_CT.Text = "";
+                txtPhanTramGiam_CT.Text = "";
+                txtSoTienGiamToiDa_CT.Text = "";
+                txtSoTienGiam_CT.Text = "";
             }
         }
 
@@ -535,16 +645,27 @@ namespace _9_12_QuanLyQuanCaPhe
             }
         }
 
-
+        double sotiengiam = 0;
+        double giasaukhigiam = 0;
         private void txtPhanTramGiam_CT_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                double giasaukhigiam = Convert.ToDouble(txtGiaBan.Text) * ((100 - Convert.ToDouble(txtPhanTramGiam_CT.Text))/ 100);
-                txtGiaSauKhiGiam_CT.Text = giasaukhigiam.ToString();
-                double sotiengiam = Convert.ToDouble(txtGiaBan.Text) - Convert.ToDouble(txtGiaSauKhiGiam_CT.Text);
-                txtSoTienGiam_CT.Text = sotiengiam.ToString();
+                if(Convert.ToDouble(txtPhanTramGiam_CT.Text)<1 || Convert.ToDouble(txtPhanTramGiam_CT.Text)>100)
+                {
+                    MessageBox.Show(this, "Bạn chỉ được nhập từ 1-100", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtPhanTramGiam_CT.Text = "";
+                }
+                else
+                {
+                    txtSoTienGiamToiDa_CT.ReadOnly = false;
+                    giasaukhigiam = Convert.ToDouble(txtGiaBan.Text) * ((100 - Convert.ToDouble(txtPhanTramGiam_CT.Text)) / 100);
+                    sotiengiam = Convert.ToDouble(txtGiaBan.Text) - giasaukhigiam;
+                    txtSoTienGiam_CT.Text = sotiengiam.ToString();
+                    txtSoTienGiamToiDa_CT.ReadOnly = false;
+                }
             }
+
         }
 
         private void cboTrangThai_KeyPress(object sender, KeyPressEventArgs e)
@@ -564,5 +685,152 @@ namespace _9_12_QuanLyQuanCaPhe
                 e.Handled = true;
             }
         }
+
+        private void cboTim_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void txtSoTienGiamToiDa_CT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Chỉ cho phép nhập số và dấu chấm thập phân
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar) && (Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar)) || char.IsLetter(e.KeyChar) || e.KeyChar == (char)22)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtSoTienGiamToiDa_CT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (sotiengiam < Convert.ToDouble(txtSoTienGiamToiDa_CT.Text))
+                {
+                    txtGiaSauKhiGiam_CT.Text = (Convert.ToDouble(txtGiaBan.Text) - Convert.ToDouble(txtSoTienGiam_CT.Text)).ToString();  
+                }
+                else
+                {
+                    txtGiaSauKhiGiam_CT.Text = (Convert.ToDouble(txtGiaBan.Text) - Convert.ToDouble(txtSoTienGiamToiDa_CT.Text)).ToString();
+                }
+            }
+        }
+
+        private void btnTroVe_Click(object sender, EventArgs e)
+        {
+            if (khuyenmai.LayDuLieu($"select * from chitietkm where MAKM='{MAKM_them}'").Tables[0].Rows.Count == 0 && ThemKM.Equals("ThemKM Thanh cong"))
+            {
+                ds_Tenkm = khuyenmai.LayDuLieu($"select tenkm from khuyenmai where makm='{MAKM_them}'");
+                tenkm = ds_Tenkm.Tables[0].Rows[0]["TENKM"].ToString();
+                MessageBox.Show($"Khuyến mãi {tenkm} mã {MAKM_them} chưa có sản phẩm nào, Bạn hãy nhập sản phẩm cho khuyến mãi này!");
+            }
+            else
+            {
+                gboThongTin.Visible = true;
+                btnTim.Visible = true;
+                gboChucNangKM.Visible = true;
+                gboThongTinCT.Visible = false;
+                btnTruycap_CT.Visible = true;
+            }
+        }
+
+        private void btnTruycap_CT_Click(object sender, EventArgs e)
+        {
+            flag_CT = 0;
+            gboThongTin.Visible = false;
+            btnTim.Visible = false;
+            gboChucNangKM.Visible = false;
+            gboThongTinCT.Visible = true;
+            gboTimKiem.Visible = false;
+            ReadOnly_ChiTietKM(true);
+            XuLyChucNangCT(true);
+            cboMaKM_CT.Enabled = false;
+            btnTruycap_CT.Visible = false;
+            cboMaSize_CT.SelectedIndex = -1;
+            cboMASP_CT.SelectedIndex = -1;
+            txtGiaBan.Text = "";
+            cboMaKM_CT.SelectedIndex = -1;
+            clearCTKM();
+        }
+
+        private void frmKhuyenMai_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ThemKM.Equals("ThemKM Thanh cong"))
+            {
+                ds_Tenkm = khuyenmai.LayDuLieu($"select tenkm from khuyenmai where makm='{MAKM_them}'");
+                tenkm = ds_Tenkm.Tables[0].Rows[0]["TENKM"].ToString();
+                if (khuyenmai.LayDuLieu($"select * from chitietkm where MAKM='{MAKM_them}' and trangthai != N'%X%'").Tables[0].Rows.Count == 0)
+                {
+                    MessageBox.Show($"Khuyến mãi {tenkm} mã {MAKM_them} chưa có sản phẩm nào, Bạn hãy nhập sản phẩm cho khuyến mãi này!");
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void cboMASP_CT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (flag_CT == 1)
+                {
+                    string masp = "";
+                    if (cboMASP_CT.SelectedIndex == -1)
+                    {
+                        string tensp = cboMASP_CT.Text;
+                        if (khuyenmai.LayDuLieu($"select masp from sanpham where tensp like N'%{tensp}%' and trangthai != N'%x%'").Tables[0].Rows.Count == 0)
+                        {
+                            MessageBox.Show(this, "Tên sản phẩm nhập không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            masp = khuyenmai.LayDuLieu($"select masp from sanpham where tensp like N'%{tensp}%' and trangthai !=N'%x%'").Tables[0].Rows[0]["MASP"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        masp = cboMASP_CT.SelectedValue.ToString();
+                    }
+                    hienThiComboBox(ds_MASIZE, cboMaSize_CT, $"select MASIZE from CHITIETSANPHAM where masp='{masp}' and TRANGTHAI !=N'Xóa'", "MASIZE", "MASIZE");
+                    cboMaSize_CT.SelectedIndex = -1;
+                    txtGiaSauKhiGiam_CT.Text = "";
+                    txtPhanTramGiam_CT.Text = "";
+                    txtSoTienGiamToiDa_CT.Text = "";
+                    txtSoTienGiam_CT.Text = "";
+                }
+            }
+        }
+
+        private void cboMaKM_CT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (flag_CT == 1)
+                {
+                    string makm = "";
+                    if(cboMaKM_CT.SelectedIndex == -1)
+                    {
+                        string tenkm = cboMaKM_CT.Text;
+                        if(khuyenmai.LayDuLieu($"select makm from khuyenmai where tenkm = N'{tenkm}'").Tables[0].Rows.Count == 0)
+                        {
+                            MessageBox.Show(this, "Tên khuyến mãi nhập không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            makm = khuyenmai.LayDuLieu($"select MAKM from khuyenmai where tenkm = N'{tenkm}' and trangthai !=N'%x%'").Tables[0].Rows[0]["MAKM"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        makm = cboMaKM_CT.SelectedValue.ToString();
+                    }
+                }
+            }
+        }
+
+        private void cboMaSize_CT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+
     }
 }

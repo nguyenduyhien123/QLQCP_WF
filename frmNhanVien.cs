@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
@@ -34,6 +35,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             txtMaNhanVien.ReadOnly =t;
             txtHoVaTen.ReadOnly = t;
+            txtMatKhau.ReadOnly = t;
             txtDiaChi.ReadOnly = t;
             txtChucVu.ReadOnly = t;
             txtSoDienThoai.ReadOnly = t;
@@ -47,7 +49,7 @@ namespace _9_12_QuanLyQuanCaPhe
         private void NhanVien_Load(object sender, EventArgs e)
         {
             VoHieuHoa(true);
-            danhsach_datagridview(dgvDanhSach, "select * from NHANVIEN where TRANGTHAI!=N'Xoá'");
+            danhsach_datagridview(dgvDanhSach, "select * from NHANVIEN where TRANGTHAI not like N'%x%'");
             HienThiTextBox(ds, vitri);
             ReadOnly(true);
             dgvDanhSach.ReadOnly = false;
@@ -80,6 +82,7 @@ namespace _9_12_QuanLyQuanCaPhe
             VoHieuHoa(false);
             clearTextbox();
             ReadOnly(false);
+            btnAnMK.Enabled = true;
             txtMaNhanVien.ReadOnly = true;
             txtMaNhanVien.Text = phatsinhma();
             DateTime d = DateTime.Now;
@@ -88,18 +91,36 @@ namespace _9_12_QuanLyQuanCaPhe
             flag = 1;
         }
 
+        string ComputeSHA256(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = sha256.ComputeHash(inputBytes);
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    builder.Append(hashBytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
         private void btnLuu_Click(object sender, EventArgs e)
         {
             VoHieuHoa(true);
             //Đổi kiểu dữ liệu ngày từ dd/mm/yy thành mm/dd/yyyy do datetime cua sql la mm/dd/yyyy
             string ngaySinh1 = dtpNgaySinh.Text;
-            DateTime dateNS = DateTime.ParseExact(ngaySinh1, "dd/MM/yy", CultureInfo.InvariantCulture);
-            string ngaySinh2 = dateNS.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
+            DateTime dateNS = DateTime.ParseExact(ngaySinh1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            string ngaySinh2 = dateNS.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 
             string ngayVaoLam1 = dtpNgayVaoLam.Text;
-            DateTime dateNVL = DateTime.ParseExact(ngayVaoLam1, "dd/MM/yy", CultureInfo.InvariantCulture);
-            string ngayVaoLam2 = dateNVL.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
+            DateTime dateNVL = DateTime.ParseExact(ngayVaoLam1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            string ngayVaoLam2 = dateNVL.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
             
+            string matkhau = ComputeSHA256(txtMatKhau.Text);
+
             bool stop = false;
             if (txtSoDienThoai.TextLength != 10)
             {
@@ -110,7 +131,7 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 if (flag == 1)
                 {
-                    if (txtSoDienThoai.Text == "" || txtMaNhanVien.Text == "" || txtHoVaTen.Text == "" || txtDiaChi.Text == "" || cboTrangThai.SelectedIndex == -1 || txtDiaChi.Text == "" || txtChucVu.Text =="")
+                    if (txtSoDienThoai.Text == "" || txtMaNhanVien.Text == "" || txtHoVaTen.Text == "" || txtDiaChi.Text == "" || cboTrangThai.SelectedIndex == -1 || txtDiaChi.Text == "" || txtChucVu.Text =="" || txtMatKhau.Text == "")
                     {
                         MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
@@ -118,7 +139,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                     else
                     {
-                        sql = $"insert nhanvien values('{txtMaNhanVien.Text}',N'{txtHoVaTen.Text}',N'{txtDiaChi.Text}','{txtSoDienThoai.Text}',N'{txtChucVu.Text}','{ngayVaoLam2}',N'{cboGioiTinh.Text}','{ngaySinh2}',N'{cboTrangThai.Text}')";
+                        sql = $"insert nhanvien values('{txtMaNhanVien.Text}',N'{txtHoVaTen.Text}',N'{txtDiaChi.Text}','{txtSoDienThoai.Text}',N'{txtChucVu.Text}','{ngayVaoLam2}',N'{cboGioiTinh.Text}','{ngaySinh2}',N'{cboTrangThai.Text}','{matkhau}')";
                     }
                 }
                 else if (flag == 2)
@@ -135,7 +156,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                     else
                     {
-                        sql = $"update NHANVIEN set TENNV = N'{txtHoVaTen.Text}', DIACHI = N'{txtDiaChi.Text}', SDT='{txtSoDienThoai.Text}', CHUCVU =N'{txtChucVu.Text}', NGAYVAOLAM = '{ngayVaoLam2}', GIOITINH = N'{cboGioiTinh.Text}', NGAYSINH =N'{ngaySinh2}',TRANGTHAI=N'{cboTrangThai.Text}' where MANV='{txtMaNhanVien.Text}'";
+                        sql = $"update NHANVIEN set TENNV = N'{txtHoVaTen.Text}', DIACHI = N'{txtDiaChi.Text}', SDT='{txtSoDienThoai.Text}', CHUCVU =N'{txtChucVu.Text}', NGAYVAOLAM = '{ngayVaoLam2}', GIOITINH = N'{cboGioiTinh.Text}', NGAYSINH =N'{ngaySinh2}',TRANGTHAI=N'{cboTrangThai.Text}', MATKHAU = '{matkhau}' where MANV='{txtMaNhanVien.Text}'";
                     }
                 }
                 if (stop == false)
@@ -168,6 +189,7 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 VoHieuHoa(false);
                 ReadOnly(false);
+                btnAnMK.Enabled = true;
                 txtMaNhanVien.ReadOnly = true;
                 flag = 3;
             }
@@ -181,6 +203,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             VoHieuHoa(true);
             ReadOnly(true);
+            btnAnMK.Enabled = false;
             txtHoVaTen.Text= string.Empty;
             txtDiaChi.Text= string.Empty;
             txtChucVu.Text= string.Empty;
@@ -207,6 +230,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 cboTrangThai.Text = ds.Tables[0].Rows[vitri]["TRANGTHAI"].ToString();
                 dtpNgaySinh.Text = ds.Tables[0].Rows[vitri]["NGAYSINH"].ToString();
                 dtpNgayVaoLam.Text = ds.Tables[0].Rows[vitri]["NGAYVAOLAM"].ToString();
+
             }
         }
 
@@ -242,13 +266,13 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void dgvDanhSach_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            vitri = e.RowIndex;
             if (vitri >= 0 && vitri < dgvDanhSach.Rows.Count - 1)
             {
                 if (ds.Tables.Count > 0)
                 {
                     ReadOnly(true);
                     VoHieuHoa(true);
-                    vitri = e.RowIndex;
                     HienThiTextBox(ds, vitri);
                 }
             }
@@ -382,6 +406,32 @@ namespace _9_12_QuanLyQuanCaPhe
         }
 
         private void cboTrangThai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        bool HienThiMatKhau = true;
+        private void btnAnMK_Click(object sender, EventArgs e)
+        {
+            if (HienThiMatKhau==false)
+            {
+                btnAnMK.Text = "Hiện";
+                txtMatKhau.UseSystemPasswordChar = true;
+                HienThiMatKhau = true;
+            }
+            else
+            {
+                btnAnMK.Text = "Ẩn";
+                txtMatKhau.UseSystemPasswordChar = false;
+                HienThiMatKhau = false;
+            }
+        }
+
+        private void txtMatKhau_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            txtMatKhau.UseSystemPasswordChar = true;
+        }
+
+        private void cboTim_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }

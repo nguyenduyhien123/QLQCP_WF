@@ -188,6 +188,12 @@
     <Compile Include="frmLichSuDangNhap.Designer.cs">
       <DependentUpon>frmLichSuDangNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLoaiSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoaiSP.designer.cs">
+      <DependentUpon>frmLoaiSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMenuNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLichSuDangNhap.resx">
       <DependentUpon>frmLichSuDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoaiSP.resx">
+      <DependentUpon>frmLoaiSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMenuNhanVien.resx">
       <DependentUpon>frmMenuNhanVien.cs</DependentUpon>
