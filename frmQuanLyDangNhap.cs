@@ -27,7 +27,7 @@ namespace _9_12_QuanLyQuanCaPhe
         private void frmQuanLyDangNhap_Load(object sender, EventArgs e)
         {
             taoCotDanhSachDangNhap();
-            danhsach_datagridview(ref ds, dgvDanhSachDangNhap, "  SELECT ROW_NUMBER() OVER (ORDER BY NGAYGIODANGNHAP DESC) AS 'STT',A.MANV,TENNV,FORMAT(NGAYGIODANGNHAP, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGNHAP',FORMAT(NGAYGIODANGXUAT, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGXUAT',B.TRANGTHAI FROM NHANVIEN A, LICHSUDANGNHAP B WHERE A.MANV = B.MANV  ORDER BY NGAYGIODANGNHAP DESC");
+            danhsach_datagridview(ref ds, dgvDanhSachDangNhap, "  SELECT TOP 100 ROW_NUMBER() OVER (ORDER BY NGAYGIODANGNHAP DESC) AS 'STT',A.MANV,TENNV,CHUCVU,FORMAT(NGAYGIODANGNHAP, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGNHAP',FORMAT(NGAYGIODANGXUAT, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGXUAT',B.TRANGTHAI FROM NHANVIEN A, LICHSUDANGNHAP B WHERE A.MANV = B.MANV  ORDER BY NGAYGIODANGNHAP DESC");
         }
         void taoCotDanhSachDangNhap()
         {
@@ -44,7 +44,10 @@ namespace _9_12_QuanLyQuanCaPhe
             TENNV.HeaderText = "HỌ TÊN";
             TENNV.DataPropertyName = "TENNV"; // Chỉ định tên thuộc tính dữ liệu
             TENNV.ReadOnly = true;                                //
-                                                                  // 
+            DataGridViewColumn CHUCVU = new DataGridViewTextBoxColumn();
+            CHUCVU.HeaderText = "CHỨC VỤ";
+            CHUCVU.DataPropertyName = "CHUCVU"; // Chỉ định tên thuộc tính dữ liệu
+            CHUCVU.ReadOnly = true;                                                          // 
             DataGridViewColumn NGAYGIODANGNHAP = new DataGridViewTextBoxColumn();
             NGAYGIODANGNHAP.HeaderText = "NGÀY GIỜ ĐĂNG NHẬP";
             NGAYGIODANGNHAP.DataPropertyName = "NGAYGIODANGNHAP"; // Chỉ định tên thuộc tính dữ liệu
@@ -62,6 +65,7 @@ namespace _9_12_QuanLyQuanCaPhe
             dgvDanhSachDangNhap.Columns.Add(STT);
             dgvDanhSachDangNhap.Columns.Add(MANV);
             dgvDanhSachDangNhap.Columns.Add(TENNV);
+            dgvDanhSachDangNhap.Columns.Add(CHUCVU);
             dgvDanhSachDangNhap.Columns.Add(NGAYGIODANGNHAP);
             dgvDanhSachDangNhap.Columns.Add(NGAYGIODANGXUAT);
             dgvDanhSachDangNhap.Columns.Add(TRANGTHAI);
