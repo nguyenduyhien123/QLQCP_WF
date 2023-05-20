@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1049, 513);
             this.Name = "frmHoaDonBan_BaoCao";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHoaDonBan_BaoCao";
             this.Load += new System.EventHandler(this.frmHoaDonBan_BaoCao_Load);
             this.ResumeLayout(false);

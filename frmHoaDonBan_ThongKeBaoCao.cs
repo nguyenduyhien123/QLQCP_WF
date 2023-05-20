@@ -250,5 +250,15 @@ namespace _9_12_QuanLyQuanCaPhe
                 }
             }
             }
+
+        private void frmHoaDonBan_ThongKeBaoCao_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Thống kê / Báo cáo ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
+    }
 }

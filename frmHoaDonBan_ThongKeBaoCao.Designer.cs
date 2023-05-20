@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.chartThongKeHoaDonBan = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpThongTinTomTat = new System.Windows.Forms.GroupBox();
@@ -48,10 +48,10 @@
             // 
             // chartThongKeHoaDonBan
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartThongKeHoaDonBan.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartThongKeHoaDonBan.Legends.Add(legend4);
             this.chartThongKeHoaDonBan.Location = new System.Drawing.Point(12, 9);
             this.chartThongKeHoaDonBan.Name = "chartThongKeHoaDonBan";
             this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1204, 734);
@@ -184,8 +184,12 @@
             this.Controls.Add(this.dtpThoiGianThongKe);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboTieuChiThongKe);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frmHoaDonBan_ThongKeBaoCao";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hoá Đơn bán - Thống Kê Doanh Thu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHoaDonBan_ThongKeBaoCao_FormClosing);
             this.Load += new System.EventHandler(this.frmHoaDonBan_TimKiem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chartThongKeHoaDonBan)).EndInit();
             this.grpThongTinTomTat.ResumeLayout(false);

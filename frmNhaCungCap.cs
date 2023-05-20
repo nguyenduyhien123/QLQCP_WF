@@ -315,5 +315,15 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             e.Handled = true;
         }
+
+        private void frmNhaCungCap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Nhà cung cấp ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

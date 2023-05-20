@@ -111,5 +111,15 @@ namespace _9_12_QuanLyQuanCaPhe
                 btnThayDoiMatKhau_Click(sender, e);
             }
         }
+
+        private void frmThayDoiMatKhau_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Thay đổi mật khẩu ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

@@ -210,10 +210,13 @@
             this.ClientSize = new System.Drawing.Size(800, 408);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmThayDoiMatKhau";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmThayDoiMatKhau";
+            this.Text = "Thay đổi mật khẩu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmThayDoiMatKhau_FormClosing);
             this.panel1.ResumeLayout(false);
             this.pnlMatKhauMoi.ResumeLayout(false);
             this.pnlMatKhauMoi.PerformLayout();

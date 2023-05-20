@@ -161,7 +161,9 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void mnuDanhMucLoaiSanPham_Click(object sender, EventArgs e)
         {
-            
+            frmLoaiSP f = new frmLoaiSP();
+            f.MdiParent = this;
+            f.Show();
         }
 
         private void mnuDanhMucNhaCungCap_Click(object sender, EventArgs e)
@@ -200,12 +202,24 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void frmAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Quản lý ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void mnuThongKeDoanhThu_Click(object sender, EventArgs e)
         {
             frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
+            f.MdiParent = this;
+            f.Show();
+        }
+
+        private void mnuQuanLyDangNhap_Click(object sender, EventArgs e)
+        {
+            frmQuanLyDangNhap f = new frmQuanLyDangNhap();
             f.MdiParent = this;
             f.Show();
         }

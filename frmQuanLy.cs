@@ -16,5 +16,20 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             InitializeComponent();
         }
+
+        private void mnuDanhMucKhachHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmQuanLy_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Quản lý ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

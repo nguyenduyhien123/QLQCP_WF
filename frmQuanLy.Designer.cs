@@ -249,6 +249,7 @@
             this.mnuDanhMucKhachHang.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
             this.mnuDanhMucKhachHang.Size = new System.Drawing.Size(238, 26);
             this.mnuDanhMucKhachHang.Text = "Khách hàng";
+            this.mnuDanhMucKhachHang.Click += new System.EventHandler(this.mnuDanhMucKhachHang_Click);
             // 
             // mnuDanhMucKhuyenMai
             // 
@@ -361,6 +362,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Name = "frmQuanLy";
             this.Text = "frmQuanLy";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLy_FormClosing);
             this.panel1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -143,6 +143,7 @@
             this.Name = "frmLichSuDangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLichSuDangNhap";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLichSuDangNhap_FormClosing);
             this.Load += new System.EventHandler(this.frmLichSuDangNhap_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachLichSuDangNhap)).EndInit();

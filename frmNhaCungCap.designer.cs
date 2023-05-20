@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMaNCC = new System.Windows.Forms.TextBox();
             this.txtTenNCC = new System.Windows.Forms.TextBox();
@@ -89,7 +87,7 @@
             this.txtMaNCC.Location = new System.Drawing.Point(374, 20);
             this.txtMaNCC.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaNCC.Name = "txtMaNCC";
-            this.txtMaNCC.Size = new System.Drawing.Size(114, 20);
+            this.txtMaNCC.Size = new System.Drawing.Size(114, 23);
             this.txtMaNCC.TabIndex = 1;
             this.txtMaNCC.TextChanged += new System.EventHandler(this.txtMaNCC_TextChanged);
             // 
@@ -98,7 +96,7 @@
             this.txtTenNCC.Location = new System.Drawing.Point(152, 19);
             this.txtTenNCC.Margin = new System.Windows.Forms.Padding(2);
             this.txtTenNCC.Name = "txtTenNCC";
-            this.txtTenNCC.Size = new System.Drawing.Size(114, 20);
+            this.txtTenNCC.Size = new System.Drawing.Size(114, 23);
             this.txtTenNCC.TabIndex = 1;
             this.txtTenNCC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTenNCC_KeyPress);
             // 
@@ -107,7 +105,7 @@
             this.txtSDT.Location = new System.Drawing.Point(374, 48);
             this.txtSDT.Margin = new System.Windows.Forms.Padding(2);
             this.txtSDT.Name = "txtSDT";
-            this.txtSDT.Size = new System.Drawing.Size(114, 20);
+            this.txtSDT.Size = new System.Drawing.Size(114, 23);
             this.txtSDT.TabIndex = 1;
             this.txtSDT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSDT_KeyPress);
             // 
@@ -116,7 +114,7 @@
             this.txtDiaChi.Location = new System.Drawing.Point(152, 101);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.Size = new System.Drawing.Size(336, 20);
+            this.txtDiaChi.Size = new System.Drawing.Size(336, 23);
             this.txtDiaChi.TabIndex = 1;
             // 
             // txtMoTa
@@ -124,7 +122,7 @@
             this.txtMoTa.Location = new System.Drawing.Point(152, 77);
             this.txtMoTa.Margin = new System.Windows.Forms.Padding(2);
             this.txtMoTa.Name = "txtMoTa";
-            this.txtMoTa.Size = new System.Drawing.Size(336, 20);
+            this.txtMoTa.Size = new System.Drawing.Size(336, 23);
             this.txtMoTa.TabIndex = 1;
             // 
             // label2
@@ -207,20 +205,12 @@
             this.cboTrangThai.Location = new System.Drawing.Point(153, 47);
             this.cboTrangThai.Margin = new System.Windows.Forms.Padding(2);
             this.cboTrangThai.Name = "cboTrangThai";
-            this.cboTrangThai.Size = new System.Drawing.Size(114, 21);
+            this.cboTrangThai.Size = new System.Drawing.Size(114, 25);
             this.cboTrangThai.TabIndex = 4;
             this.cboTrangThai.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboTrangThai_KeyPress);
             // 
             // dgvDanhSach
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDanhSach.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDanhSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhSach.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MANCC,
@@ -229,14 +219,6 @@
             this.DIACHI,
             this.MOTA,
             this.TRANGTHAI});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDanhSach.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDanhSach.Location = new System.Drawing.Point(10, 15);
             this.dgvDanhSach.Margin = new System.Windows.Forms.Padding(2);
             this.dgvDanhSach.Name = "dgvDanhSach";
@@ -254,7 +236,7 @@
             this.MANCC.MinimumWidth = 6;
             this.MANCC.Name = "MANCC";
             this.MANCC.ReadOnly = true;
-            this.MANCC.Width = 90;
+            this.MANCC.Width = 113;
             // 
             // TENNCC
             // 
@@ -263,7 +245,7 @@
             this.TENNCC.HeaderText = "Tên nhà cung cấp";
             this.TENNCC.MinimumWidth = 6;
             this.TENNCC.Name = "TENNCC";
-            this.TENNCC.Width = 94;
+            this.TENNCC.Width = 119;
             // 
             // SDT
             // 
@@ -272,7 +254,7 @@
             this.SDT.HeaderText = "Số điện thoại";
             this.SDT.MinimumWidth = 6;
             this.SDT.Name = "SDT";
-            this.SDT.Width = 88;
+            this.SDT.Width = 110;
             // 
             // DIACHI
             // 
@@ -303,7 +285,7 @@
             this.TRANGTHAI.Name = "TRANGTHAI";
             this.TRANGTHAI.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.TRANGTHAI.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TRANGTHAI.Width = 74;
+            this.TRANGTHAI.Width = 94;
             // 
             // groupBox1
             // 
@@ -457,7 +439,7 @@
             "Tìm theo Mã "});
             this.cboTim.Location = new System.Drawing.Point(11, 19);
             this.cboTim.Name = "cboTim";
-            this.cboTim.Size = new System.Drawing.Size(165, 21);
+            this.cboTim.Size = new System.Drawing.Size(165, 25);
             this.cboTim.TabIndex = 8;
             this.cboTim.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboTim_KeyPress);
             // 
@@ -465,7 +447,7 @@
             // 
             this.txtTim.Location = new System.Drawing.Point(182, 20);
             this.txtTim.Name = "txtTim";
-            this.txtTim.Size = new System.Drawing.Size(137, 20);
+            this.txtTim.Size = new System.Drawing.Size(137, 23);
             this.txtTim.TabIndex = 7;
             this.txtTim.TextChanged += new System.EventHandler(this.txtTim_TextChanged);
             // 
@@ -481,7 +463,7 @@
             // 
             // frmNhaCungCap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(814, 392);
             this.Controls.Add(this.groupBox3);
@@ -491,9 +473,11 @@
             this.Controls.Add(this.gboTimKiem);
             this.Controls.Add(this.gboThongTin);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmNhaCungCap";
             this.Text = "frmNhaCungCap";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmNhaCungCap_FormClosing);
             this.Load += new System.EventHandler(this.frmNhaCungCap_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSach)).EndInit();
             this.groupBox1.ResumeLayout(false);

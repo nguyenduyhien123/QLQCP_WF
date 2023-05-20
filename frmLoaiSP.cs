@@ -205,5 +205,15 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             e.Handled = true;
         }
+
+        private void frmLoaiSP_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dlgThoat;
+            dlgThoat = MessageBox.Show($"Bạn có chắc muốn Đóng form Loại sản phẩm ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlgThoat == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
