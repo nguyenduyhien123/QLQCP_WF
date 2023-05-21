@@ -34,7 +34,7 @@ namespace _9_12_QuanLyQuanCaPhe
         DataSet ds_KiemTra = new DataSet();
         DataSet ds_LoaiSP= new DataSet();
         int flag = 0;
-        bool flag_TimKiem= true;
+        bool flag_TimKiem= false;
         // cờ cho các thao tác với Sản Phẩm
         // 1: đang thêm sản phẩm
         // 2: sửa sản phẩm
@@ -162,7 +162,7 @@ namespace _9_12_QuanLyQuanCaPhe
             ptxHinhAnh.Image = null;
             rtxtMoTa_SanPham.Text = "";
             cboTrangThai_SanPham.SelectedIndex = 0;
-            cboMaNCC.SelectedIndex = -1;
+            cboMaNCC.SelectedIndex = 0;
         }
         /// <summary>
         /// Hàm có chức năng chọn hình ảnh
@@ -345,6 +345,7 @@ namespace _9_12_QuanLyQuanCaPhe
             CacTextboxChiDoc_SanPham(false);
             CacTextboxChiDoc_ChiTietSanPham(false);
             cboMaSize.Enabled = false;
+            cboMaNCC.Enabled = false;
             flag = 2;
         }
         private void btnThemSanPham_Click(object sender, EventArgs e)
@@ -1164,7 +1165,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         try
                         {
                             int number = Convert.ToInt32(value_search);
-                            danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = {number} AND TRANGTHAI = N'Hoạt động'");
+                            danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} >= {number - 5000} AND {type_search} <= {number + 5000} AND TRANGTHAI = N'Hoạt động'");
                             if (ds_SanPham.Tables[0].Rows.Count > 0)
                             {
                                 hienthi_textbox_SanPham(ds_SanPham, 0);
@@ -1178,11 +1179,18 @@ namespace _9_12_QuanLyQuanCaPhe
                         }
                         break;
                     }
-                case "Đơn vị tính":
+                case "Mã loại sản phẩm":
                     {
-                        lblTimKiem.Text = "Nhập Đơn vị tính";
-                        type_search = "DONVITINH";
+                        lblTimKiem.Text = "Nhập Mã loại sản phẩm";
+                        type_search = "LOAISP";
                         danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
+                        break;
+                    }
+                case "Mã nhà cung cấp":
+                    {
+                        lblTimKiem.Text = "Nhập Mã nhà cung cấp";
+                        type_search = "NHACC";
+                        danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
                         break;
                     }
             }

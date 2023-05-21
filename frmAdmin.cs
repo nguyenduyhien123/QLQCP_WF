@@ -114,14 +114,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 {
                     classTong.CapNhatDuLieu($"UPDATE LICHSUDANGNHAP SET NGAYGIODANGXUAT = getdate() WHERE MANV='{account}' AND NGAYGIODANGNHAP='{ds.Tables[0].Rows[0]["NGAYGIODANGNHAP"]}'");
                 }
-                //this.FormClosed += new FormClosedEventHandler(frmAdmin_FormClosed);
-                // đóng form hiện tại
                 this.Close();
-                // tạo mới form đăng nhập và hiển thị
-                ////frmDangNhap frmDangNhap = new frmDangNhap();
-                ////frmDangNhap.Show();
-                //FormClosedEventArgs f = new FormClosedEventArgs(CloseReason.UserClosing);
-                //frmMenuNhanVien_FormClosed(sender, f);
             }
         }
 
@@ -208,8 +201,15 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 e.Cancel = true;
             }
+            else
+            {
+                ds = classTong.LayDuLieu($"SELECT TOP 1 MANV,CONVERT(varchar(23), NGAYGIODANGNHAP, 121) AS 'NGAYGIODANGNHAP' FROM LICHSUDANGNHAP WHERE MANV='{account}' ORDER BY NGAYGIODANGNHAP DESC");
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    classTong.CapNhatDuLieu($"UPDATE LICHSUDANGNHAP SET NGAYGIODANGXUAT = getdate() WHERE MANV='{account}' AND NGAYGIODANGNHAP='{ds.Tables[0].Rows[0]["NGAYGIODANGNHAP"]}'");
+                }
+            }
         }
-
         private void mnuThongKeDoanhThu_Click(object sender, EventArgs e)
         {
             frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
@@ -220,6 +220,13 @@ namespace _9_12_QuanLyQuanCaPhe
         private void mnuQuanLyDangNhap_Click(object sender, EventArgs e)
         {
             frmQuanLyDangNhap f = new frmQuanLyDangNhap();
+            f.MdiParent = this;
+            f.Show();
+        }
+
+        private void mnuThongKeDoanhThu_Click_1(object sender, EventArgs e)
+        {
+            frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
             f.MdiParent = this;
             f.Show();
         }

@@ -125,13 +125,10 @@ namespace _9_12_QuanLyQuanCaPhe
         private void frmMenuNhanVien_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Nếu người dùng ấn nút X ở form đăng nhập, thoát chương trình
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
                 ds = classTong.LayDuLieu($"SELECT TOP 1 MANV,CONVERT(varchar(23), NGAYGIODANGNHAP, 121) AS 'NGAYGIODANGNHAP' FROM LICHSUDANGNHAP WHERE MANV='{account}' ORDER BY NGAYGIODANGNHAP DESC");
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     classTong.CapNhatDuLieu($"UPDATE LICHSUDANGNHAP SET NGAYGIODANGXUAT = getdate() WHERE MANV='{account}' AND NGAYGIODANGNHAP='{ds.Tables[0].Rows[0]["NGAYGIODANGNHAP"]}'");
-                }
             }
         }
 

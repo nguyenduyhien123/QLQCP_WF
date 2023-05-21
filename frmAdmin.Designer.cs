@@ -284,7 +284,7 @@
             this.mnuThongKeDoanhThu.Name = "mnuThongKeDoanhThu";
             this.mnuThongKeDoanhThu.Size = new System.Drawing.Size(224, 26);
             this.mnuThongKeDoanhThu.Text = "Doanh thu";
-            this.mnuThongKeDoanhThu.Click += new System.EventHandler(this.mnuThongKeDoanhThu_Click);
+            this.mnuThongKeDoanhThu.Click += new System.EventHandler(this.mnuThongKeDoanhThu_Click_1);
             // 
             // tàiKhoảnToolStripMenuItem
             // 
@@ -298,14 +298,14 @@
             // mnuDoiMatKhau
             // 
             this.mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            this.mnuDoiMatKhau.Size = new System.Drawing.Size(224, 26);
+            this.mnuDoiMatKhau.Size = new System.Drawing.Size(217, 26);
             this.mnuDoiMatKhau.Text = "Đổi mật khẩu";
             this.mnuDoiMatKhau.Click += new System.EventHandler(this.mnuDoiMatKhau_Click);
             // 
             // mnuQuanLyDangNhap
             // 
             this.mnuQuanLyDangNhap.Name = "mnuQuanLyDangNhap";
-            this.mnuQuanLyDangNhap.Size = new System.Drawing.Size(224, 26);
+            this.mnuQuanLyDangNhap.Size = new System.Drawing.Size(217, 26);
             this.mnuQuanLyDangNhap.Text = "Quản lý đăng nhập";
             this.mnuQuanLyDangNhap.Click += new System.EventHandler(this.mnuQuanLyDangNhap_Click);
             // 
