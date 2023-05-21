@@ -56,6 +56,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDonBan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietHoaDonBan)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -104,9 +105,9 @@
             // btnTimKiem
             // 
             this.btnTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(891, 118);
+            this.btnTimKiem.Location = new System.Drawing.Point(880, 175);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(202, 68);
+            this.btnTimKiem.Size = new System.Drawing.Size(244, 68);
             this.btnTimKiem.TabIndex = 4;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
@@ -289,11 +290,12 @@
             // rtxtSQL
             // 
             this.rtxtSQL.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxtSQL.Location = new System.Drawing.Point(891, 216);
+            this.rtxtSQL.Location = new System.Drawing.Point(880, 249);
             this.rtxtSQL.Name = "rtxtSQL";
             this.rtxtSQL.Size = new System.Drawing.Size(821, 133);
             this.rtxtSQL.TabIndex = 7;
             this.rtxtSQL.Text = "";
+            this.rtxtSQL.Visible = false;
             // 
             // groupBox1
             // 
@@ -329,11 +331,21 @@
             this.label8.Text = "Tìm kiếm hoá đơn bán";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(877, 95);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(547, 65);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Nếu không check vào tiêu chí tìm kiếm nào mặc định là hiển thị tất cả hoá đơn";
+            // 
             // frmHoaDon_TimKiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1793, 835);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.rtxtSQL);
             this.Controls.Add(this.dtpNGAYLAPHD);
@@ -403,5 +415,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

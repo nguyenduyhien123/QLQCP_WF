@@ -230,5 +230,12 @@ namespace _9_12_QuanLyQuanCaPhe
             f.MdiParent = this;
             f.Show();
         }
+
+        private void mnuXuatHoaDonBan_Click(object sender, EventArgs e)
+        {
+            frmHoaDonBan_XuatHoaDon f = new frmHoaDonBan_XuatHoaDon();
+            f.MdiParent = this;
+            f.Show();
+        }
     }
 }

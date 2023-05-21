@@ -54,7 +54,7 @@
             this.chartThongKeHoaDonBan.Legends.Add(legend1);
             this.chartThongKeHoaDonBan.Location = new System.Drawing.Point(12, 138);
             this.chartThongKeHoaDonBan.Name = "chartThongKeHoaDonBan";
-            this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1336, 808);
+            this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1336, 663);
             this.chartThongKeHoaDonBan.TabIndex = 0;
             this.chartThongKeHoaDonBan.Text = "chart1";
             this.chartThongKeHoaDonBan.Click += new System.EventHandler(this.chartThongKeHoaDonBan_Click);
@@ -80,7 +80,7 @@
             this.grpThongTinTomTat.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpThongTinTomTat.Location = new System.Drawing.Point(1354, 138);
             this.grpThongTinTomTat.Name = "grpThongTinTomTat";
-            this.grpThongTinTomTat.Size = new System.Drawing.Size(431, 808);
+            this.grpThongTinTomTat.Size = new System.Drawing.Size(431, 663);
             this.grpThongTinTomTat.TabIndex = 1;
             this.grpThongTinTomTat.TabStop = false;
             this.grpThongTinTomTat.Text = "Thông tin tóm tắt";
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1797, 971);
+            this.ClientSize = new System.Drawing.Size(1797, 830);
             this.Controls.Add(this.grpThongTinTomTat);
             this.Controls.Add(this.chartThongKeHoaDonBan);
             this.Controls.Add(this.btnThongKe);

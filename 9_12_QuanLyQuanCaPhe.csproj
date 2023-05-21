@@ -164,6 +164,12 @@
     <Compile Include="frmHoaDonBan_TimKiem_MAKH.Designer.cs">
       <DependentUpon>frmHoaDonBan_TimKiem_MAKH.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmHoaDonBan_XuatHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHoaDonBan_XuatHoaDon.Designer.cs">
+      <DependentUpon>frmHoaDonBan_XuatHoaDon.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHoaDonNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonBan_TimKiem_MAKH.resx">
       <DependentUpon>frmHoaDonBan_TimKiem_MAKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHoaDonBan_XuatHoaDon.resx">
+      <DependentUpon>frmHoaDonBan_XuatHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHoaDonNhap.resx">
       <DependentUpon>frmHoaDonNhap.cs</DependentUpon>

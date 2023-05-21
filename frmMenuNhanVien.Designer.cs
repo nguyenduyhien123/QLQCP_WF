@@ -42,7 +42,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnLichSuDangNhap = new System.Windows.Forms.Button();
             this.btnThayDoiMatKhau = new System.Windows.Forms.Button();
-            this.btnBan = new System.Windows.Forms.Button();
             this.btnHoaDonBan = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -143,7 +142,6 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.panel2.Controls.Add(this.btnLichSuDangNhap);
             this.panel2.Controls.Add(this.btnThayDoiMatKhau);
-            this.panel2.Controls.Add(this.btnBan);
             this.panel2.Controls.Add(this.btnHoaDonBan);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 83);
@@ -157,7 +155,7 @@
             this.btnLichSuDangNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLichSuDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichSuDangNhap.ForeColor = System.Drawing.Color.White;
-            this.btnLichSuDangNhap.Location = new System.Drawing.Point(6, 218);
+            this.btnLichSuDangNhap.Location = new System.Drawing.Point(3, 180);
             this.btnLichSuDangNhap.Name = "btnLichSuDangNhap";
             this.btnLichSuDangNhap.Size = new System.Drawing.Size(229, 68);
             this.btnLichSuDangNhap.TabIndex = 0;
@@ -171,27 +169,13 @@
             this.btnThayDoiMatKhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThayDoiMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThayDoiMatKhau.ForeColor = System.Drawing.Color.White;
-            this.btnThayDoiMatKhau.Location = new System.Drawing.Point(3, 144);
+            this.btnThayDoiMatKhau.Location = new System.Drawing.Point(0, 90);
             this.btnThayDoiMatKhau.Name = "btnThayDoiMatKhau";
             this.btnThayDoiMatKhau.Size = new System.Drawing.Size(229, 68);
             this.btnThayDoiMatKhau.TabIndex = 0;
             this.btnThayDoiMatKhau.Text = "Thay đổi mật khẩu";
             this.btnThayDoiMatKhau.UseVisualStyleBackColor = false;
             this.btnThayDoiMatKhau.Click += new System.EventHandler(this.btnThayDoiMatKhau_Click);
-            // 
-            // btnBan
-            // 
-            this.btnBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.btnBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBan.ForeColor = System.Drawing.Color.White;
-            this.btnBan.Location = new System.Drawing.Point(3, 75);
-            this.btnBan.Name = "btnBan";
-            this.btnBan.Size = new System.Drawing.Size(229, 63);
-            this.btnBan.TabIndex = 0;
-            this.btnBan.Text = "Bàn";
-            this.btnBan.UseVisualStyleBackColor = false;
-            this.btnBan.Click += new System.EventHandler(this.btnBan_Click);
             // 
             // btnHoaDonBan
             // 
@@ -251,7 +235,6 @@
         private System.Windows.Forms.Label lblTaiKhoan;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnThayDoiMatKhau;
-        private System.Windows.Forms.Button btnBan;
         private System.Windows.Forms.Button btnHoaDonBan;
         private System.Windows.Forms.Button btnLichSuDangNhap;
     }

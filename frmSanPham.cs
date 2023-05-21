@@ -966,6 +966,7 @@ namespace _9_12_QuanLyQuanCaPhe
                             if (row > 0)
                             {
                                 MessageBox.Show("Thêm chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK);
+                                classTong.CapNhatDuLieu("UPDATE sanpham SET soluong = (SELECT SUM(soluong) FROM chitietsanpham WHERE chitietsanpham.masp = sanpham.masp and CHITIETSANPHAM.TRANGTHAI = 'Hoạt động' )");
                             }
                         }
                         break;
@@ -1049,6 +1050,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         if (rowCTSP > 0)
                         {
                             MessageBox.Show("Cập nhật Chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK);
+                            classTong.CapNhatDuLieu("UPDATE sanpham SET soluong = (SELECT SUM(soluong) FROM chitietsanpham WHERE chitietsanpham.masp = sanpham.masp and CHITIETSANPHAM.TRANGTHAI = 'Hoạt động' )");
                         }
                         if(flag_TimKiem)
                         {
@@ -1070,6 +1072,7 @@ namespace _9_12_QuanLyQuanCaPhe
                             if(row > 0)
                             {
                                 MessageBox.Show("Xoá sản phẩm thành công !!!", "Thông báo", MessageBoxButtons.OK);
+                                classTong.CapNhatDuLieu("UPDATE sanpham SET soluong = (SELECT SUM(soluong) FROM chitietsanpham WHERE chitietsanpham.masp = sanpham.masp and CHITIETSANPHAM.TRANGTHAI = 'Hoạt động' )");
                                 frmSanPham_Load(sender, e);
                             }
                         }
@@ -1130,9 +1133,9 @@ namespace _9_12_QuanLyQuanCaPhe
             XoaDuLieuTrongControl_ChiTietSanPham();
             danhsach_datagridview(ref ds_ChiTietSanPham, dgvDanhSachChiTietSanPham, "SELECT TOP 0 * FROM CHITIETSANPHAM");
             //
-            switch (type_search)
+            switch (cboTimKiem.SelectedIndex)
             {
-                case "Mã sản phẩm":
+                case 0:
                     {
                         lblTimKiem.Text = "Nhập Mã sản phẩm";
                         type_search = "MASP";
@@ -1145,7 +1148,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         }
                         break;
                     }
-                case "Tên sản phẩm":
+                case 1:
                     {
                         lblTimKiem.Text = "Nhập Tên sản phẩm";
                         type_search = "TENSP";
@@ -1158,14 +1161,14 @@ namespace _9_12_QuanLyQuanCaPhe
                         }
                         break;
                     }
-                case "Giá":
+                case 2:
                     {
-                        lblTimKiem.Text = "Nhập Giá";
-                        type_search = "GIA";
+                        lblTimKiem.Text = "Nhập Giá bán";
+                        type_search = "GIABAN";
                         try
                         {
                             int number = Convert.ToInt32(value_search);
-                            danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} >= {number - 5000} AND {type_search} <= {number + 5000} AND TRANGTHAI = N'Hoạt động'");
+                            danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM A, CHITIETSANPHAM B WHERE A.MASP = B.MASP and giaban >= {number - 5000} AND giaban <= {number+5000} AND A.TRANGTHAI = N'Hoạt động' and B.TRANGTHAI = N'Hoạt động'");
                             if (ds_SanPham.Tables[0].Rows.Count > 0)
                             {
                                 hienthi_textbox_SanPham(ds_SanPham, 0);
@@ -1179,14 +1182,35 @@ namespace _9_12_QuanLyQuanCaPhe
                         }
                         break;
                     }
-                case "Mã loại sản phẩm":
+                case 3:
+                    {
+                        lblTimKiem.Text = "Nhập Giá vốn";
+                        type_search = "GIAVON";
+                        try
+                        {
+                            int number = Convert.ToInt32(value_search);
+                            danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM A, CHITIETSANPHAM B WHERE A.MASP = B.MASP and giavon >= {number - 5000} AND giavon <= {number + 5000} AND A.TRANGTHAI = N'Hoạt động' and B.TRANGTHAI = N'Hoạt động'");
+                            if (ds_SanPham.Tables[0].Rows.Count > 0)
+                            {
+                                hienthi_textbox_SanPham(ds_SanPham, 0);
+                                dgvDanhSachSanPham.Rows[0].Selected = true;
+                                ChiTietSanPham_Load(vitri_SanPham, vitri_ChiTietSanPham);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        break;
+                    }
+                case 4:
                     {
                         lblTimKiem.Text = "Nhập Mã loại sản phẩm";
                         type_search = "LOAISP";
                         danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
                         break;
                     }
-                case "Mã nhà cung cấp":
+                case 5:
                     {
                         lblTimKiem.Text = "Nhập Mã nhà cung cấp";
                         type_search = "NHACC";

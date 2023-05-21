@@ -765,7 +765,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             if (lblMaHoaDonBan.Text != "" && dgvDanhSachChiTietHoaDon.RowCount > 1)
             {
-                string mahdb = lblMaHoaDonBan.Text;
+                int mahdb = int.Parse(lblMaHoaDonBan.Text);
                 // phần hoá đơn bán
                 string makh = lblMaKhachHang.Text != "" ? $"'{lblMaKhachHang.Text}'":"NULL";
                 decimal tongtienthanhtoan = Decimal.Parse(lblTongSoTienThanhToan.Text);
@@ -773,7 +773,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 string ngaylaphd = lblNgayLapHoaDon.Text;
                 string trangthai = "Đã thanh toán";
                 string ghichu = rtxtGhiChu.Text;
-                string sqlHDB = $"INSERT INTO HOADONBAN VALUES ('{mahdb}',{makh},{tongtienthanhtoan},'{manv_lap}',CONVERT(varchar(23), CONVERT(datetime, '{ngaylaphd}', 103), 121),N'{trangthai}',N'{ghichu}')";
+                string sqlHDB = $"INSERT INTO HOADONBAN VALUES ({mahdb},{makh},{tongtienthanhtoan},'{manv_lap}',CONVERT(varchar(23), CONVERT(datetime, '{ngaylaphd}', 103), 121),N'{trangthai}',N'{ghichu}')";
                 // Thực hiện lưu vào bảng HOÁ ĐƠN BÁN trong csdl
                 classTong.CapNhatDuLieu(sqlHDB);
                 for (int i = 0; i < dgvDanhSachChiTietHoaDon.RowCount - 1; i++)
@@ -795,7 +795,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     int giagiam = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[8].Value.ToString());
                     int thanhtiencuoicung = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[9].Value.ToString());
                     string trangthaiSQL = "Đã thanh toán";
-                    string sqlThanhToan = $"INSERT INTO CHITIETHDB VALUES ('{mahdb}','{masp}','{masize}',{giavon},{giaban},{soluong},{makm},{thanhtienbandau},{giagiam},{thanhtiencuoicung},N'{trangthaiSQL}')";
+                    string sqlThanhToan = $"INSERT INTO CHITIETHDB VALUES ({mahdb},'{masp}','{masize}',{giavon},{giaban},{soluong},{makm},{thanhtienbandau},{giagiam},{thanhtiencuoicung},N'{trangthaiSQL}')";
                     // Thực hiện lưu vào bảng CHI TIẾT HOÁ ĐƠN BÁN trong csdl
                     classTong.CapNhatDuLieu(sqlThanhToan);
                     // Thực hiện cập nhật số lượng sản phẩm trong bảng CHI TIẾT SẢN PHẨM
@@ -805,7 +805,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     sqlHDB = $"UPDATE HOADONBAN SET TONGTIENTHANHTOAN+={thanhtiencuoicung} WHERE MAHDB='{mahdb}'";
                 }
                 MessageBox.Show("Thanh toán hoá đơn thành công", "Thông báo", MessageBoxButtons.OK);
-                if (XuatHoaDon(mahdb))
+                if (XuatHoaDon(mahdb.ToString()))
                 {
                     MessageBox.Show("Xuất hoá đơn thành công", "Thông báo", MessageBoxButtons.OK);
 
@@ -919,6 +919,7 @@ namespace _9_12_QuanLyQuanCaPhe
             TRANGTHAI.HeaderText = "TRẠNG THÁI";
             TRANGTHAI.DataPropertyName = "TRANGTHAI"; // Chỉ định tên thuộc tính dữ liệu
             TRANGTHAI.ReadOnly = true;
+            TRANGTHAI.Visible = false;
             DataGridViewColumn GHICHU = new DataGridViewTextBoxColumn();
             GHICHU.HeaderText = "GHI CHÚ";
             GHICHU.DataPropertyName = "GHICHU"; // Chỉ định tên thuộc tính dữ liệu
@@ -1049,8 +1050,8 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void lblTongSoTienThanhToan_TextChanged(object sender, EventArgs e)
         {
-            string contentQR = $"Mã hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[0].Value}\nTổng tiền thanh toán: {dgvDanhSachHoaDon.Rows[0].Cells[2].Value}\nMã khách hàng: {dgvDanhSachHoaDon.Rows[0].Cells[1].Value}\nNhân viên lập: {dgvDanhSachHoaDon.Rows[0].Cells[3].Value}\nNgày lập hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[4].Value}\nGhi chú: {dgvDanhSachHoaDon.Rows[0].Cells[6].Value}";
-            TaoQR(contentQR, ptxMaQR);
+            //string contentQR = $"Mã hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[0].Value}\nTổng tiền thanh toán: {dgvDanhSachHoaDon.Rows[0].Cells[2].Value}\nMã khách hàng: {dgvDanhSachHoaDon.Rows[0].Cells[1].Value}\nNhân viên lập: {dgvDanhSachHoaDon.Rows[0].Cells[3].Value}\nNgày lập hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[4].Value}\nGhi chú: {dgvDanhSachHoaDon.Rows[0].Cells[6].Value}";
+            //TaoQR(contentQR, ptxMaQR);
         }
 
         private void lblMaNhanVienLap_Click(object sender, EventArgs e)
