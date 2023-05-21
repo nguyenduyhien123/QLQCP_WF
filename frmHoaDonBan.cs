@@ -790,11 +790,12 @@ namespace _9_12_QuanLyQuanCaPhe
                     int giaban = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[4].Value.ToString());
                     int soluong = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[5].Value.ToString());
                     string makm = dgvDanhSachChiTietHoaDon.Rows[i].Cells[6].Value.ToString();
+                    makm = makm != "" ? $"'{makm}'" : "NULL";
                     int thanhtienbandau = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[7].Value.ToString());
                     int giagiam = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[8].Value.ToString());
                     int thanhtiencuoicung = Convert.ToInt32(dgvDanhSachChiTietHoaDon.Rows[i].Cells[9].Value.ToString());
                     string trangthaiSQL = "Đã thanh toán";
-                    string sqlThanhToan = $"INSERT INTO CHITIETHDB VALUES ('{mahdb}','{masp}','{masize}',{giavon},{giaban},{soluong},'{makm}',{thanhtienbandau},{giagiam},{thanhtiencuoicung},N'{trangthaiSQL}')";
+                    string sqlThanhToan = $"INSERT INTO CHITIETHDB VALUES ('{mahdb}','{masp}','{masize}',{giavon},{giaban},{soluong},{makm},{thanhtienbandau},{giagiam},{thanhtiencuoicung},N'{trangthaiSQL}')";
                     // Thực hiện lưu vào bảng CHI TIẾT HOÁ ĐƠN BÁN trong csdl
                     classTong.CapNhatDuLieu(sqlThanhToan);
                     // Thực hiện cập nhật số lượng sản phẩm trong bảng CHI TIẾT SẢN PHẨM
@@ -833,7 +834,7 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         private void dgvDanhSachChiTietHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1 && e.RowIndex >= 0 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1)
+            if (e.ColumnIndex == 5 && e.RowIndex < dgvDanhSachChiTietHoaDon.Rows.Count - 1 && e.RowIndex >= 0)
                 {
                 int hang = e.RowIndex;
                     // Lấy vị trí( hàng đã chọn)
@@ -859,6 +860,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         string masp = dgvDanhSachChiTietHoaDon.Rows[i].Cells[1].Value.ToString();
                         string masize = dgvDanhSachChiTietHoaDon.Rows[i].Cells[2].Value.ToString();
                         string makm = dgvDanhSachChiTietHoaDon.Rows[i].Cells[6].Value.ToString();
+                        
                         if (makm != "")
                         {
                             DataSet dsKM = new DataSet();
@@ -874,7 +876,7 @@ namespace _9_12_QuanLyQuanCaPhe
                             }    
                         }    
                         }
-                    thanhtiencuoicung = thanhtienbandau - sotiengiam;
+                        thanhtiencuoicung = thanhtienbandau - sotiengiam;
                         dgvDanhSachChiTietHoaDon.Rows[i].Cells[9].Value = thanhtiencuoicung.ToString() ;
                         tong += thanhtiencuoicung;
                     }
