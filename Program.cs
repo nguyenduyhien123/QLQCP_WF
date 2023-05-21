@@ -17,8 +17,8 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //frmDangNhap frmDangNhap = new frmDangNhap();
-            //Application.Run(frmDangNhap);
+            frmDangNhap frmDangNhap = new frmDangNhap();
+            Application.Run(frmDangNhap);
             //frmSanPham frmSanPham = new frmSanPham();
             //Application.Run(frmSanPham);
             //frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV3");
@@ -35,8 +35,8 @@ namespace _9_12_QuanLyQuanCaPhe
             //Application.Run(f);
             //frmQuanLyDangNhap frmQuanLyDangNhap = new frmQuanLyDangNhap();
             //Application.Run(frmQuanLyDangNhap);
-            frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
-            Application.Run(f);
+            //frmHoaDonBan_ThongKeBaoCao f = new frmHoaDonBan_ThongKeBaoCao();
+            //Application.Run(f);
         }
     }
 }

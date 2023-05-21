@@ -941,7 +941,7 @@ namespace _9_12_QuanLyQuanCaPhe
                             string mancc = dgvDanhSachSanPham.Rows[i].Cells[6].Value.ToString();
                             string trangthai = dgvDanhSachSanPham.Rows[i].Cells[7].Value.ToString();
                             // Truy vấn SQL
-                            string sqlSP = $"INSERT INTO SANPHAM VALUES ('{masp}',N'{tensp}',{soluong},N'{link_img}',N'{mota}','{loaisp}','{mancc}',N'{trangthai}')";
+                            string sqlSP = $"INSERT INTO SANPHAM VALUES ('{masp}',N'{tensp}',{soluong},N'{link_img}',N'{mota}','{mancc}','{loaisp}',N'{trangthai}')";
                             int row = classTong.CapNhatDuLieu(sqlSP);
                             if (row > 0)
                             {
