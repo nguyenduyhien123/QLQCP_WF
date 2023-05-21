@@ -15,6 +15,7 @@ namespace _9_12_QuanLyQuanCaPhe
     {
         _9_12_QuanLyQuanCaPhe classTong= new _9_12_QuanLyQuanCaPhe();
         DataSet ds= new DataSet();
+        DataSet ds1= new DataSet();
         public frmHoaDonBan_ThongKeBaoCao()
         {
             InitializeComponent();
@@ -29,97 +30,7 @@ namespace _9_12_QuanLyQuanCaPhe
         private void frmHoaDonBan_TimKiem_Load(object sender, EventArgs e)
         {
             cboTieuChiThongKe.SelectedIndex = 0;
-            ds = classTong.LayDuLieu(" SELECT MONTH(NGAYLAPHD) AS 'THANG', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  GROUP BY MONTH(NGAYLAPHD)");
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                int doanhthucaonhat = Convert.ToInt32(ds.Tables[0].Compute("MAX(TIENBAN)", ""));
-                int tienloinhieunhat = Convert.ToInt32(ds.Tables[0].Compute("MAX(TIENCHENHLECH)", ""));
-                List<int> thangdoanhthucaonhat = new List<int>();
-                List<int> thangtienloinhieunhat = new List<int>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count;i++)
-                {
-                    if((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"] == tienloinhieunhat)
-                    {
-                        thangdoanhthucaonhat.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    }
-                    if ((int)ds.Tables[0].Rows[i]["TIENBAN"] == doanhthucaonhat)
-                    {
-                        thangtienloinhieunhat.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    }    
-                }
-                lblThangCoLoiNhieuNhat.Text = "Tháng ";
-                lblThangDoanhThuCaoNhat.Text = "Tháng ";
-                for (int i = 0;i< thangtienloinhieunhat.Count;i++)
-                {
-                    lblThangCoLoiNhieuNhat.Text += thangtienloinhieunhat[i] + " ";
-                }
-                for (int i = 0; i < thangdoanhthucaonhat.Count; i++)
-                {
-                    lblThangDoanhThuCaoNhat.Text += thangdoanhthucaonhat[i]+ " ";
-                }
-                List<int> listThang = new List<int>();
-                List<int> listTienVon = new List<int>();
-                List<int> listTienBan = new List<int>();
-                List<int> listTienChenhLech = new List<int>();
-
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    listThang.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    listTienVon.Add((int)ds.Tables[0].Rows[i]["TIENVON"]);
-                    listTienBan.Add((int)ds.Tables[0].Rows[i]["TIENBAN"]);
-                    listTienChenhLech.Add((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"]);
-                }
-                List<string> listChuoiThang = new List<string>();
-                for (int i = 0; i < listThang.Count; i++)
-                {
-                    listChuoiThang.Add(ChuoiThang(listThang[i]));
-                }
-                //
-                Series newSeries1 = new Series("Tiền vốn");
-                newSeries1.Points.DataBindXY(listChuoiThang, listTienVon);
-                chartThongKeHoaDonBan.Series.Add(newSeries1);
-                Legend newLegends1 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends1);
-                chartThongKeHoaDonBan.Series[0].ToolTip = $"Tiền vốn: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[0].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[0].MaximumAutoSize = 100;
-                //
-                Series newSeries2 = new Series("Tiền bán");
-                newSeries2.Points.DataBindXY(listChuoiThang, listTienBan);
-                chartThongKeHoaDonBan.Series.Add(newSeries2);
-                Legend newLegends2 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends2);
-                chartThongKeHoaDonBan.Series[1].ToolTip = $"Tiền bán: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[1].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[1].MaximumAutoSize = 100;
-                //
-                Series newSeries3 = new Series("Tiền chênh lệch");
-                newSeries3.Points.DataBindXY(listChuoiThang, listTienChenhLech);
-                chartThongKeHoaDonBan.Series.Add(newSeries3);
-                Legend newLegends3 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends3);
-                chartThongKeHoaDonBan.Series[2].ToolTip = $"Tiền chênh lệch: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[2].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[2].MaximumAutoSize = 100;
-                //
-                //Series newSeries4 = new Series("Doanh thu quảng cáo");
-                //newSeries4.Points.DataBindXY(months, new double[12]);
-                //chartThongKeHoaDonBan.Series.Add(newSeries4);
-                //chartThongKeHoaDonBan.Series[0].Points.DataBindXY(listChuoiThang, listTienVon);
-                //chartThongKeHoaDonBan.Series[1].Points.DataBindXY(listChuoiThang, listTienBan);
-                //chartThongKeHoaDonBan.Series[2].Points.DataBindXY(listChuoiThang, listTienChenhLech);
-                //chartThongKeHoaDonBan.Series[0].Name = "Doanh thu bán hàng";
-                //chartThongKeHoaDonBan.Series[1].Name = "Doanh thu dịch vụ";
-                //chartThongKeHoaDonBan.Series[2].Name = "Doanh thu quảng cáo";
-                chartThongKeHoaDonBan.ChartAreas[0].AxisX.Interval = 1;
-                chartThongKeHoaDonBan.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
-                chartThongKeHoaDonBan.Titles.Add("Biểu đồ doanh thu theo tháng");
-                if (chartThongKeHoaDonBan.Titles.Count > 0)
-                {
-                    chartThongKeHoaDonBan.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold | FontStyle.Italic);
-                }
-
-            }
+            VeBieuDo3Cot();
         }
 
         private void chartThongKeHoaDonBan_Click(object sender, EventArgs e)
@@ -158,98 +69,9 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            cboTieuChiThongKe.SelectedIndex = 0;
-            ds = classTong.LayDuLieu(" SELECT MONTH(NGAYLAPHD) AS 'THANG', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  GROUP BY MONTH(NGAYLAPHD)");
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                int doanhthucaonhat = Convert.ToInt32(ds.Tables[0].Compute("MAX(TIENBAN)", ""));
-                int tienloinhieunhat = Convert.ToInt32(ds.Tables[0].Compute("MAX(TIENCHENHLECH)", ""));
-                List<int> thangdoanhthucaonhat = new List<int>();
-                List<int> thangtienloinhieunhat = new List<int>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    if ((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"] == tienloinhieunhat)
-                    {
-                        thangdoanhthucaonhat.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    }
-                    if ((int)ds.Tables[0].Rows[i]["TIENBAN"] == doanhthucaonhat)
-                    {
-                        thangtienloinhieunhat.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    }
-                }
-                lblThangCoLoiNhieuNhat.Text = "Tháng ";
-                lblThangDoanhThuCaoNhat.Text = "Tháng ";
-                for (int i = 0; i < thangtienloinhieunhat.Count; i++)
-                {
-                    lblThangCoLoiNhieuNhat.Text += thangtienloinhieunhat[i] + " ";
-                }
-                for (int i = 0; i < thangdoanhthucaonhat.Count; i++)
-                {
-                    lblThangDoanhThuCaoNhat.Text += thangdoanhthucaonhat[i] + " ";
-                }
-                List<int> listThang = new List<int>();
-                List<int> listTienVon = new List<int>();
-                List<int> listTienBan = new List<int>();
-                List<int> listTienChenhLech = new List<int>();
-
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    listThang.Add((int)ds.Tables[0].Rows[i]["THANG"]);
-                    listTienVon.Add((int)ds.Tables[0].Rows[i]["TIENVON"]);
-                    listTienBan.Add((int)ds.Tables[0].Rows[i]["TIENBAN"]);
-                    listTienChenhLech.Add((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"]);
-                }
-                List<string> listChuoiThang = new List<string>();
-                for (int i = 0; i < listThang.Count; i++)
-                {
-                    listChuoiThang.Add(ChuoiThang(listThang[i]));
-                }
-                //
-                Series newSeries1 = new Series("Tiền vốn");
-                newSeries1.Points.DataBindXY(listChuoiThang, listTienVon);
-                chartThongKeHoaDonBan.Series.Add(newSeries1);
-                Legend newLegends1 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends1);
-                chartThongKeHoaDonBan.Series[0].ToolTip = $"Tiền vốn: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[0].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[0].MaximumAutoSize = 100;
-                //
-                Series newSeries2 = new Series("Tiền bán");
-                newSeries2.Points.DataBindXY(listChuoiThang, listTienBan);
-                chartThongKeHoaDonBan.Series.Add(newSeries2);
-                Legend newLegends2 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends2);
-                chartThongKeHoaDonBan.Series[1].ToolTip = $"Tiền bán: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[1].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[1].MaximumAutoSize = 100;
-                //
-                Series newSeries3 = new Series("Tiền chênh lệch");
-                newSeries3.Points.DataBindXY(listChuoiThang, listTienChenhLech);
-                chartThongKeHoaDonBan.Series.Add(newSeries3);
-                Legend newLegends3 = new Legend();
-                chartThongKeHoaDonBan.Legends.Add(newLegends3);
-                chartThongKeHoaDonBan.Series[2].ToolTip = $"Tiền chênh lệch: #VALX : #VAL VNĐ";
-                chartThongKeHoaDonBan.Legends[2].Font = new Font("Arial", 12f, FontStyle.Regular);
-                chartThongKeHoaDonBan.Legends[2].MaximumAutoSize = 100;
-                //
-                //Series newSeries4 = new Series("Doanh thu quảng cáo");
-                //newSeries4.Points.DataBindXY(months, new double[12]);
-                //chartThongKeHoaDonBan.Series.Add(newSeries4);
-                //chartThongKeHoaDonBan.Series[0].Points.DataBindXY(listChuoiThang, listTienVon);
-                //chartThongKeHoaDonBan.Series[1].Points.DataBindXY(listChuoiThang, listTienBan);
-                //chartThongKeHoaDonBan.Series[2].Points.DataBindXY(listChuoiThang, listTienChenhLech);
-                //chartThongKeHoaDonBan.Series[0].Name = "Doanh thu bán hàng";
-                //chartThongKeHoaDonBan.Series[1].Name = "Doanh thu dịch vụ";
-                //chartThongKeHoaDonBan.Series[2].Name = "Doanh thu quảng cáo";
-                chartThongKeHoaDonBan.ChartAreas[0].AxisX.Interval = 1;
-                chartThongKeHoaDonBan.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
-                chartThongKeHoaDonBan.Titles.Add("Biểu đồ doanh thu theo ngày trong tháng");
-                if (chartThongKeHoaDonBan.Titles.Count > 0)
-                {
-                    chartThongKeHoaDonBan.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold | FontStyle.Italic);
-                }
-            }
-            }
+            VeBieuDo3Cot();
+          
+         }
 
         private void frmHoaDonBan_ThongKeBaoCao_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -260,5 +82,262 @@ namespace _9_12_QuanLyQuanCaPhe
                 e.Cancel = true;
             }
         }
+        void VeBieuDo3Cot()
+        {
+            string sql1 = "";
+            string sql2 = "";
+            int select = cboTieuChiThongKe.SelectedIndex;
+            //chartThongKeHoaDonBan.ChartAreas.Clear();
+            chartThongKeHoaDonBan.Series.Clear();
+            chartThongKeHoaDonBan.Legends.Clear();
+            chartThongKeHoaDonBan.Titles.Clear();
+            switch (select)
+            {
+                case 0:
+
+                    {
+                        DateTime dt = dtpThoiGianThongKe.Value;
+                        int ngay = dt.Day;
+                        int thang = dt.Month;
+                        int nam = dt.Year;
+                        // Lấy về các doanh thu các năm
+                        sql1 = $"SELECT YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB GROUP BY YEAR(NGAYLAPHD)";
+                        // Lấy năm có doanh thu lớn nhất
+                        sql2 = $"SELECT YEAR(NGAYLAPHD) AS 'NAM',CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON',CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB GROUP BY YEAR(NGAYLAPHD) HAVING CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) >=( SELECT TOP 1 CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  GROUP BY YEAR(NGAYLAPHD)ORDER BY 'TIENCHENHLECH' DESC)";
+                        ds = classTong.LayDuLieu(sql1);
+                        ds1 = classTong.LayDuLieu(sql2);
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            lblDoanhThuCaoNhat.Text = "Năm có doanh thu cao nhất";
+                            lblThangCoLoiNhieuNhat.Text = "Năm có lời cao nhất";
+                            lblThangCoLoiNhieuNhat.Text = "Năm ";
+                            lblThangDoanhThuCaoNhat.Text = "Năm ";
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["NAM"] + " ";
+                            }
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangDoanhThuCaoNhat.Text += ds1.Tables[0].Rows[i]["NAM"] + " ";
+                            }
+                            List<string> listNam = new List<string>();
+                            List<int> listTienVon = new List<int>();
+                            List<int> listTienBan = new List<int>();
+                            List<int> listTienChenhLech = new List<int>();
+
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                listNam.Add("Năm "+(int)ds.Tables[0].Rows[i]["NAM"]);
+                                listTienVon.Add((int)ds.Tables[0].Rows[i]["TIENVON"]);
+                                listTienBan.Add((int)ds.Tables[0].Rows[i]["TIENBAN"]);
+                                listTienChenhLech.Add((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"]);
+                            }
+                            //
+                            Series newSeries1 = new Series("Tiền vốn");
+                            newSeries1.Points.DataBindXY(listNam, listTienVon);
+                            chartThongKeHoaDonBan.Series.Add(newSeries1);
+                            Legend newLegends1 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends1);
+                            chartThongKeHoaDonBan.Series[0].ToolTip = $"Tiền vốn: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[0].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[0].MaximumAutoSize = 100;
+                            //
+                            Series newSeries2 = new Series("Tiền bán");
+                            newSeries2.Points.DataBindXY(listNam, listTienBan);
+                            chartThongKeHoaDonBan.Series.Add(newSeries2);
+                            Legend newLegends2 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends2);
+                            chartThongKeHoaDonBan.Series[1].ToolTip = $"Tiền bán: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[1].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[1].MaximumAutoSize = 100;
+                            //
+                            Series newSeries3 = new Series("Tiền chênh lệch");
+                            newSeries3.Points.DataBindXY(listNam, listTienChenhLech);
+                            chartThongKeHoaDonBan.Series.Add(newSeries3);
+                            Legend newLegends3 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends3);
+                            chartThongKeHoaDonBan.Series[2].ToolTip = $"Tiền chênh lệch: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[2].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[2].MaximumAutoSize = 100;
+                            //
+                            if (chartThongKeHoaDonBan.ChartAreas.Count > 0)
+                            {
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisX.Interval = 1;
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
+                                chartThongKeHoaDonBan.Titles.Add($"Biểu đồ doanh thu theo các năm");
+                                if (chartThongKeHoaDonBan.Titles.Count > 0)
+                                {
+                                    chartThongKeHoaDonBan.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold | FontStyle.Italic);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        DateTime dt = dtpThoiGianThongKe.Value;
+                        int ngay = dt.Day;
+                        int thang = dt.Month;
+                        int nam = dt.Year;
+                        // Lấy ra doanh thu các tháng trong năm
+                        sql1 = $"  SELECT MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam}  GROUP BY MONTH(NGAYLAPHD),YEAR(NGAYLAPHD)";
+                        // Lấy ra doanh thu các tháng cao nhất trong năm
+                        sql2 = $"SELECT MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM',CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON',CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD)= {nam} GROUP BY MONTH(NGAYLAPHD),YEAR(NGAYLAPHD) HAVING CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) >=(SELECT TOP 1 CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD)= {nam}  GROUP BY MONTH(NGAYLAPHD),YEAR(NGAYLAPHD)ORDER BY 'TIENCHENHLECH' DESC)";
+                        ds = classTong.LayDuLieu(sql1);
+                        ds1 = classTong.LayDuLieu(sql2);
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            lblDoanhThuCaoNhat.Text = $"Tháng trong năm {nam} có doanh thu cao nhất";
+                            lblCoLoiNhieuNhat.Text = $"Tháng trong năm {nam} có lời cao nhất";
+                            lblThangCoLoiNhieuNhat.Text = "Tháng ";
+                            lblThangDoanhThuCaoNhat.Text = "Tháng ";
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["THANG"] + " ";
+                            }
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangDoanhThuCaoNhat.Text += ds1.Tables[0].Rows[i]["THANG"] + " ";
+                            }
+                            List<int> listThang = new List<int>();
+                            List<int> listTienVon = new List<int>();
+                            List<int> listTienBan = new List<int>();
+                            List<int> listTienChenhLech = new List<int>();
+
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                listThang.Add((int)ds.Tables[0].Rows[i]["THANG"]);
+                                listTienVon.Add((int)ds.Tables[0].Rows[i]["TIENVON"]);
+                                listTienBan.Add((int)ds.Tables[0].Rows[i]["TIENBAN"]);
+                                listTienChenhLech.Add((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"]);
+                            }
+                            List<string> listChuoiThang = new List<string>();
+                            for (int i = 0; i < listThang.Count; i++)
+                            {
+                                listChuoiThang.Add(ChuoiThang(listThang[i]));
+                            }
+                            //
+                            Series newSeries1 = new Series("Tiền vốn");
+                            newSeries1.Points.DataBindXY(listChuoiThang, listTienVon);
+                            chartThongKeHoaDonBan.Series.Add(newSeries1);
+                            Legend newLegends1 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends1);
+                            chartThongKeHoaDonBan.Series[0].ToolTip = $"Tiền vốn: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[0].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[0].MaximumAutoSize = 100;
+                            //
+                            Series newSeries2 = new Series("Tiền bán");
+                            newSeries2.Points.DataBindXY(listChuoiThang, listTienBan);
+                            chartThongKeHoaDonBan.Series.Add(newSeries2);
+                            Legend newLegends2 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends2);
+                            chartThongKeHoaDonBan.Series[1].ToolTip = $"Tiền bán: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[1].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[1].MaximumAutoSize = 100;
+                            //
+                            Series newSeries3 = new Series("Tiền chênh lệch");
+                            newSeries3.Points.DataBindXY(listChuoiThang, listTienChenhLech);
+                            chartThongKeHoaDonBan.Series.Add(newSeries3);
+                            Legend newLegends3 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends3);
+                            chartThongKeHoaDonBan.Series[2].ToolTip = $"Tiền chênh lệch: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[2].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[2].MaximumAutoSize = 100;
+                            //
+                            if (chartThongKeHoaDonBan.ChartAreas.Count > 0)
+                            {
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisX.Interval = 1;
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
+                                chartThongKeHoaDonBan.Titles.Add($"Biểu đồ doanh thu trong năm {nam}");
+                                if (chartThongKeHoaDonBan.Titles.Count > 0)
+                                {
+                                    chartThongKeHoaDonBan.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold | FontStyle.Italic);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        DateTime dt = dtpThoiGianThongKe.Value;
+                        int ngay = dt.Day;
+                        int thang = dt.Month;
+                        int nam = dt.Year;
+                        sql1 = $"SELECT DAY(NGAYLAPHD) AS 'NGAY',MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang} GROUP BY DAY(NGAYLAPHD),MONTH(NGAYLAPHD),YEAR(NGAYLAPHD)";
+                        sql2 = $"SELECT DAY(NGAYLAPHD) AS 'NGAY',MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM',CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON',CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang} GROUP BY DAY(NGAYLAPHD),MONTH(NGAYLAPHD),YEAR(NGAYLAPHD) HAVING CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) >=(SELECT TOP 1 CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang}  GROUP BY DAY(NGAYLAPHD) ORDER BY 'TIENCHENHLECH' DESC)";
+                        ds = classTong.LayDuLieu(sql1);
+                        ds1 = classTong.LayDuLieu(sql2);
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            lblDoanhThuCaoNhat.Text = $"Ngày trong tháng {thang}/{nam} có doanh thu cao nhất";
+                            lblCoLoiNhieuNhat.Text = $"Ngày trong tháng {thang}/{nam} có lời cao nhất";
+                            lblThangCoLoiNhieuNhat.Text = "Ngày ";
+                            lblThangDoanhThuCaoNhat.Text = "Ngày ";
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["NGAY"] + " ";
+                            }
+                            for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                            {
+                                lblThangDoanhThuCaoNhat.Text += ds1.Tables[0].Rows[i]["NGAY"] + " ";
+                            }
+                            List<string> listNgay = new List<string>();
+                            List<int> listTienVon = new List<int>();
+                            List<int> listTienBan = new List<int>();
+                            List<int> listTienChenhLech = new List<int>();
+
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                listNgay.Add("Ngày "+(int)ds.Tables[0].Rows[i]["NGAY"]);
+                                listTienVon.Add((int)ds.Tables[0].Rows[i]["TIENVON"]);
+                                listTienBan.Add((int)ds.Tables[0].Rows[i]["TIENBAN"]);
+                                listTienChenhLech.Add((int)ds.Tables[0].Rows[i]["TIENCHENHLECH"]);
+                            }
+                            //
+                            Series newSeries1 = new Series("Tiền vốn");
+                            newSeries1.Points.DataBindXY(listNgay, listTienVon);
+                            chartThongKeHoaDonBan.Series.Add(newSeries1);
+                            Legend newLegends1 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends1);
+                            chartThongKeHoaDonBan.Series[0].ToolTip = $"Tiền vốn: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[0].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[0].MaximumAutoSize = 100;
+                            //
+                            Series newSeries2 = new Series("Tiền bán");
+                            newSeries2.Points.DataBindXY(listNgay, listTienBan);
+                            chartThongKeHoaDonBan.Series.Add(newSeries2);
+                            Legend newLegends2 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends2);
+                            chartThongKeHoaDonBan.Series[1].ToolTip = $"Tiền bán: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[1].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[1].MaximumAutoSize = 100;
+                            //
+                            Series newSeries3 = new Series("Tiền chênh lệch");
+                            newSeries3.Points.DataBindXY(listNgay, listTienChenhLech);
+                            chartThongKeHoaDonBan.Series.Add(newSeries3);
+                            Legend newLegends3 = new Legend();
+                            chartThongKeHoaDonBan.Legends.Add(newLegends3);
+                            chartThongKeHoaDonBan.Series[2].ToolTip = $"Tiền chênh lệch: #VALX : #VAL VNĐ";
+                            chartThongKeHoaDonBan.Legends[2].Font = new Font("Arial", 12f, FontStyle.Regular);
+                            chartThongKeHoaDonBan.Legends[2].MaximumAutoSize = 100;
+                            //
+                            if (chartThongKeHoaDonBan.ChartAreas.Count > 0)
+                            {
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisX.Interval = 1;
+                                chartThongKeHoaDonBan.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
+                                chartThongKeHoaDonBan.Titles.Add($"Biểu đồ doanh thu trong tháng {thang}/{nam}");
+                                if (chartThongKeHoaDonBan.Titles.Count > 0)
+                                {
+                                    chartThongKeHoaDonBan.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold | FontStyle.Italic);
+                                }
+                            }
+                        }
+
+                            break;
+            }
+            }    
+             
+          
+            }
+        }
     }
-}

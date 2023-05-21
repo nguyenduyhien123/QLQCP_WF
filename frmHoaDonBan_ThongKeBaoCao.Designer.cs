@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.chartThongKeHoaDonBan = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpThongTinTomTat = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblCoLoiNhieuNhat = new System.Windows.Forms.Label();
             this.lblThangDoanhThuCaoNhat = new System.Windows.Forms.Label();
             this.lblThangCoLoiNhieuNhat = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblDoanhThuCaoNhat = new System.Windows.Forms.Label();
             this.cboTieuChiThongKe = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpThoiGianThongKe = new System.Windows.Forms.DateTimePicker();
@@ -48,13 +48,13 @@
             // 
             // chartThongKeHoaDonBan
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartThongKeHoaDonBan.Legends.Add(legend4);
-            this.chartThongKeHoaDonBan.Location = new System.Drawing.Point(12, 9);
+            chartArea1.Name = "ChartArea1";
+            this.chartThongKeHoaDonBan.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartThongKeHoaDonBan.Legends.Add(legend1);
+            this.chartThongKeHoaDonBan.Location = new System.Drawing.Point(12, 138);
             this.chartThongKeHoaDonBan.Name = "chartThongKeHoaDonBan";
-            this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1204, 734);
+            this.chartThongKeHoaDonBan.Size = new System.Drawing.Size(1336, 808);
             this.chartThongKeHoaDonBan.TabIndex = 0;
             this.chartThongKeHoaDonBan.Text = "chart1";
             this.chartThongKeHoaDonBan.Click += new System.EventHandler(this.chartThongKeHoaDonBan_Click);
@@ -73,33 +73,35 @@
             // grpThongTinTomTat
             // 
             this.grpThongTinTomTat.BackColor = System.Drawing.Color.White;
-            this.grpThongTinTomTat.Controls.Add(this.label4);
+            this.grpThongTinTomTat.Controls.Add(this.lblCoLoiNhieuNhat);
             this.grpThongTinTomTat.Controls.Add(this.lblThangDoanhThuCaoNhat);
             this.grpThongTinTomTat.Controls.Add(this.lblThangCoLoiNhieuNhat);
-            this.grpThongTinTomTat.Controls.Add(this.label1);
+            this.grpThongTinTomTat.Controls.Add(this.lblDoanhThuCaoNhat);
             this.grpThongTinTomTat.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpThongTinTomTat.Location = new System.Drawing.Point(1222, 9);
+            this.grpThongTinTomTat.Location = new System.Drawing.Point(1354, 138);
             this.grpThongTinTomTat.Name = "grpThongTinTomTat";
-            this.grpThongTinTomTat.Size = new System.Drawing.Size(515, 734);
+            this.grpThongTinTomTat.Size = new System.Drawing.Size(431, 808);
             this.grpThongTinTomTat.TabIndex = 1;
             this.grpThongTinTomTat.TabStop = false;
             this.grpThongTinTomTat.Text = "Thông tin tóm tắt";
             // 
-            // label4
+            // lblCoLoiNhieuNhat
             // 
-            this.label4.Location = new System.Drawing.Point(18, 158);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(441, 61);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Tháng có lời nhiều nhất";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCoLoiNhieuNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCoLoiNhieuNhat.Location = new System.Drawing.Point(7, 191);
+            this.lblCoLoiNhieuNhat.Name = "lblCoLoiNhieuNhat";
+            this.lblCoLoiNhieuNhat.Size = new System.Drawing.Size(394, 76);
+            this.lblCoLoiNhieuNhat.TabIndex = 0;
+            this.lblCoLoiNhieuNhat.Text = "Tháng có lời nhiều nhất";
+            this.lblCoLoiNhieuNhat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblThangDoanhThuCaoNhat
             // 
             this.lblThangDoanhThuCaoNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lblThangDoanhThuCaoNhat.Location = new System.Drawing.Point(18, 97);
+            this.lblThangDoanhThuCaoNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThangDoanhThuCaoNhat.Location = new System.Drawing.Point(5, 130);
             this.lblThangDoanhThuCaoNhat.Name = "lblThangDoanhThuCaoNhat";
-            this.lblThangDoanhThuCaoNhat.Size = new System.Drawing.Size(455, 61);
+            this.lblThangDoanhThuCaoNhat.Size = new System.Drawing.Size(408, 61);
             this.lblThangDoanhThuCaoNhat.TabIndex = 0;
             this.lblThangDoanhThuCaoNhat.Text = "Tháng ...";
             this.lblThangDoanhThuCaoNhat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -107,21 +109,23 @@
             // lblThangCoLoiNhieuNhat
             // 
             this.lblThangCoLoiNhieuNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lblThangCoLoiNhieuNhat.Location = new System.Drawing.Point(18, 219);
+            this.lblThangCoLoiNhieuNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThangCoLoiNhieuNhat.Location = new System.Drawing.Point(6, 276);
             this.lblThangCoLoiNhieuNhat.Name = "lblThangCoLoiNhieuNhat";
-            this.lblThangCoLoiNhieuNhat.Size = new System.Drawing.Size(455, 61);
+            this.lblThangCoLoiNhieuNhat.Size = new System.Drawing.Size(408, 61);
             this.lblThangCoLoiNhieuNhat.TabIndex = 0;
             this.lblThangCoLoiNhieuNhat.Text = "Tháng ...";
             this.lblThangCoLoiNhieuNhat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lblDoanhThuCaoNhat
             // 
-            this.label1.Location = new System.Drawing.Point(18, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(441, 61);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tháng có doanh thu cao nhất";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDoanhThuCaoNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDoanhThuCaoNhat.Location = new System.Drawing.Point(7, 34);
+            this.lblDoanhThuCaoNhat.Name = "lblDoanhThuCaoNhat";
+            this.lblDoanhThuCaoNhat.Size = new System.Drawing.Size(394, 85);
+            this.lblDoanhThuCaoNhat.TabIndex = 0;
+            this.lblDoanhThuCaoNhat.Text = "Tháng có doanh thu cao nhất";
+            this.lblDoanhThuCaoNhat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cboTieuChiThongKe
             // 
@@ -136,7 +140,6 @@
             this.cboTieuChiThongKe.Name = "cboTieuChiThongKe";
             this.cboTieuChiThongKe.Size = new System.Drawing.Size(852, 50);
             this.cboTieuChiThongKe.TabIndex = 2;
-            this.cboTieuChiThongKe.Visible = false;
             this.cboTieuChiThongKe.SelectedIndexChanged += new System.EventHandler(this.cboTieuChiThongKe_SelectedIndexChanged);
             // 
             // label2
@@ -147,7 +150,6 @@
             this.label2.Size = new System.Drawing.Size(538, 54);
             this.label2.TabIndex = 3;
             this.label2.Text = "Chọn tiêu chí thống kê";
-            this.label2.Visible = false;
             // 
             // dtpThoiGianThongKe
             // 
@@ -158,7 +160,6 @@
             this.dtpThoiGianThongKe.Name = "dtpThoiGianThongKe";
             this.dtpThoiGianThongKe.Size = new System.Drawing.Size(268, 49);
             this.dtpThoiGianThongKe.TabIndex = 4;
-            this.dtpThoiGianThongKe.Visible = false;
             this.dtpThoiGianThongKe.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpThoiGianThongKe_KeyDown);
             // 
             // btnThongKe
@@ -170,14 +171,13 @@
             this.btnThongKe.TabIndex = 5;
             this.btnThongKe.Text = "Thống kê";
             this.btnThongKe.UseVisualStyleBackColor = true;
-            this.btnThongKe.Visible = false;
             this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
             // 
             // frmHoaDonBan_ThongKeBaoCao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1749, 935);
+            this.ClientSize = new System.Drawing.Size(1797, 971);
             this.Controls.Add(this.grpThongTinTomTat);
             this.Controls.Add(this.chartThongKeHoaDonBan);
             this.Controls.Add(this.btnThongKe);
@@ -202,10 +202,10 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartThongKeHoaDonBan;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox grpThongTinTomTat;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCoLoiNhieuNhat;
         private System.Windows.Forms.Label lblThangDoanhThuCaoNhat;
         private System.Windows.Forms.Label lblThangCoLoiNhieuNhat;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblDoanhThuCaoNhat;
         private System.Windows.Forms.ComboBox cboTieuChiThongKe;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpThoiGianThongKe;
