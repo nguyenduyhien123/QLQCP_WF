@@ -768,6 +768,7 @@
             // 
             // dgvDanhSachHoaDon
             // 
+            this.dgvDanhSachHoaDon.AllowUserToAddRows = false;
             this.dgvDanhSachHoaDon.AllowUserToDeleteRows = false;
             this.dgvDanhSachHoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;

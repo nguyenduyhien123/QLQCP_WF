@@ -100,6 +100,10 @@ namespace _9_12_QuanLyQuanCaPhe
                         int ngay = dt.Day;
                         int thang = dt.Month;
                         int nam = dt.Year;
+                        lblDoanhThuCaoNhat.Text = "Năm có doanh thu cao nhất";
+                        lblThangCoLoiNhieuNhat.Text = "Năm có lời cao nhất";
+                        lblThangCoLoiNhieuNhat.Text = "Năm ";
+                        lblThangDoanhThuCaoNhat.Text = "Năm ";
                         // Lấy về các doanh thu các năm
                         sql1 = $"SELECT YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB GROUP BY YEAR(NGAYLAPHD)";
                         // Lấy năm có doanh thu lớn nhất
@@ -108,10 +112,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         ds1 = classTong.LayDuLieu(sql2);
                         if (ds1.Tables[0].Rows.Count > 0)
                         {
-                            lblDoanhThuCaoNhat.Text = "Năm có doanh thu cao nhất";
-                            lblThangCoLoiNhieuNhat.Text = "Năm có lời cao nhất";
-                            lblThangCoLoiNhieuNhat.Text = "Năm ";
-                            lblThangDoanhThuCaoNhat.Text = "Năm ";
+
                             for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
                             {
                                 lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["NAM"] + " ";
@@ -179,6 +180,10 @@ namespace _9_12_QuanLyQuanCaPhe
                         int ngay = dt.Day;
                         int thang = dt.Month;
                         int nam = dt.Year;
+                        lblDoanhThuCaoNhat.Text = $"Tháng trong năm {nam} có doanh thu cao nhất";
+                        lblCoLoiNhieuNhat.Text = $"Tháng trong năm {nam} có lời cao nhất";
+                        lblThangCoLoiNhieuNhat.Text = "Tháng ";
+                        lblThangDoanhThuCaoNhat.Text = "Tháng ";
                         // Lấy ra doanh thu các tháng trong năm
                         sql1 = $"  SELECT MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam}  GROUP BY MONTH(NGAYLAPHD),YEAR(NGAYLAPHD)";
                         // Lấy ra doanh thu các tháng cao nhất trong năm
@@ -187,10 +192,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         ds1 = classTong.LayDuLieu(sql2);
                         if (ds1.Tables[0].Rows.Count > 0)
                         {
-                            lblDoanhThuCaoNhat.Text = $"Tháng trong năm {nam} có doanh thu cao nhất";
-                            lblCoLoiNhieuNhat.Text = $"Tháng trong năm {nam} có lời cao nhất";
-                            lblThangCoLoiNhieuNhat.Text = "Tháng ";
-                            lblThangDoanhThuCaoNhat.Text = "Tháng ";
+
                             for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
                             {
                                 lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["THANG"] + " ";
@@ -263,16 +265,17 @@ namespace _9_12_QuanLyQuanCaPhe
                         int ngay = dt.Day;
                         int thang = dt.Month;
                         int nam = dt.Year;
+                        lblDoanhThuCaoNhat.Text = $"Ngày trong tháng {thang}/{nam} có doanh thu cao nhất";
+                        lblCoLoiNhieuNhat.Text = $"Ngày trong tháng {thang}/{nam} có lời cao nhất";
+                        lblThangCoLoiNhieuNhat.Text = "Ngày ";
+                        lblThangDoanhThuCaoNhat.Text = "Ngày ";
                         sql1 = $"SELECT DAY(NGAYLAPHD) AS 'NGAY',MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM', CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON', CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',  CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang} GROUP BY DAY(NGAYLAPHD),MONTH(NGAYLAPHD),YEAR(NGAYLAPHD)";
                         sql2 = $"SELECT DAY(NGAYLAPHD) AS 'NGAY',MONTH(NGAYLAPHD) AS 'THANG',YEAR(NGAYLAPHD) AS 'NAM',CONVERT(INT,SUM(GIAVON*SOLUONG)) AS 'TIENVON',CONVERT(INT,SUM(THANHTIENCUOICUNG)) AS 'TIENBAN',CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang} GROUP BY DAY(NGAYLAPHD),MONTH(NGAYLAPHD),YEAR(NGAYLAPHD) HAVING CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) >=(SELECT TOP 1 CONVERT(INT,SUM(THANHTIENCUOICUNG) - SUM(GIAVON*SOLUONG)) AS 'TIENCHENHLECH' FROM HOADONBAN A,  CHITIETHDB B WHERE A.MAHDB = B.MAHDB  AND YEAR(NGAYLAPHD) = {nam} AND MONTH(NGAYLAPHD) = {thang}  GROUP BY DAY(NGAYLAPHD) ORDER BY 'TIENCHENHLECH' DESC)";
                         ds = classTong.LayDuLieu(sql1);
                         ds1 = classTong.LayDuLieu(sql2);
                         if (ds1.Tables[0].Rows.Count > 0)
                         {
-                            lblDoanhThuCaoNhat.Text = $"Ngày trong tháng {thang}/{nam} có doanh thu cao nhất";
-                            lblCoLoiNhieuNhat.Text = $"Ngày trong tháng {thang}/{nam} có lời cao nhất";
-                            lblThangCoLoiNhieuNhat.Text = "Ngày ";
-                            lblThangDoanhThuCaoNhat.Text = "Ngày ";
+
                             for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
                             {
                                 lblThangCoLoiNhieuNhat.Text += ds1.Tables[0].Rows[i]["NGAY"] + " ";

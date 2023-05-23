@@ -111,6 +111,7 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         private void frmSanPham_Load(object sender, EventArgs e)
         {
+            classTong.CapNhatDuLieu("  update sanpham set soluong =(select sum(soluong) from CHITIETSANPHAM where CHITIETSANPHAM.masp= sanpham.masp and CHITIETSANPHAM.trangthai = N'Hoạt động' group by CHITIETSANPHAM.masp)");
             XuLyBatTatCacNutChucNang(true);
             VoHieuHoa2NutThem(false);
             CacTextboxChiDoc_SanPham(t);

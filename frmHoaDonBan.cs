@@ -394,8 +394,8 @@ namespace _9_12_QuanLyQuanCaPhe
                         d[5] = trangthai;
                         d[6] = ghichu;
                         dgvDanhSachHoaDon.Rows.Add(d);
-            string contentQR = $"Mã hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[0].Value}\nTổng tiền thanh toán: {dgvDanhSachHoaDon.Rows[0].Cells[2].Value}\nMã khách hàng: {dgvDanhSachHoaDon.Rows[0].Cells[1].Value}\nNhân viên lập: {dgvDanhSachHoaDon.Rows[0].Cells[3].Value}\nNgày lập hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[4].Value}\nGhi chú: {dgvDanhSachHoaDon.Rows[0].Cells[6].Value}";
-            TaoQR(contentQR, ptxMaQR);
+            //string contentQR = $"Mã hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[0].Value}\nTổng tiền thanh toán: {dgvDanhSachHoaDon.Rows[0].Cells[2].Value}\nMã khách hàng: {dgvDanhSachHoaDon.Rows[0].Cells[1].Value}\nNhân viên lập: {dgvDanhSachHoaDon.Rows[0].Cells[3].Value}\nNgày lập hoá đơn: {dgvDanhSachHoaDon.Rows[0].Cells[4].Value}\nGhi chú: {dgvDanhSachHoaDon.Rows[0].Cells[6].Value}";
+            //TaoQR(contentQR, ptxMaQR);
             CacTextboxChiDoc_ChiTietHoaDon(false);
         }
         bool XuatHoaDon(string mahdb)
@@ -625,7 +625,6 @@ namespace _9_12_QuanLyQuanCaPhe
 
             // Set the print area to the used range of cells in the worksheet
             worksheet.PageSetup.PrintArea = worksheet.UsedRange.Address;
-
             // Set the page margins and center the content
             worksheet.PageSetup.LeftMargin = excelApplication.InchesToPoints(0.5);
             worksheet.PageSetup.RightMargin = excelApplication.InchesToPoints(0.5);
