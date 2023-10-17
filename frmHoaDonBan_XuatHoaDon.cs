@@ -1,25 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using COMExcel = Microsoft.Office.Interop.Excel;
-using System.IO;
-using DocumentFormat.OpenXml.Wordprocessing;
-using QRCoder;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Text.RegularExpressions;
+
 namespace _9_12_QuanLyQuanCaPhe
 {
     public partial class frmHoaDonBan_XuatHoaDon : Form
     {
-        _9_12_QuanLyQuanCaPhe classTong= new _9_12_QuanLyQuanCaPhe();
-        DataSet ds= new DataSet();
+        _9_12_QuanLyQuanCaPhe classTong = new _9_12_QuanLyQuanCaPhe();
+        DataSet ds = new DataSet();
         public frmHoaDonBan_XuatHoaDon()
         {
             InitializeComponent();
@@ -224,11 +217,14 @@ namespace _9_12_QuanLyQuanCaPhe
             //
             //string strDate = $"{date.Day}_{date.Month}_{date.Year}_TG_{date.Hour}_{date.Minute}_{date.Second}";
             string strDate = date.ToString("dd_MM_yyyy_HH_mm_ss");
-            string path = $"D:\\HocTap\\Winform_C#\\CodeGitHub\\9_12_QuanLyQuanCaPhe\\EXCEL\\HOADON_{ds_HD.Tables[0].Rows[0]["MAHDB"]}_{strDate}.xlsx";
-            exBook.SaveAs($"{path}", COMExcel.XlFileFormat.xlWorkbookDefault, null, null, false, false, COMExcel.XlSaveAsAccessMode.xlExclusive, false, false, false, false, false);
+            string rootFolder = Application.StartupPath + "\\XUATHOADON";
+            string fileName = $"{ds_HD.Tables[0].Rows[0]["MAHDB"]}_{strDate}.xlsx";
+            string filePath = Path.Combine(rootFolder, fileName);
+
+            exBook.SaveAs($"{filePath}", COMExcel.XlFileFormat.xlWorkbookDefault, null, null, false, false, COMExcel.XlSaveAsAccessMode.xlExclusive, false, false, false, false, false);
             // Tắt ứng dụng Excel
             exApp.Quit();
-            ExportToPDF(path);
+            ExportToPDF(filePath);
             //System.Runtime.InteropServices.Marshal.ReleaseComObject(exBook);
             //System.Runtime.InteropServices.Marshal.ReleaseComObject(exApp);
             return true;
@@ -272,30 +268,55 @@ namespace _9_12_QuanLyQuanCaPhe
             System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
             System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApplication);
+
+            // Mở tệp Excel bằng ứng dụng mặc định của hệ thống
+            Process.Start(filePath);
+
+            string pdfFilePath = Path.ChangeExtension(filePath, "pdf");
+            // Mở tệp Excel bằng ứng dụng mặc định của hệ thống
+            Process.Start(pdfFilePath);
         }
 
         private void btnMaHDB_Click(object sender, EventArgs e)
         {
             try
             {
-                int mahdb = int.Parse(txtMaHDB.Text);
-                ds = classTong.LayDuLieu($"SELECT * FROM HOADONBAN WHERE MAHDB = {mahdb}");
-                if (ds.Tables[0].Rows.Count > 0)
+                if (txtMaHDB.Text != "")
                 {
+                    string regexPattern = @"^\d+$";  // Biểu thức chính quy để kiểm tra chuỗi chỉ chứa các chữ số
+                    bool isMatch = Regex.IsMatch(txtMaHDB.Text, regexPattern);
 
-                    if (XuatHoaDon(mahdb.ToString()))
+                    if (isMatch)
                     {
-                        MessageBox.Show("Xuất hoá đơn thành công", "Thông báo", MessageBoxButtons.OK);
+                        int mahdb = int.Parse(txtMaHDB.Text);
+                        ds = classTong.LayDuLieu($"SELECT * FROM HOADONBAN WHERE MAHDB = {mahdb}");
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+
+                            if (XuatHoaDon(mahdb.ToString()))
+                            {
+                                MessageBox.Show("Xuất hoá đơn thành công", "Thông báo", MessageBoxButtons.OK);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tồn tại mã hoá đơn trên !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                }    
+                    else
+                    {
+                        MessageBox.Show("Mã hoá đơn phải là một số", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
                 else
                 {
-                    MessageBox.Show("Không tồn tại mã hoá đơn trên", "Thông báo", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Mã hoá đơn không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch
             {
-                MessageBox.Show("Không tồn tại mã hoá đơn trên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Đã xảy ra lỗi trong quá trình xuất hoá đơn, Vui lòng xuất lại hoá đơn !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

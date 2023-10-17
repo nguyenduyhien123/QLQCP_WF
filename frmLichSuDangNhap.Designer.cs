@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -78,14 +79,14 @@
             this.NGAYGIODANGNHAP,
             this.NGAYGIODANGXUAT,
             this.SUADOIMATKHAU});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDanhSachLichSuDangNhap.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDanhSachLichSuDangNhap.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDanhSachLichSuDangNhap.Location = new System.Drawing.Point(3, 38);
             this.dgvDanhSachLichSuDangNhap.Name = "dgvDanhSachLichSuDangNhap";
             this.dgvDanhSachLichSuDangNhap.RowHeadersWidth = 51;
@@ -96,6 +97,9 @@
             // STT
             // 
             this.STT.DataPropertyName = "STT";
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.STT.DefaultCellStyle = dataGridViewCellStyle2;
             this.STT.FillWeight = 32.08556F;
             this.STT.HeaderText = "STT";
             this.STT.MinimumWidth = 6;
@@ -112,6 +116,7 @@
             this.NGAYGIODANGNHAP.Name = "NGAYGIODANGNHAP";
             this.NGAYGIODANGNHAP.ReadOnly = true;
             this.NGAYGIODANGNHAP.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.NGAYGIODANGNHAP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // NGAYGIODANGXUAT
             // 
@@ -122,6 +127,7 @@
             this.NGAYGIODANGXUAT.Name = "NGAYGIODANGXUAT";
             this.NGAYGIODANGXUAT.ReadOnly = true;
             this.NGAYGIODANGXUAT.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.NGAYGIODANGXUAT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // SUADOIMATKHAU
             // 
@@ -132,6 +138,7 @@
             this.SUADOIMATKHAU.Name = "SUADOIMATKHAU";
             this.SUADOIMATKHAU.ReadOnly = true;
             this.SUADOIMATKHAU.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.SUADOIMATKHAU.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // frmLichSuDangNhap
             // 

@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
     public partial class frmQuanLyDangNhap : Form
     {
-        _9_12_QuanLyQuanCaPhe classTong= new _9_12_QuanLyQuanCaPhe();
-        DataSet ds=new DataSet();
+        _9_12_QuanLyQuanCaPhe classTong = new _9_12_QuanLyQuanCaPhe();
+        DataSet ds = new DataSet();
         void danhsach_datagridview(ref DataSet ds, DataGridView dgv, string sql)
         {
             ds = classTong.LayDuLieu(sql);
             dgv.DataSource = ds.Tables[0];
-        } 
+        }
         public frmQuanLyDangNhap()
         {
             InitializeComponent();
@@ -27,15 +22,22 @@ namespace _9_12_QuanLyQuanCaPhe
         private void frmQuanLyDangNhap_Load(object sender, EventArgs e)
         {
             taoCotDanhSachDangNhap();
-            danhsach_datagridview(ref ds, dgvDanhSachDangNhap, "  SELECT TOP 100 ROW_NUMBER() OVER (ORDER BY NGAYGIODANGNHAP DESC) AS 'STT',A.MANV,TENNV,CHUCVU,FORMAT(NGAYGIODANGNHAP, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGNHAP',FORMAT(NGAYGIODANGXUAT, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGXUAT',B.TRANGTHAI FROM NHANVIEN A, LICHSUDANGNHAP B WHERE A.MANV = B.MANV  ORDER BY NGAYGIODANGNHAP DESC");
+            danhsach_datagridview(ref ds, dgvDanhSachDangNhap, "SELECT A.MANV,TENNV,CHUCVU,FORMAT(NGAYGIODANGNHAP, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGNHAP',FORMAT(NGAYGIODANGXUAT, 'dd/MM/yyyy HH:mm:ss') AS 'NGAYGIODANGXUAT',B.TRANGTHAI FROM NHANVIEN A, LICHSUDANGNHAP B WHERE A.MANV = B.MANV ORDER BY B.NGAYGIODANGNHAP DESC");
+            // Kiểm tra và lấy đối tượng dataGridViewColumn cho cột "STT"
+            DataGridViewColumn columnSTT = dgvDanhSachDangNhap.Columns["STT"];
+            if (columnSTT != null)
+            {
+                // Sắp xếp theo cột "STT" tăng dần
+                dgvDanhSachDangNhap.Sort(columnSTT, ListSortDirection.Ascending);
+            }
+            else
+            {
+                // Hiển thị thông báo lỗi hoặc xử lý khi cột "STT" không tồn tại
+            }
         }
         void taoCotDanhSachDangNhap()
         {
             // Tạo đối tượng DataGridViewColumn cho cột tên
-            DataGridViewColumn STT = new DataGridViewTextBoxColumn();
-            STT.HeaderText = "SỐ THỨ TỰ";
-            STT.DataPropertyName = "STT"; // Chỉ định tên thuộc tính dữ liệu
-            STT.ReadOnly = true;
             DataGridViewColumn MANV = new DataGridViewTextBoxColumn();
             MANV.HeaderText = "MÃ NHÂN VIÊN";
             MANV.DataPropertyName = "MANV"; // Chỉ định tên thuộc tính dữ liệu
@@ -62,7 +64,6 @@ namespace _9_12_QuanLyQuanCaPhe
             TRANGTHAI.ReadOnly = true;
             dgvDanhSachDangNhap.DataSource = null;
             dgvDanhSachDangNhap.Columns.Clear();
-            dgvDanhSachDangNhap.Columns.Add(STT);
             dgvDanhSachDangNhap.Columns.Add(MANV);
             dgvDanhSachDangNhap.Columns.Add(TENNV);
             dgvDanhSachDangNhap.Columns.Add(CHUCVU);
@@ -71,6 +72,7 @@ namespace _9_12_QuanLyQuanCaPhe
             dgvDanhSachDangNhap.Columns.Add(TRANGTHAI);
             dgvDanhSachDangNhap.Columns[0].Width = 100;
             dgvDanhSachDangNhap.ColumnHeadersHeight = 40;
+
 
 
         }

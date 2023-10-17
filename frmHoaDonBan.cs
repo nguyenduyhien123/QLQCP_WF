@@ -881,6 +881,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                 dgvDanhSachHoaDon.Rows[0].Cells[2].Value = tong.ToString(); ;
                 lblTongSoTienThanhToan.Text = tong.ToString();
+
             }
         }
 

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
@@ -33,16 +27,16 @@ namespace _9_12_QuanLyQuanCaPhe
 
         void ReadOnly(Boolean t)
         {
-            txtMaNhanVien.ReadOnly =t;
+            txtMaNhanVien.ReadOnly = t;
             txtHoVaTen.ReadOnly = t;
             txtMatKhau.ReadOnly = t;
             txtDiaChi.ReadOnly = t;
             txtChucVu.ReadOnly = t;
             txtSoDienThoai.ReadOnly = t;
             cboGioiTinh.Enabled = !t;
-            cboTrangThai.Enabled = !t ;
-            dtpNgaySinh.Enabled = !t ;
-            dtpNgayVaoLam.Enabled = !t ;
+            cboTrangThai.Enabled = !t;
+            dtpNgaySinh.Enabled = !t;
+            dtpNgayVaoLam.Enabled = !t;
         }
 
         Boolean Load_dgv = false;
@@ -58,7 +52,7 @@ namespace _9_12_QuanLyQuanCaPhe
             dtpNgaySinh.Value = d.AddYears(-18);
         }
 
-        private void VoHieuHoa(bool flag=false)
+        private void VoHieuHoa(bool flag = false)
         {
             btnThem.Enabled = flag;
             btnXoa.Enabled = flag;
@@ -66,7 +60,7 @@ namespace _9_12_QuanLyQuanCaPhe
             btnSua.Enabled = flag;
             btnLuu.Enabled = !flag;
         }
-        
+
         void clearTextbox()
         {
             txtMaNhanVien.Clear();
@@ -118,7 +112,7 @@ namespace _9_12_QuanLyQuanCaPhe
             string ngayVaoLam1 = dtpNgayVaoLam.Text;
             DateTime dateNVL = DateTime.ParseExact(ngayVaoLam1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string ngayVaoLam2 = dateNVL.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
-            
+
             string matkhau = ComputeSHA256(txtMatKhau.Text);
 
             bool stop = false;
@@ -131,7 +125,7 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 if (flag == 1)
                 {
-                    if (txtSoDienThoai.Text == "" || txtMaNhanVien.Text == "" || txtHoVaTen.Text == "" || txtDiaChi.Text == "" || cboTrangThai.SelectedIndex == -1 || txtDiaChi.Text == "" || txtChucVu.Text =="" || txtMatKhau.Text == "")
+                    if (txtSoDienThoai.Text == "" || txtMaNhanVien.Text == "" || txtHoVaTen.Text == "" || txtDiaChi.Text == "" || cboTrangThai.SelectedIndex == -1 || txtDiaChi.Text == "" || txtChucVu.Text == "" || txtMatKhau.Text == "")
                     {
                         MessageBox.Show(this, "Bạn chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stop = true;
@@ -156,7 +150,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                     else
                     {
-                        sql = $"update NHANVIEN set TENNV = N'{txtHoVaTen.Text}', DIACHI = N'{txtDiaChi.Text}', SDT='{txtSoDienThoai.Text}', CHUCVU =N'{txtChucVu.Text}', NGAYVAOLAM = '{ngayVaoLam2}', GIOITINH = N'{cboGioiTinh.Text}', NGAYSINH =N'{ngaySinh2}',TRANGTHAI=N'{cboTrangThai.Text}', MATKHAU = '{matkhau}' where MANV='{txtMaNhanVien.Text}'";
+                        sql = $"update NHANVIEN set TENNV = N'{txtHoVaTen.Text}', DIACHI = N'{txtDiaChi.Text}', SDT='{txtSoDienThoai.Text}', CHUCVU =N'{txtChucVu.Text}', NGAYVAOLAM = '{ngayVaoLam2}', GIOITINH = N'{cboGioiTinh.Text}', NGAYSINH =N'{ngaySinh2}',TRANGTHAI=N'{cboTrangThai.Text}' where MANV='{txtMaNhanVien.Text}'";
                     }
                 }
                 if (stop == false)
@@ -204,11 +198,11 @@ namespace _9_12_QuanLyQuanCaPhe
             VoHieuHoa(true);
             ReadOnly(true);
             btnAnMK.Enabled = false;
-            txtHoVaTen.Text= string.Empty;
-            txtDiaChi.Text= string.Empty;
-            txtChucVu.Text= string.Empty;
+            txtHoVaTen.Text = string.Empty;
+            txtDiaChi.Text = string.Empty;
+            txtChucVu.Text = string.Empty;
             txtMaNhanVien.Text = string.Empty;
-            txtSoDienThoai.Text= string.Empty;
+            txtSoDienThoai.Text = string.Empty;
             cboGioiTinh.SelectedIndex = -1;
             cboTrangThai.SelectedIndex = -1;
         }
@@ -219,7 +213,7 @@ namespace _9_12_QuanLyQuanCaPhe
         }
         void HienThiTextBox(DataSet ds, int vitri)
         {
-            if(vitri >= 0 && vitri < ds.Tables[0].Rows.Count)
+            if (vitri >= 0 && vitri < ds.Tables[0].Rows.Count)
             {
                 txtMaNhanVien.Text = ds.Tables[0].Rows[vitri]["MANV"].ToString();
                 txtHoVaTen.Text = ds.Tables[0].Rows[vitri]["TENNV"].ToString();
@@ -288,8 +282,8 @@ namespace _9_12_QuanLyQuanCaPhe
                     string MANV = dgvDanhSach.CurrentRow.Cells[0].Value.ToString();
                     string TENNV = dgvDanhSach.CurrentRow.Cells[1].Value.ToString();
                     string SDT = dgvDanhSach.CurrentRow.Cells[2].Value.ToString();
-                    string DIACHI= dgvDanhSach.CurrentRow.Cells[3].Value.ToString();
-                    
+                    string DIACHI = dgvDanhSach.CurrentRow.Cells[3].Value.ToString();
+
                     string NGAYVAOLAM = dgvDanhSach.CurrentRow.Cells[4].Value.ToString();
                     DateTime dateNVL = DateTime.ParseExact(NGAYVAOLAM, "dd/MM/yy", CultureInfo.InvariantCulture);
                     string ngayVaoLam = dateNVL.ToString("MM/dd/yy", CultureInfo.InvariantCulture);
@@ -327,11 +321,11 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 danhsach_datagridview(dgvDanhSach, $"Select * from nhanvien where tennv like N'%{txtTim.Text}%' and trangthai!=N'Xóa'");
             }
-            else if(cboTim.SelectedIndex == 1)
+            else if (cboTim.SelectedIndex == 1)
             {
                 danhsach_datagridview(dgvDanhSach, $"Select * from NHANVIEN where MANV='{txtTim.Text}' and trangthai!=N'Xóa'");
             }
-            else if(cboTim.SelectedIndex == 2)
+            else if (cboTim.SelectedIndex == 2)
             {
                 danhsach_datagridview(dgvDanhSach, $"Select * from NHANVIEN where SDT='{txtTim.Text}' and trangthai!=N'Xóa'");
             }
@@ -339,11 +333,11 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 danhsach_datagridview(dgvDanhSach, $"Select * from NHANVIEN where CHUCVU like N'%{txtTim.Text}%' and trangthai!=N'Xóa'");
             }
-            else if(cboTim.SelectedIndex == 4)
+            else if (cboTim.SelectedIndex == 4)
             {
                 danhsach_datagridview(dgvDanhSach, $"Select * from NHANVIEN where TRANGTHAI=N'{txtTim.Text}' and trangthai!=N'Xóa'");
             }
-            if (dgvDanhSach.ColumnCount==0) 
+            if (dgvDanhSach.ColumnCount == 0)
             {
                 MessageBox.Show(this, "Xin lỗi, tôi không tìm thấy!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -351,7 +345,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void txtHoVaTen_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(char.IsDigit(e.KeyChar) || Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar))
+            if (char.IsDigit(e.KeyChar) || Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -412,7 +406,7 @@ namespace _9_12_QuanLyQuanCaPhe
         bool HienThiMatKhau = true;
         private void btnAnMK_Click(object sender, EventArgs e)
         {
-            if (HienThiMatKhau==false)
+            if (HienThiMatKhau == false)
             {
                 btnAnMK.Text = "Hiện";
                 txtMatKhau.UseSystemPasswordChar = true;

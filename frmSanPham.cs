@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace _9_12_QuanLyQuanCaPhe
 {
@@ -32,9 +23,9 @@ namespace _9_12_QuanLyQuanCaPhe
         DataSet ds_MASP = new DataSet();
         DataSet ds_MASIZE = new DataSet();
         DataSet ds_KiemTra = new DataSet();
-        DataSet ds_LoaiSP= new DataSet();
+        DataSet ds_LoaiSP = new DataSet();
         int flag = 0;
-        bool flag_TimKiem= false;
+        bool flag_TimKiem = false;
         // cờ cho các thao tác với Sản Phẩm
         // 1: đang thêm sản phẩm
         // 2: sửa sản phẩm
@@ -50,6 +41,8 @@ namespace _9_12_QuanLyQuanCaPhe
         public static bool t = true;
         Font fontChung = new Font("Arial", 20);
         DataView dv_NCC = new DataView();
+        string rootFolder = Application.StartupPath + "\\HINHANH";
+
         void danhsach_datagridview(ref DataSet ds, DataGridView dgv, string sql)
         {
             ds = classTong.LayDuLieu(sql);
@@ -174,7 +167,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
-            openFileDialog.InitialDirectory = Path.GetFullPath("") + @"D:\HocTap\Winform_C#\CodeGitHub\9_12_QuanLyQuanCaPhe\IMAGE_SP\";
+            openFileDialog.InitialDirectory = @"C:\";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 URLHinhAnh = openFileDialog.FileName;
@@ -210,7 +203,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     txtMaSanPham.Text = ds.Tables[0].Rows[vt]["MASP"].ToString();
                     txtSoLuongSanPham.Text = ds.Tables[0].Rows[vt]["SOLUONG"].ToString();
                     cboLoaiSanPham.SelectedValue = ds.Tables[0].Rows[vt]["LOAISP"].ToString();
-                    string link = "D:\\HocTap\\Winform_C#\\CodeGitHub\\9_12_QuanLyQuanCaPhe\\image\\" + ds.Tables[0].Rows[vt]["LINK_IMG"].ToString();
+                    string link = Path.Combine(rootFolder, ds.Tables[0].Rows[vt]["LINK_IMG"].ToString());
                     bool fileExist = File.Exists($@"{link}");
                     if (fileExist)
                     {
@@ -408,7 +401,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
-            openFileDialog.InitialDirectory = @"D:\HocTap\Winform_C#\CodeGitHub\9_12_QuanLyQuanCaPhe\IMAGE_SP\";
+            openFileDialog.InitialDirectory = @"C:\";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -441,17 +434,17 @@ namespace _9_12_QuanLyQuanCaPhe
         /// Hàm có chức năng lưu hình ảnh vào đường dẫn mới được chỉ định
         /// </summary>
         /// <returns>Đường dẫn mới của hình ảnh</returns>
-        string LuuHinhAnh(string url,string newFileName)
+        string LuuHinhAnh(string url, string newFileName)
         {
             if (File.Exists(url))
             {
                 string oldImagePath = Path.GetFullPath(url);
-                string newImagePath = @"D:\HocTap\Winform_C#\CodeGitHub\9_12_QuanLyQuanCaPhe\image\"; // Đường dẫn mới.
+                string newImagePath = rootFolder; // Đường dẫn mới.
                 string oldFileName = Path.GetFileName(url);
-                string[] oldFileNameArray= oldFileName.Split('.');
+                string[] oldFileNameArray = oldFileName.Split('.');
                 string extension = oldFileNameArray[oldFileNameArray.Length - 1];
                 newFileName += $".{extension}";
-                newImagePath += newFileName;
+                newImagePath += Path.Combine(rootFolder, newFileName);
                 // Thực hiện sao chép hình ảnh vào đường dẫn mới
                 try
                 {
@@ -474,7 +467,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 {
                     // Lấy vị trí( hàng đã chọn)
                     vitri_SanPham = dgvDanhSachSanPham.CurrentRow.Index;
-                    }
+                }
             }
         }
         // Phần code của Chi tiết sản phẩm
@@ -587,7 +580,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     int row1 = classTong.CapNhatDuLieu(sql);
                     string sqlCTSP = $"UPDATE CHITIETSANPHAM SET SOLUONG = {soluong}   WHERE MACTSP = '{mactsp}'";
                     int row2 = classTong.CapNhatDuLieu(sqlCTSP);
-                    if(row1 > 0 && row2 >0)
+                    if (row1 > 0 && row2 > 0)
                     {
                         MessageBox.Show("Cập nhật sản phẩm thành công", "Thông báo");
                     }
@@ -652,35 +645,35 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             //
             DataGridViewColumn MACTSP = new DataGridViewTextBoxColumn();
-        MACTSP.HeaderText = "Mã CTSP";
+            MACTSP.HeaderText = "Mã CTSP";
             MACTSP.DataPropertyName = "MACTSP"; // Chỉ định tên thuộc tính dữ liệu
             MACTSP.ReadOnly = true;
             DataGridViewColumn MASP = new DataGridViewTextBoxColumn();
-        MASP.HeaderText = "MÃ SP";
+            MASP.HeaderText = "MÃ SP";
             MASP.DataPropertyName = "MASP"; // Chỉ định tên thuộc tính dữ liệu
             MASP.ReadOnly = true;
             DataGridViewColumn MASIZE = new DataGridViewTextBoxColumn();
-        MASIZE.HeaderText = "MÃ SIZE";
+            MASIZE.HeaderText = "MÃ SIZE";
             MASIZE.DataPropertyName = "MASIZE"; // Chỉ định tên thuộc tính dữ liệu
             MASIZE.ReadOnly = true;
             DataGridViewColumn SOLUONG = new DataGridViewTextBoxColumn();
-        SOLUONG.HeaderText = "SỐ LƯỢNG";
+            SOLUONG.HeaderText = "SỐ LƯỢNG";
             SOLUONG.DataPropertyName = "SOLUONG"; // Chỉ định tên thuộc tính dữ liệu
             SOLUONG.ReadOnly = false;
             DataGridViewColumn MOTA = new DataGridViewTextBoxColumn();
-        MOTA.HeaderText = "MÔ TẢ";
+            MOTA.HeaderText = "MÔ TẢ";
             MOTA.DataPropertyName = "MOTA"; // Chỉ định tên thuộc tính dữ liệu
             MOTA.ReadOnly = true;
             DataGridViewColumn GIAVON = new DataGridViewTextBoxColumn();
-        GIAVON.HeaderText = "GIÁ VỐN";
+            GIAVON.HeaderText = "GIÁ VỐN";
             GIAVON.DataPropertyName = "GIAVON"; // Chỉ định tên thuộc tính dữ liệu
             GIAVON.ReadOnly = true;
             DataGridViewColumn GIABAN = new DataGridViewTextBoxColumn();
-        GIABAN.HeaderText = "GIÁ BÁN";
+            GIABAN.HeaderText = "GIÁ BÁN";
             GIABAN.DataPropertyName = "GIABAN"; // Chỉ định tên thuộc tính dữ liệu
             GIABAN.ReadOnly = true;
             DataGridViewColumn TRANGTHAI = new DataGridViewTextBoxColumn();
-        TRANGTHAI.HeaderText = "TRẠNG THÁI";
+            TRANGTHAI.HeaderText = "TRẠNG THÁI";
             TRANGTHAI.DataPropertyName = "TRANGTHAI"; // Chỉ định tên thuộc tính dữ liệu
             TRANGTHAI.ReadOnly = true;
             //
@@ -695,225 +688,225 @@ namespace _9_12_QuanLyQuanCaPhe
             dgvDanhSachChiTietSanPham.Columns.Add(GIABAN);
             dgvDanhSachChiTietSanPham.Columns.Add(TRANGTHAI);
         }
-    private void btnThem_Click(object sender, EventArgs e)
-    {
-        flag = 1;
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            flag = 1;
             XuLyBatTatCacNutChucNang(false);
-        VoHieuHoa2NutThem(true);
-        XoaDuLieuTrongControl_SanPham();
-        XoaDuLieuTrongControl_ChiTietSanPham();
-        txtSoLuongSanPham.Text = "0";
-        CacTextboxChiDoc_SanPham(false);
-        CacTextboxChiDoc_ChiTietSanPham(false) ;
-        dgvDanhSachSanPham.DataSource = null;
-        dgvDanhSachChiTietSanPham.DataSource = null;
-        TaoCotSP();
-        TaoCotCTSP();
-        cboTrangThai_ChiTietSanPham.SelectedIndex = 0;
-    }
-    private void btnThemChiTietSanPham_Click(object sender, EventArgs e)
-    {
-        string mactsp = txtMaChiTietSanPham.Text;
-        if (KiemTraTrungMACTSPtrongDataGridView(mactsp))
-        {
-            return;
+            VoHieuHoa2NutThem(true);
+            XoaDuLieuTrongControl_SanPham();
+            XoaDuLieuTrongControl_ChiTietSanPham();
+            txtSoLuongSanPham.Text = "0";
+            CacTextboxChiDoc_SanPham(false);
+            CacTextboxChiDoc_ChiTietSanPham(false);
+            dgvDanhSachSanPham.DataSource = null;
+            dgvDanhSachChiTietSanPham.DataSource = null;
+            TaoCotSP();
+            TaoCotCTSP();
+            cboTrangThai_ChiTietSanPham.SelectedIndex = 0;
         }
-        string masp = txtMaSanPham.Text;
-        string masize = "";
-        if (cboMaSize.SelectedIndex == -1)
+        private void btnThemChiTietSanPham_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Bạn chưa chọn Tên size , Vui lòng chọn Tên Size !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-        else
-        {
-            masize = cboMaSize.SelectedValue.ToString();
-        }
-        int soluong = Convert.ToInt32(nupSoLuongChiTietSanPham.Value);
-        string mota = rtxtMoTa_ChiTietSanPham.Text;
-        int giaban = Convert.ToInt32(nupGiaBan.Value);
-        int giavon = Convert.ToInt32(nupGiaVon.Value);
-        if (giavon == 0)
-        {
-            MessageBox.Show($"Bạn chưa nhập Giá vốn , Vui lòng nhập Giá vốn !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-        string trangthai = cboTrangThai_ChiTietSanPham.Text;
-        object[] d = new object[8];
-        d[0] = mactsp;
-        d[1] = masp;
-        d[2] = masize;
-        d[3] = soluong.ToString();
-        d[4] = mota;
-        d[5] = giavon.ToString();
-        d[6] = giaban.ToString();
-        d[7] = trangthai;
-        dgvDanhSachChiTietSanPham.Rows.Add(d);
-        XoaDuLieuTrongControl_ChiTietSanPham();
-        cboTrangThai_ChiTietSanPham.SelectedIndex = 0;
-        }
-    private void btnThoatChiTietSanPham_Click(object sender, EventArgs e)
-    {
-        this.Close();
-    }
-    /// <summary>
-    /// Bắt sự kiện SelectedIndexChanged của cboMaSanPham, sẽ tự động cập nhật Mã chi tiết sản phẩm
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    /// <summary>
-    /// Bắt sự kiện SelectedIndexChanged của cboMaSanPham, sẽ tự động cập nhật Mã chi tiết sản phẩm
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void cboMaSize_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (t && (flag == 1 || flag == 2))
-        {
-            if (cboMaSize.SelectedIndex != -1)
+            string mactsp = txtMaChiTietSanPham.Text;
+            if (KiemTraTrungMACTSPtrongDataGridView(mactsp))
             {
-                string selectedValue = cboMaSize.SelectedValue.ToString();
-                txtMaChiTietSanPham.Text = txtMaSanPham.Text + "." + selectedValue;
-                rtxtMoTa_ChiTietSanPham.Text = txtTenSanPham.Text +" "+cboMaSize.Text;
+                return;
+            }
+            string masp = txtMaSanPham.Text;
+            string masize = "";
+            if (cboMaSize.SelectedIndex == -1)
+            {
+                MessageBox.Show($"Bạn chưa chọn Tên size , Vui lòng chọn Tên Size !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                masize = cboMaSize.SelectedValue.ToString();
+            }
+            int soluong = Convert.ToInt32(nupSoLuongChiTietSanPham.Value);
+            string mota = rtxtMoTa_ChiTietSanPham.Text;
+            int giaban = Convert.ToInt32(nupGiaBan.Value);
+            int giavon = Convert.ToInt32(nupGiaVon.Value);
+            if (giavon == 0)
+            {
+                MessageBox.Show($"Bạn chưa nhập Giá vốn , Vui lòng nhập Giá vốn !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string trangthai = cboTrangThai_ChiTietSanPham.Text;
+            object[] d = new object[8];
+            d[0] = mactsp;
+            d[1] = masp;
+            d[2] = masize;
+            d[3] = soluong.ToString();
+            d[4] = mota;
+            d[5] = giavon.ToString();
+            d[6] = giaban.ToString();
+            d[7] = trangthai;
+            dgvDanhSachChiTietSanPham.Rows.Add(d);
+            XoaDuLieuTrongControl_ChiTietSanPham();
+            cboTrangThai_ChiTietSanPham.SelectedIndex = 0;
+        }
+        private void btnThoatChiTietSanPham_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        /// <summary>
+        /// Bắt sự kiện SelectedIndexChanged của cboMaSanPham, sẽ tự động cập nhật Mã chi tiết sản phẩm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <summary>
+        /// Bắt sự kiện SelectedIndexChanged của cboMaSanPham, sẽ tự động cập nhật Mã chi tiết sản phẩm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboMaSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (t && (flag == 1 || flag == 2))
+            {
+                if (cboMaSize.SelectedIndex != -1)
+                {
+                    string selectedValue = cboMaSize.SelectedValue.ToString();
+                    txtMaChiTietSanPham.Text = txtMaSanPham.Text + "." + selectedValue;
+                    rtxtMoTa_ChiTietSanPham.Text = txtTenSanPham.Text + " " + cboMaSize.Text;
+                }
             }
         }
-    }
-    /// <summary>
-    /// Hàm có chức năng kiểm tra Mã chi tiết sản phẩm có tồn tại chưa, nếu có thì thông báo lỗi
-    /// </summary>
-    /// <param name="mactsp">Mã chi tiết sản phẩm</param>
-    bool KiemTraTrungMACTSP(string mactsp)
-    {
-        ds_KiemTra = classTong.LayDuLieu($"SELECT * FROM CHITIETSANPHAM WHERE MACTSP = '{mactsp}'");
-        if (ds_KiemTra.Tables[0].Rows.Count > 0)
+        /// <summary>
+        /// Hàm có chức năng kiểm tra Mã chi tiết sản phẩm có tồn tại chưa, nếu có thì thông báo lỗi
+        /// </summary>
+        /// <param name="mactsp">Mã chi tiết sản phẩm</param>
+        bool KiemTraTrungMACTSP(string mactsp)
         {
-            MessageBox.Show($"Đã tồn tại sản phẩm và size có kích thước đã chọn , Vui lòng chọn lại sản phẩm và size khác !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return true;
-        }
-        return false;
-    }
-    bool KiemTraTrungMACTSPtrongDataGridView(string mactsp)
-    {
-        for (int i = 0; i < dgvDanhSachChiTietSanPham.Rows.Count - 1; i++)
-        {
-            string mactspDataGridView = dgvDanhSachChiTietSanPham.Rows[i].Cells[0].Value.ToString();
-            if (mactsp == mactspDataGridView)
+            ds_KiemTra = classTong.LayDuLieu($"SELECT * FROM CHITIETSANPHAM WHERE MACTSP = '{mactsp}'");
+            if (ds_KiemTra.Tables[0].Rows.Count > 0)
             {
                 MessageBox.Show($"Đã tồn tại sản phẩm và size có kích thước đã chọn , Vui lòng chọn lại sản phẩm và size khác !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return true;
             }
+            return false;
         }
-        return false;
-    }
-    /// <summary>
-    /// Hàm bắt sự kiện CellClick của Chi tiết Sản phẩm
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void dgvDanhSachChiTietSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-        vitri_ChiTietSanPham = e.RowIndex;// Lấy vị trí được chọn
-        if (vitri_ChiTietSanPham >= 0 && vitri_ChiTietSanPham < dgvDanhSachChiTietSanPham.Rows.Count)
+        bool KiemTraTrungMACTSPtrongDataGridView(string mactsp)
         {
-            hienthi_textbox_ChiTietSanPham(ds_ChiTietSanPham, vitri_ChiTietSanPham);
-        }
-        else
-        {
-            XoaDuLieuTrongControl_ChiTietSanPham();
-        }
-    }
-    int RemoveZero(int number)
-    {
-        string numberStr = number.ToString(); // Chuyển đổi số thành chuỗi
-                                              // Cắt bỏ các ký tự '0' không cần thiết từ đầu chuỗi
-        while (numberStr.Length > 1 && numberStr[0] == '0')
-        {
-            numberStr = numberStr.Substring(1);
-        }
-        return int.Parse(numberStr); // Chuyển đổi chuỗi thành số nguyên và trả về giá trị
-    }
-    void ChiNhapSo(KeyPressEventArgs e)
-    {
-        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-        {
-            e.Handled = true;
-        }
-    }
-    void KiemTraDuLieuTextBoxCoPhaiLaSo(TextBox txt)
-    {
-        if (flag_ChiTietSanPham == 1 || flag_ChiTietSanPham == 2)
-        {
-            double number = 0;
-            bool isNumber = double.TryParse(txt.Text, out number);
-            if (!isNumber)
+            for (int i = 0; i < dgvDanhSachChiTietSanPham.Rows.Count - 1; i++)
             {
-                MessageBox.Show("Dữ liệu ô bạn nhập phải là một số !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txt.Text = "";
+                string mactspDataGridView = dgvDanhSachChiTietSanPham.Rows[i].Cells[0].Value.ToString();
+                if (mactsp == mactspDataGridView)
+                {
+                    MessageBox.Show($"Đã tồn tại sản phẩm và size có kích thước đã chọn , Vui lòng chọn lại sản phẩm và size khác !!! ", "Thông báo hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Hàm bắt sự kiện CellClick của Chi tiết Sản phẩm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvDanhSachChiTietSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            vitri_ChiTietSanPham = e.RowIndex;// Lấy vị trí được chọn
+            if (vitri_ChiTietSanPham >= 0 && vitri_ChiTietSanPham < dgvDanhSachChiTietSanPham.Rows.Count)
+            {
+                hienthi_textbox_ChiTietSanPham(ds_ChiTietSanPham, vitri_ChiTietSanPham);
             }
             else
             {
+                XoaDuLieuTrongControl_ChiTietSanPham();
+            }
+        }
+        int RemoveZero(int number)
+        {
+            string numberStr = number.ToString(); // Chuyển đổi số thành chuỗi
+                                                  // Cắt bỏ các ký tự '0' không cần thiết từ đầu chuỗi
+            while (numberStr.Length > 1 && numberStr[0] == '0')
+            {
+                numberStr = numberStr.Substring(1);
+            }
+            return int.Parse(numberStr); // Chuyển đổi chuỗi thành số nguyên và trả về giá trị
+        }
+        void ChiNhapSo(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        void KiemTraDuLieuTextBoxCoPhaiLaSo(TextBox txt)
+        {
+            if (flag_ChiTietSanPham == 1 || flag_ChiTietSanPham == 2)
+            {
+                double number = 0;
+                bool isNumber = double.TryParse(txt.Text, out number);
+                if (!isNumber)
+                {
+                    MessageBox.Show("Dữ liệu ô bạn nhập phải là một số !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txt.Text = "";
+                }
+                else
+                {
 
+                }
             }
         }
-    }
-    private void btnChonHinhAnh_Click(object sender, EventArgs e)
-    {
-        chonHinhAnh(ptxHinhAnh);
-    }
-    string AddZero(string n)
-    {
-        string str = "";
-        if (n.Length == 1)
+        private void btnChonHinhAnh_Click(object sender, EventArgs e)
         {
-            str = "00" + n;
+            chonHinhAnh(ptxHinhAnh);
         }
-        else if (n.Length == 2)
+        string AddZero(string n)
         {
-            str = "0" + n;
-        }
-        else
-        {
-            str = "" + n;
-        }
-        return str;
-    }
-    private void cboMaNCC_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (cboMaNCC.SelectedIndex != -1 && flag == 1)
-        {
-            string manccc = cboMaNCC.SelectedValue.ToString();
-            string sql = $"SELECT MASP FROM SANPHAM WHERE MANCC='{manccc}'";
-            string masp = "";
-            ds_KiemTra = classTong.LayDuLieu(sql);
-            if (ds_KiemTra.Tables[0].Rows.Count > 0 && ds_KiemTra.Tables[0].Rows.Count < 9)
+            string str = "";
+            if (n.Length == 1)
             {
-                masp = manccc + "." + AddZero((ds_KiemTra.Tables[0].Rows.Count + 1).ToString());
+                str = "00" + n;
+            }
+            else if (n.Length == 2)
+            {
+                str = "0" + n;
             }
             else
             {
-                masp = manccc + "." + AddZero((ds_KiemTra.Tables[0].Rows.Count + 1).ToString());
+                str = "" + n;
             }
-            txtMaSanPham.Text = masp;
+            return str;
         }
-    }
-    private void nupGiaVon_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
+        private void cboMaNCC_SelectedIndexChanged(object sender, EventArgs e)
         {
-                if(nupGiaVon.Value <= 30000)
+            if (cboMaNCC.SelectedIndex != -1 && flag == 1)
+            {
+                string manccc = cboMaNCC.SelectedValue.ToString();
+                string sql = $"SELECT MASP FROM SANPHAM WHERE MANCC='{manccc}'";
+                string masp = "";
+                ds_KiemTra = classTong.LayDuLieu(sql);
+                if (ds_KiemTra.Tables[0].Rows.Count > 0 && ds_KiemTra.Tables[0].Rows.Count < 9)
+                {
+                    masp = manccc + "." + AddZero((ds_KiemTra.Tables[0].Rows.Count + 1).ToString());
+                }
+                else
+                {
+                    masp = manccc + "." + AddZero((ds_KiemTra.Tables[0].Rows.Count + 1).ToString());
+                }
+                txtMaSanPham.Text = masp;
+            }
+        }
+        private void nupGiaVon_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (nupGiaVon.Value <= 30000)
                 {
                     nupGiaBan.Value = Math.Ceiling(((nupGiaVon.Value) * (decimal)2.5) / 1000) * 1000;
                 }
-                else if(nupGiaVon.Value > 30000 && nupGiaVon.Value <= 50000)
+                else if (nupGiaVon.Value > 30000 && nupGiaVon.Value <= 50000)
                 {
-                    nupGiaBan.Value = Math.Ceiling(((nupGiaVon.Value) * (decimal)2.3)/1000)*1000;
+                    nupGiaBan.Value = Math.Ceiling(((nupGiaVon.Value) * (decimal)2.3) / 1000) * 1000;
                 }
                 else if (nupGiaVon.Value > 50000)
                 {
                     nupGiaBan.Value = Math.Ceiling(((nupGiaVon.Value) * (decimal)2) / 1000) * 1000;
                 }
             }
-    }
+        }
         private void dgvDanhSachSanPham_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (flag == 1)
@@ -924,9 +917,10 @@ namespace _9_12_QuanLyQuanCaPhe
                 }
             }
         }
-    private void btnLuu_Click(object sender, EventArgs e)
-    {
-            switch(flag){
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            switch (flag)
+            {
                 case 1:
 
                     {
@@ -994,7 +988,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         //
                         string masp = txtMaSanPham.Text;
                         int soluong = Convert.ToInt32(txtSoLuongSanPham.Text);
-                        string link_img = LuuHinhAnh(URLHinhAnh,masp);
+                        string link_img = LuuHinhAnh(URLHinhAnh, masp);
                         string loaisp = "";
                         if (cboLoaiSanPham.SelectedIndex == -1)
                         {
@@ -1025,7 +1019,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         else
                         {
                             sqlSP = $"UPDATE SANPHAM SET TENSP=N'{tensp}', SOLUONG={soluong},MOTA=N'{mota}',loaisp='{loaisp}',MANCC = '{mancc}',trangthai=N'{trangthai}' WHERE MASP = '{masp}'";
-                        }    
+                        }
                         int row = classTong.CapNhatDuLieu(sqlSP);
                         if (row > 0)
                         {
@@ -1035,7 +1029,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         string mactsp = txtMaChiTietSanPham.Text;
                         //string masp = txtMaSanPham.Text;
                         string masize = cboMaSize.SelectedValue.ToString();
-                        
+
                         int soluongctsp = Convert.ToInt32(nupSoLuongChiTietSanPham.Value);
                         string motactsp = rtxtMoTa_ChiTietSanPham.Text;
                         int giaban = Convert.ToInt32(nupGiaBan.Value);
@@ -1053,7 +1047,7 @@ namespace _9_12_QuanLyQuanCaPhe
                             MessageBox.Show("Cập nhật Chi tiết sản phẩm thành công", "Thông báo", MessageBoxButtons.OK);
                             classTong.CapNhatDuLieu("UPDATE sanpham SET soluong = (SELECT SUM(soluong) FROM chitietsanpham WHERE chitietsanpham.masp = sanpham.masp and CHITIETSANPHAM.TRANGTHAI = 'Hoạt động' )");
                         }
-                        if(flag_TimKiem)
+                        if (flag_TimKiem)
                         {
                             btnTimKiem_Click(sender, e);
                         }
@@ -1070,7 +1064,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         {
                             string sql = $"UPDATE SANPHAM SET TRANGTHAI=N'Không hoạt động' WHERE MASP='{masp}'";
                             int row = classTong.CapNhatDuLieu(sql);
-                            if(row > 0)
+                            if (row > 0)
                             {
                                 MessageBox.Show("Xoá sản phẩm thành công !!!", "Thông báo", MessageBoxButtons.OK);
                                 classTong.CapNhatDuLieu("UPDATE sanpham SET soluong = (SELECT SUM(soluong) FROM chitietsanpham WHERE chitietsanpham.masp = sanpham.masp and CHITIETSANPHAM.TRANGTHAI = 'Hoạt động' )");
@@ -1085,11 +1079,11 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
             }
 
-        flag = 0;
-        URLHinhAnh = "";
-        frmSanPham_Load(sender, e);
+            flag = 0;
+            URLHinhAnh = "";
+            frmSanPham_Load(sender, e);
 
-    }
+        }
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -1115,7 +1109,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void txtTenSanPham_TextChanged(object sender, EventArgs e)
         {
-            rtxtMoTa_SanPham.Text = txtTenSanPham.Text+" thức uống có vị ngon tuyệt vời";
+            rtxtMoTa_SanPham.Text = txtTenSanPham.Text + " thức uống có vị ngon tuyệt vời";
         }
 
         private void cboTimKiem_SelectedIndexChanged(object sender, EventArgs e)
@@ -1140,7 +1134,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     {
                         lblTimKiem.Text = "Nhập Mã sản phẩm";
                         type_search = "MASP";
-                        danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}' AND TRANGTHAI = N'Hoạt động'");
+                        danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}' AND TRANGTHAI = N'Hoạt động'");
                         if (ds_SanPham.Tables[0].Rows.Count > 0)
                         {
                             hienthi_textbox_SanPham(ds_SanPham, 0);
@@ -1153,7 +1147,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     {
                         lblTimKiem.Text = "Nhập Tên sản phẩm";
                         type_search = "TENSP";
-                        danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} LIKE N'%{value_search}%' AND '{value_search}'!='' AND TRANGTHAI = N'Hoạt động'");
+                        danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} LIKE N'%{value_search}%' AND '{value_search}'!='' AND TRANGTHAI = N'Hoạt động'");
                         if (ds_SanPham.Tables[0].Rows.Count > 0)
                         {
                             hienthi_textbox_SanPham(ds_SanPham, 0);
@@ -1169,7 +1163,7 @@ namespace _9_12_QuanLyQuanCaPhe
                         try
                         {
                             int number = Convert.ToInt32(value_search);
-                            danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM A, CHITIETSANPHAM B WHERE A.MASP = B.MASP and giaban >= {number - 5000} AND giaban <= {number+5000} AND A.TRANGTHAI = N'Hoạt động' and B.TRANGTHAI = N'Hoạt động'");
+                            danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM A, CHITIETSANPHAM B WHERE A.MASP = B.MASP and giaban >= {number - 5000} AND giaban <= {number + 5000} AND A.TRANGTHAI = N'Hoạt động' and B.TRANGTHAI = N'Hoạt động'");
                             if (ds_SanPham.Tables[0].Rows.Count > 0)
                             {
                                 hienthi_textbox_SanPham(ds_SanPham, 0);
@@ -1208,7 +1202,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     {
                         lblTimKiem.Text = "Nhập Mã loại sản phẩm";
                         type_search = "LOAISP";
-                        danhsach_datagridview(ref ds_SanPham,dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
+                        danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
                         break;
                     }
                 case 5:
@@ -1256,7 +1250,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 btnTimKiem.Text = "Hiện hộp thoại tìm kiếm";
                 grpTimKiem.Visible = false;
                 frmSanPham_Load(sender, e);
-            }    
+            }
         }
     }
 }

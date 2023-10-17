@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
-    
+
     public partial class frmAdmin : Form
     {
         _9_12_QuanLyQuanCaPhe classTong = new _9_12_QuanLyQuanCaPhe();
@@ -133,14 +127,14 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void mnuDanhMucKhachHang_Click(object sender, EventArgs e)
         {
-            frmKhachHang f= new frmKhachHang();
+            frmKhachHang f = new frmKhachHang();
             f.MdiParent = this;
             f.Show();
         }
 
         private void mnuDanhMucKhuyenMai_Click(object sender, EventArgs e)
         {
-            frmKhuyenMai f= new frmKhuyenMai();
+            frmKhuyenMai f = new frmKhuyenMai();
             f.MdiParent = this;
             f.Show();
         }
@@ -149,7 +143,7 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             frmLichSuDangNhap f = new frmLichSuDangNhap(account);
             f.MdiParent = this;
-                f.Show();
+            f.Show();
         }
 
         private void mnuDanhMucLoaiSanPham_Click(object sender, EventArgs e)
@@ -161,14 +155,14 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void mnuDanhMucNhaCungCap_Click(object sender, EventArgs e)
         {
-            frmNhaCungCap f= new frmNhaCungCap();
+            frmNhaCungCap f = new frmNhaCungCap();
             f.MdiParent = this;
             f.Show();
         }
 
         private void mnuDanhMucNhanVien_Click(object sender, EventArgs e)
         {
-            frmNhanVien f= new frmNhanVien();
+            frmNhanVien f = new frmNhanVien();
             f.MdiParent = this;
             f.Show();
         }
@@ -182,7 +176,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void mnuDoiMatKhau_Click(object sender, EventArgs e)
         {
-            frmThayDoiMatKhau f= new frmThayDoiMatKhau(account); f.MdiParent = this;
+            frmThayDoiMatKhau f = new frmThayDoiMatKhau(account); f.MdiParent = this;
             f.Show();
         }
 
