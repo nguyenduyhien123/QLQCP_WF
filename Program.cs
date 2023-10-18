@@ -13,12 +13,12 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //frmDangNhap frmDangNhap = new frmDangNhap();
-            //Application.Run(frmDangNhap);
+            frmDangNhap frmDangNhap = new frmDangNhap();
+            Application.Run(frmDangNhap);
             //frmSanPham frmSanPham = new frmSanPham();
             //Application.Run(frmSanPham);
-            frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV8");
-            Application.Run(frmHoaDonBan);
+            //frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV8");
+            //Application.Run(frmHoaDonBan);
             //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
             //Application.Run(frmHoaDon_TimKiem);
             //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
