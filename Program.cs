@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
@@ -17,12 +13,12 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            frmDangNhap frmDangNhap = new frmDangNhap();
-            Application.Run(frmDangNhap);
+            //frmDangNhap frmDangNhap = new frmDangNhap();
+            //Application.Run(frmDangNhap);
             //frmSanPham frmSanPham = new frmSanPham();
             //Application.Run(frmSanPham);
-            //frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV3");
-            //Application.Run(frmHoaDonBan);
+            frmHoaDonBan frmHoaDonBan = new frmHoaDonBan("NV8");
+            Application.Run(frmHoaDonBan);
             //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();
             //Application.Run(frmHoaDon_TimKiem);
             //frmHoaDon_TimKiem frmHoaDon_TimKiem = new frmHoaDon_TimKiem();

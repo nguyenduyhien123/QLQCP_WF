@@ -70,7 +70,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.grpThongTinSanPham = new System.Windows.Forms.GroupBox();
-            this.lblNgayLapHoaDon = new System.Windows.Forms.Label();
             this.lblTenNhanVienLap = new System.Windows.Forms.Label();
             this.lblMaHoaDonBan = new System.Windows.Forms.Label();
             this.lblMaKhachHang = new System.Windows.Forms.Label();
@@ -81,7 +80,6 @@
             this.btnTimKiemSoDienThoai = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -539,7 +537,6 @@
             // grpThongTinSanPham
             // 
             this.grpThongTinSanPham.Controls.Add(this.btnLuuHoaDon);
-            this.grpThongTinSanPham.Controls.Add(this.lblNgayLapHoaDon);
             this.grpThongTinSanPham.Controls.Add(this.lblTenNhanVienLap);
             this.grpThongTinSanPham.Controls.Add(this.lblMaHoaDonBan);
             this.grpThongTinSanPham.Controls.Add(this.lblMaKhachHang);
@@ -551,7 +548,6 @@
             this.grpThongTinSanPham.Controls.Add(this.label25);
             this.grpThongTinSanPham.Controls.Add(this.label10);
             this.grpThongTinSanPham.Controls.Add(this.label2);
-            this.grpThongTinSanPham.Controls.Add(this.label13);
             this.grpThongTinSanPham.Controls.Add(this.label6);
             this.grpThongTinSanPham.Controls.Add(this.label16);
             this.grpThongTinSanPham.Controls.Add(this.label3);
@@ -568,18 +564,6 @@
             this.grpThongTinSanPham.TabStop = false;
             this.grpThongTinSanPham.Text = "Thông tin hoá đơn bán";
             this.grpThongTinSanPham.Enter += new System.EventHandler(this.grpThongTinSanPham_Enter);
-            // 
-            // lblNgayLapHoaDon
-            // 
-            this.lblNgayLapHoaDon.BackColor = System.Drawing.SystemColors.Control;
-            this.lblNgayLapHoaDon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNgayLapHoaDon.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNgayLapHoaDon.Location = new System.Drawing.Point(248, 298);
-            this.lblNgayLapHoaDon.Name = "lblNgayLapHoaDon";
-            this.lblNgayLapHoaDon.Size = new System.Drawing.Size(296, 35);
-            this.lblNgayLapHoaDon.TabIndex = 16;
-            this.lblNgayLapHoaDon.Text = "ngày lập ....";
-            this.lblNgayLapHoaDon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblTenNhanVienLap
             // 
@@ -693,15 +677,6 @@
             this.label10.Size = new System.Drawing.Size(189, 33);
             this.label10.TabIndex = 1;
             this.label10.Text = "Ghi chú hoá đơn";
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(15, 295);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(189, 33);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Ngày tạo hoá đơn";
             // 
             // label6
             // 
@@ -930,7 +905,6 @@
         private System.Windows.Forms.TextBox txtMaChiTietSanPham;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label lblThanhTienDau;
         private System.Windows.Forms.Label label18;
@@ -952,7 +926,6 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label lblMaNhanVienLap;
         private System.Windows.Forms.Label lblTenNhanVienLap;
-        private System.Windows.Forms.Label lblNgayLapHoaDon;
         private System.Windows.Forms.Label lblTongSoTienThanhToan;
         private System.Windows.Forms.Label lblTenKhachHang;
         private System.Windows.Forms.Label lblMaHoaDonBan;
