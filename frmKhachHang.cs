@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 namespace _9_12_QuanLyQuanCaPhe
 {
@@ -76,8 +68,8 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             //Đổi kiểu dữ liệu ngày từ dd/mm/yy thành mm/dd/yyyy do datetime cua sql la mm/dd/yyyy
             string ngaySinh1 = dtpNgaySinh.Text;
-            DateTime dateNS = DateTime.ParseExact(ngaySinh1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            string ngaySinh2 = dateNS.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+            DateTime dateNS = dtpNgaySinh.Value;
+            string ngaySinh2 = dateNS.ToString("yyyy-MM-dd");
 
             string MAKH = txtMaKhachHang.Text;
             string TENKN = txtTenKH.Text;
@@ -120,8 +112,9 @@ namespace _9_12_QuanLyQuanCaPhe
                 if (khachhang.capnhatdulieu(sql) > 0)
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmKhachHang_Load(sender, e);
                 }
+                frmKhachHang_Load(sender, e);
+
             }
             ReadOnly(true);
             xulychucnang(true);
