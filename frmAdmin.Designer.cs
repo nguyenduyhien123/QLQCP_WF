@@ -158,7 +158,7 @@
             // mnuXuatHoaDonBan
             // 
             this.mnuXuatHoaDonBan.Name = "mnuXuatHoaDonBan";
-            this.mnuXuatHoaDonBan.Size = new System.Drawing.Size(224, 26);
+            this.mnuXuatHoaDonBan.Size = new System.Drawing.Size(179, 26);
             this.mnuXuatHoaDonBan.Text = "Hoá đơn bán";
             this.mnuXuatHoaDonBan.Click += new System.EventHandler(this.mnuXuatHoaDonBan_Click);
             // 
@@ -245,7 +245,7 @@
             // btnDangXuat
             // 
             this.btnDangXuat.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnDangXuat.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.btnDangXuat.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnDangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangXuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangXuat.ForeColor = System.Drawing.Color.White;
