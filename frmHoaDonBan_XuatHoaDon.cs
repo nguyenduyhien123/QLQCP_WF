@@ -53,9 +53,11 @@ namespace _9_12_QuanLyQuanCaPhe
             exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
             // Truy vấn dữ liệu
             DataSet ds_HD = new DataSet();
-            ds_HD = classTong.LayDuLieu($"SELECT MAHDB,A.MAKH,B.MANV,CONVERT(varchar(20), NGAYLAPHD, 103) + ' ' + CONVERT(varchar(20), NGAYLAPHD, 108) AS 'NGAYLAPHD',CONVERT(DECIMAL(18,0),TONGTIENTHANHTOAN) AS 'TONGTIENTHANHTOAN'  FROM HOADONBAN A, NHANVIEN B WHERE MAHDB='{mahdb}' AND A.MANV_LAP=B.MANV");
+            string sql1 = $"SELECT MAHDB,A.MAKH,B.MANV,CONVERT(varchar(20), NGAYLAPHD, 103) + ' ' + CONVERT(varchar(20), NGAYLAPHD, 108) AS 'NGAYLAPHD',FORMAT(TONGTIENTHANHTOAN, 'N0') AS 'TONGTIENTHANHTOAN'  FROM HOADONBAN A, NHANVIEN B WHERE MAHDB={mahdb} AND A.MANV_LAP=B.MANV";
+            ds_HD = classTong.LayDuLieu(sql1);
             DataSet ds_CTHD = new DataSet();
-            ds_CTHD = classTong.LayDuLieu($"SELECT TENSP,D.MASIZE,D.SOLUONG,D.GIABAN,D.SOTIENGIAM,THANHTIENCUOICUNG  FROM SANPHAM A, CHITIETSANPHAM B,HOADONBAN C, CHITIETHDB D WHERE A.MASP=B.MASP AND B.MASIZE = D.MASIZE AND B.MASP = D.MASP AND C.MAHDB=D.MAHDB AND C.MAHDB='{mahdb}'");
+            string sql2 = $"SELECT TENSP,D.MASIZE,D.SOLUONG,D.GIABAN,D.SOTIENGIAM,THANHTIENCUOICUNG  FROM SANPHAM A, CHITIETSANPHAM B,HOADONBAN C, CHITIETHDB D WHERE A.MASP=B.MASP AND B.MASIZE = D.MASIZE AND B.MASP = D.MASP AND C.MAHDB=D.MAHDB AND C.MAHDB={mahdb}";
+            ds_CTHD = classTong.LayDuLieu(sql2);
             int row = 0;
             // Phần thông tin mã hoá đơn
             exRange.Range["A2"].Value = "Mã HD: " + ds_HD.Tables[0].Rows[0]["MAHDB"].ToString() + " - " + ds_HD.Tables[0].Rows[0]["NGAYLAPHD"].ToString() + " - Mã NV: " + ds_HD.Tables[0].Rows[0]["MANV"].ToString();
@@ -107,7 +109,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 //
                 exRange.Range[$"A" + row + ""].Value = ds_CTHD.Tables[0].Rows[i]["TENSP"].ToString();
                 //exRange.Range[$"A"+row+""].WrapText = true;
-                exRange.Range[$"a" + row + ""].ColumnWidth = 13;
+                exRange.Range[$"a" + row + ""].ColumnWidth = 18;
                 exRange.Range[$"B" + row + ""].Value = ds_CTHD.Tables[0].Rows[i]["MASIZE"].ToString();
                 exRange.Range[$"B" + row + ""].ColumnWidth = 1.5;
                 exRange.Range[$"C" + row + ""].Value = ds_CTHD.Tables[0].Rows[i]["SOLUONG"].ToString();
@@ -150,8 +152,8 @@ namespace _9_12_QuanLyQuanCaPhe
 
             exRange.Range[$"A" + row + ":C" + row + ""].Value = "Tổng tiền thanh toán: ";
             exRange.Range[$"D" + row + ":F" + row + ""].MergeCells = true;
-            int tongtienthanhtoan = Convert.ToInt32(ds_HD.Tables[0].Rows[0]["TONGTIENTHANHTOAN"].ToString());
-            exRange.Range[$"D" + row + ":F" + row + ""].Value = tongtienthanhtoan.ToString("N0");
+            string tongtienthanhtoan = ds_HD.Tables[0].Rows[0]["TONGTIENTHANHTOAN"].ToString();
+            exRange.Range[$"D" + row + ":F" + row + ""].Value = tongtienthanhtoan;
             exRange.Range[$"D" + row + ":F" + row + ""].Font.Size = 8;
             exRange.Range[$"D" + row + ":F" + row + ""].Font.Bold = true;
             exRange.Range[$"D" + row + ":F" + row + ""].Font.ColorIndex = 5;

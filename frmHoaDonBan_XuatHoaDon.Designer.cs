@@ -87,7 +87,7 @@
             this.MaximizeBox = false;
             this.Name = "frmHoaDonBan_XuatHoaDon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmHoaDonBan_XuatHoaDon";
+            this.Text = "Xuất hoá đơn bán theo mã hoá đơn";
             this.Load += new System.EventHandler(this.frmHoaDonBan_XuatHoaDon_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
