@@ -9,7 +9,7 @@ namespace _9_12_QuanLyQuanCaPhe
 
         void ketnoi()
         {
-            con.ConnectionString = @"Data source=(localdb)\mssqllocaldb;Initial Catalog=QUANLYQUANCAPHE; integrated Security=True";
+            con.ConnectionString = @"Data source=TANTAI;Initial Catalog=QUANLYQUANCAPHE; integrated Security=True";
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();

@@ -245,10 +245,12 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void txtTenKH_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar))//IsPUNctuation là kiếm tra có phải dấu câu, IsSymbol dùng để kiểm tra ký tự toán học, ký tự đặc biệt dựa trên bảng mã Unicode.
+            if (Char.IsSymbol(e.KeyChar) || Char.IsPunctuation(e.KeyChar) || Char.IsDigit(e.KeyChar))//IsPUNctuation là kiếm tra có phải dấu câu, IsSymbol dùng để kiểm tra ký tự toán học, ký tự đặc biệt dựa trên bảng mã Unicode.
             {
                 e.Handled = true;
             }
+
+            
         }
 
         private void cboTim_KeyPress(object sender, KeyPressEventArgs e)
@@ -264,6 +266,12 @@ namespace _9_12_QuanLyQuanCaPhe
             {
                 e.Cancel = true;
             }
+        }
+
+        private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar)) // số %&& control
+                e.Handled = true;
         }
     }
 }
