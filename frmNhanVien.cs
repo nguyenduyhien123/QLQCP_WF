@@ -158,10 +158,11 @@ namespace _9_12_QuanLyQuanCaPhe
                     if (nhanvien.capnhatdulieu(sql) > 0)
                     {
                         MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        NhanVien_Load(sender, e);
                     }
                 }
             }
+            NhanVien_Load(sender, e);
+
         }
 
         private void btnXoa_Click(object sender, EventArgs e)

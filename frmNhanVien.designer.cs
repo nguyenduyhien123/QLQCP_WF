@@ -128,6 +128,7 @@
             this.txtHoVaTen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHoVaTen.Location = new System.Drawing.Point(221, 81);
             this.txtHoVaTen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtHoVaTen.MaxLength = 255;
             this.txtHoVaTen.Name = "txtHoVaTen";
             this.txtHoVaTen.Size = new System.Drawing.Size(345, 30);
             this.txtHoVaTen.TabIndex = 2;
@@ -274,7 +275,7 @@
             // 
             this.btnAnMK.Enabled = false;
             this.btnAnMK.Location = new System.Drawing.Point(1020, 138);
-            this.btnAnMK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAnMK.Margin = new System.Windows.Forms.Padding(4);
             this.btnAnMK.Name = "btnAnMK";
             this.btnAnMK.Size = new System.Drawing.Size(72, 32);
             this.btnAnMK.TabIndex = 5;
@@ -346,9 +347,9 @@
             this.gboTimKiem.Controls.Add(this.txtTim);
             this.gboTimKiem.Controls.Add(this.btnTimTT);
             this.gboTimKiem.Location = new System.Drawing.Point(389, 185);
-            this.gboTimKiem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboTimKiem.Margin = new System.Windows.Forms.Padding(4);
             this.gboTimKiem.Name = "gboTimKiem";
-            this.gboTimKiem.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboTimKiem.Padding = new System.Windows.Forms.Padding(4);
             this.gboTimKiem.Size = new System.Drawing.Size(440, 121);
             this.gboTimKiem.TabIndex = 21;
             this.gboTimKiem.TabStop = false;
@@ -358,7 +359,7 @@
             // btnHienDS
             // 
             this.btnHienDS.Location = new System.Drawing.Point(33, 69);
-            this.btnHienDS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHienDS.Margin = new System.Windows.Forms.Padding(4);
             this.btnHienDS.Name = "btnHienDS";
             this.btnHienDS.Size = new System.Drawing.Size(183, 28);
             this.btnHienDS.TabIndex = 9;
@@ -376,7 +377,7 @@
             "Tìm theo Chức vụ",
             "Tìm theo trạng thái"});
             this.cboTim.Location = new System.Drawing.Point(15, 23);
-            this.cboTim.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboTim.Margin = new System.Windows.Forms.Padding(4);
             this.cboTim.Name = "cboTim";
             this.cboTim.Size = new System.Drawing.Size(219, 24);
             this.cboTim.TabIndex = 8;
@@ -385,7 +386,7 @@
             // txtTim
             // 
             this.txtTim.Location = new System.Drawing.Point(243, 25);
-            this.txtTim.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTim.Margin = new System.Windows.Forms.Padding(4);
             this.txtTim.Name = "txtTim";
             this.txtTim.Size = new System.Drawing.Size(181, 22);
             this.txtTim.TabIndex = 7;
@@ -393,7 +394,7 @@
             // btnTimTT
             // 
             this.btnTimTT.Location = new System.Drawing.Point(273, 69);
-            this.btnTimTT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTimTT.Margin = new System.Windows.Forms.Padding(4);
             this.btnTimTT.Name = "btnTimTT";
             this.btnTimTT.Size = new System.Drawing.Size(135, 27);
             this.btnTimTT.TabIndex = 2;
@@ -507,9 +508,9 @@
             // 
             this.groupBox3.Controls.Add(this.dgvDanhSach);
             this.groupBox3.Location = new System.Drawing.Point(16, 448);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(1489, 287);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
@@ -531,7 +532,7 @@
             this.MANV,
             this.MATKHAU});
             this.dgvDanhSach.Location = new System.Drawing.Point(24, 23);
-            this.dgvDanhSach.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvDanhSach.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDanhSach.Name = "dgvDanhSach";
             this.dgvDanhSach.RowHeadersWidth = 51;
             this.dgvDanhSach.Size = new System.Drawing.Size(1455, 256);
