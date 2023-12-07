@@ -101,6 +101,12 @@ namespace _9_12_QuanLyQuanCaPhe
                 return builder.ToString();
             }
         }
+        private bool ContainsDigits(string input)
+        {
+            // Kiểm tra nếu chuỗi đầu vào chứa bất kỳ số nào
+            Regex regex = new Regex(@"\d");
+            return regex.IsMatch(input);
+        }
         private bool ContainsSpecialCharacters(string input)
         {
             // Kiểm tra nếu chuỗi đầu vào chứa bất kỳ ký tự đặc biệt nào và dấu gạch dưới
@@ -140,9 +146,9 @@ namespace _9_12_QuanLyQuanCaPhe
                     else
                     {
                         string hoten = txtHoVaTen.Text.Trim();
-                        if (ContainsSpecialCharacters(hoten))
+                        if (ContainsSpecialCharacters(hoten) || ContainsDigits(hoten))
                         {
-                            MessageBox.Show(this, "Họ tên không được chứa ký tự đặc biệt", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(this, "Họ tên không được chứa ký tự đặc biệt , số", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             stop = true;
                             VoHieuHoa(false);
                             return;
