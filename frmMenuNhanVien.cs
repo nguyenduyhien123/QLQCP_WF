@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
@@ -13,7 +10,7 @@ namespace _9_12_QuanLyQuanCaPhe
     public partial class frmMenuNhanVien : Form
     {
         _9_12_QuanLyQuanCaPhe classTong = new _9_12_QuanLyQuanCaPhe();
-        DataSet ds= new DataSet();
+        DataSet ds = new DataSet();
         string account = "";
         List<Form> openForms = new List<Form>(Application.OpenForms.Cast<Form>());
         public frmMenuNhanVien(string manv)
@@ -43,12 +40,7 @@ namespace _9_12_QuanLyQuanCaPhe
             frmHoaDonBan.Show();
         }
 
-        private void BanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDatBan_1 frmDatBan_1 = new frmDatBan_1();
-            frmDatBan_1.MdiParent = this;
-            frmDatBan_1.Show();
-        }
+
 
         private void frmMenuNhanVien_Load(object sender, EventArgs e)
         {
@@ -125,10 +117,10 @@ namespace _9_12_QuanLyQuanCaPhe
         private void frmMenuNhanVien_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Nếu người dùng ấn nút X ở form đăng nhập, thoát chương trình
-                ds = classTong.LayDuLieu($"SELECT TOP 1 MANV,CONVERT(varchar(23), NGAYGIODANGNHAP, 121) AS 'NGAYGIODANGNHAP' FROM LICHSUDANGNHAP WHERE MANV='{account}' ORDER BY NGAYGIODANGNHAP DESC");
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    classTong.CapNhatDuLieu($"UPDATE LICHSUDANGNHAP SET NGAYGIODANGXUAT = getdate() WHERE MANV='{account}' AND NGAYGIODANGNHAP='{ds.Tables[0].Rows[0]["NGAYGIODANGNHAP"]}'");
+            ds = classTong.LayDuLieu($"SELECT TOP 1 MANV,CONVERT(varchar(23), NGAYGIODANGNHAP, 121) AS 'NGAYGIODANGNHAP' FROM LICHSUDANGNHAP WHERE MANV='{account}' ORDER BY NGAYGIODANGNHAP DESC");
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                classTong.CapNhatDuLieu($"UPDATE LICHSUDANGNHAP SET NGAYGIODANGXUAT = getdate() WHERE MANV='{account}' AND NGAYGIODANGNHAP='{ds.Tables[0].Rows[0]["NGAYGIODANGNHAP"]}'");
             }
         }
 
@@ -139,17 +131,11 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnLichSuDangNhap_Click(object sender, EventArgs e)
         {
-            frmLichSuDangNhap frmLichSuDangNhap=new frmLichSuDangNhap(account);
+            frmLichSuDangNhap frmLichSuDangNhap = new frmLichSuDangNhap(account);
             frmLichSuDangNhap.MdiParent = this;
             frmLichSuDangNhap.Show();
         }
 
-        private void btnBan_Click(object sender, EventArgs e)
-        {
-            frmDatBan_1 frmDatBan_1 = new frmDatBan_1();
-            frmDatBan_1.MdiParent = this;
-            frmDatBan_1.Show();
-        }
 
         private void btnHoaDonBan_Click(object sender, EventArgs e)
         {
