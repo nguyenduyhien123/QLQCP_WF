@@ -1208,7 +1208,7 @@ namespace _9_12_QuanLyQuanCaPhe
                 case 5:
                     {
                         lblTimKiem.Text = "Nhập Mã nhà cung cấp";
-                        type_search = "NHACC";
+                        type_search = "MANCC";
                         danhsach_datagridview(ref ds_SanPham, dgvDanhSachSanPham, $"SELECT * FROM SANPHAM WHERE {type_search} = '{value_search}'");
                         break;
                     }
