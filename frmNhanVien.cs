@@ -3,6 +3,7 @@ using System.Data;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace _9_12_QuanLyQuanCaPhe
@@ -100,7 +101,12 @@ namespace _9_12_QuanLyQuanCaPhe
                 return builder.ToString();
             }
         }
-
+        private bool ContainsSpecialCharacters(string input)
+        {
+            // Kiểm tra nếu chuỗi đầu vào chứa bất kỳ ký tự đặc biệt nào và dấu gạch dưới
+            Regex regex = new Regex(@"\W|_");
+            return regex.IsMatch(input);
+        }
         private void btnLuu_Click(object sender, EventArgs e)
         {
             VoHieuHoa(true);
@@ -133,6 +139,14 @@ namespace _9_12_QuanLyQuanCaPhe
                     }
                     else
                     {
+                        string hoten = txtHoVaTen.Text.Trim();
+                        if (ContainsSpecialCharacters(hoten))
+                        {
+                            MessageBox.Show(this, "Họ tên không được chứa ký tự đặc biệt", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            stop = true;
+                            VoHieuHoa(false);
+                            return;
+                        }
                         sql = $"insert nhanvien values('{txtMaNhanVien.Text}',N'{txtHoVaTen.Text}',N'{txtDiaChi.Text}','{txtSoDienThoai.Text}',N'{txtChucVu.Text}','{ngayVaoLam2}',N'{cboGioiTinh.Text}','{ngaySinh2}',N'{cboTrangThai.Text}','{matkhau}')";
                     }
                 }
