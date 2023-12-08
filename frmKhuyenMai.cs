@@ -157,7 +157,7 @@ namespace _9_12_QuanLyQuanCaPhe
                     stop = true;
                     xulychucnang(false);
                 }
-                else if(dtpNgayHet.Value <= dtpNgayBatDau.Value)
+                else if(dtpNgayHet.Value < dtpNgayBatDau.Value)
                 {
                     MessageBox.Show(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     stop = true;
@@ -279,7 +279,7 @@ namespace _9_12_QuanLyQuanCaPhe
         string phatSinhMa()
         {
             string maPhatSinh = "";
-            DataSet dsKM = khuyenmai.LayDuLieu("Select makm from khuyenmai");
+            DataSet dsKM = khuyenmai.LayDuLieu("Select makm from khuyenmai ");
             maPhatSinh = "KM"+(dsKM.Tables[0].Rows.Count + 1).ToString();
             return maPhatSinh;
         }

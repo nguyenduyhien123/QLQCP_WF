@@ -273,5 +273,10 @@ namespace _9_12_QuanLyQuanCaPhe
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar)) // số %&& control
                 e.Handled = true;
         }
+
+        private void dgvDanhSach_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
