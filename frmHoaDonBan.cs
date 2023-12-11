@@ -93,6 +93,8 @@ namespace _9_12_QuanLyQuanCaPhe
 
         private void btnTenSanPhamTimKiem_Click(object sender, EventArgs e)
         {
+            nupSoLuong.Controls[0].Enabled = true;
+
             string mactsp = txtMaChiTietSanPham.Text;
             lblMaChiTietSanPham.Text = mactsp;
             XoaDuLieuTrongControl_ChiTietHoaDon();
@@ -101,6 +103,7 @@ namespace _9_12_QuanLyQuanCaPhe
             // Nếu có sản phẩm đó
             if (ds_KiemTra.Tables[0].Rows.Count > 0)
             {
+                nupSoLuong.Enabled = true;
                 lblGiaVon.Text = Convert.ToInt32(ds_KiemTra.Tables[0].Rows[0]["GIAVON"]).ToString();
                 lblSoLuongTonKho.Text = ds_KiemTra.Tables[0].Rows[0]["SOLUONG"].ToString();
                 // Lấy tên sản phẩm, size, đơn giá(giá bán)
@@ -289,7 +292,6 @@ namespace _9_12_QuanLyQuanCaPhe
             dgvDanhSachChiTietHoaDon.Columns.Clear();
             TaoCotCTHDB();
             CacTextboxChiDoc_HoaDon(false);
-            CacTextboxChiDoc_ChiTietHoaDon(false);
             XoaDuLieuTrongControl_HoaDon();
             XoaDuLieuTrongControl_ChiTietHoaDon();
             // Các textbox xử lý như sau
@@ -339,6 +341,7 @@ namespace _9_12_QuanLyQuanCaPhe
             //cboMaSize.Enabled =!t;
             //cboTrangThaiChiTietHoaDon.Enabled = !t;
             nupSoLuong.ReadOnly = t;
+            nupSoLuong.Enabled = false;
         }
         void XoaDuLieuTrongControl_ChiTietHoaDon()
         {
@@ -356,6 +359,7 @@ namespace _9_12_QuanLyQuanCaPhe
             lblSoTienGiamGia.Text = "0";
             lblThanhTienCuoi.Text = "0";
             nupSoLuong.Value = 0;
+
         }
         private void btnThemChiTietHoaDon_Click(object sender, EventArgs e)
         {
@@ -733,7 +737,15 @@ namespace _9_12_QuanLyQuanCaPhe
         {
             if (flag == 1)
             {
-                int soluongton = Convert.ToInt32(lblSoLuongTonKho.Text);
+                int soluongton = 0;
+                int x = 0;
+                if (Int32.TryParse(lblSoLuongTonKho.Text, out x)){
+                    soluongton = int.Parse(lblSoLuongTonKho.Text);
+                }
+                else
+                {
+                    soluongton = 0;
+                }
                 if (nupSoLuong.Value <= soluongton)
                 {
                     lblThanhTienDau.Text = (nupSoLuong.Value * Convert.ToInt32(lblDonGia.Text)).ToString();
@@ -1044,10 +1056,19 @@ namespace _9_12_QuanLyQuanCaPhe
             }
             return true;
         }
-        private void txtSoDienThoai_TextChanged(object sender, EventArgs e)
-        {
+        //private void txtSoDienThoai_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (System.Text.RegularExpressions.Regex.IsMatch(txtSoDienThoai.Text, "[^0-9]"))
+        //    {
+        //        txtSoDienThoai.Text = System.Text.RegularExpressions.Regex.Replace(txtSoDienThoai.Text, "[^0-9]", "");
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Định dạng số điện thoại không đúng, Vui lòng nhập lại !!! ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
 
-        }
+        //}
 
         private void lblMaKhuyenMai_Click(object sender, EventArgs e)
         {
